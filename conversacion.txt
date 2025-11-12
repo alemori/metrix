@@ -1,0 +1,782 @@
+[00:00.000 --> 00:06.560]  soluciones, por ejemplo, nosotros ahora, claro, con la aplicación de este móvil, estamos haciendo
+[00:06.560 --> 00:10.080]  una electrónica y con esta electrónica, que es como el ChronoPick, como el pick que teníamos,
+[00:10.080 --> 00:14.480]  con esta electrónica la conectaremos a la plataforma y nosotros hemos vendido muchísimas
+[00:14.480 --> 00:22.000]  plataformas a lo largo de los años. Si las personas, los usuarios quieren usar ChronoJAM también desde
+[00:22.000 --> 00:28.380]  el móvil, los usuarios nos van a comprar este hardware y lo van a comprar para usarlo desde el
+[00:28.380 --> 00:32.820]  móvil y también desde el ordenador vamos a hacer que te puedas conectar de forma inalámbrica,
+[00:32.820 --> 00:38.260]  por eso todo el cambio importante va a ser el conectar desde el móvil. Entonces nosotros
+[00:38.260 --> 00:45.260]  podríamos desde cada hardware que vendamos pagarte una cierta parte para que vendemos
+[00:45.260 --> 00:51.380]  el hardware pero incluimos la aplicación móvil que se la bajan o no, o simplemente vendemos el
+[00:51.380 --> 00:55.780]  hardware y te compran la aplicación móvil a ti. Creo que creemos que vamos a vender bastante de
+[00:55.900 --> 01:02.540]  hardware porque hemos vendido mil de plataformas en 20 años y entonces claro no digo que mil van
+[01:02.540 --> 01:08.260]  a comprar la aplicación móvil pero sí que tendría alguna cosa barata que vaya saliendo y que lo que
+[01:08.260 --> 01:12.380]  está bastante terminado, luego habrá que mejorarlo pero yo creo que es una buena cosa por tanto mi
+[01:12.380 --> 01:20.740]  propuesta va en este sentido de cerrado, cerrado, compartido, que tú lo distribuyes, que tú te
+[01:20.740 --> 01:28.900]  preocupas de las mejoras y que hay algún mecanismo de que nosotros podamos distribuirlo en el caso
+[01:28.900 --> 01:35.300]  de que tú decidas que dejas de hacerlo por lo que sea, enfermedad, cansancio o pasarlo lo que sea.
+[01:35.300 --> 01:46.300]  No, está bien, estoy de acuerdo, eso de lo por hecho, digo, tiene que haber uno primero que no es eterno y segundo
+[01:46.300 --> 01:54.580]  digamos que tiene que ver con la continuidad, con lo cual eso, insisto, para mí esto está de
+[01:54.580 --> 02:05.660]  disposición independientemente de qué forma se pueda armar un modelo de negocio. Estoy de acuerdo,
+[02:05.660 --> 02:22.100]  digo, la idea de ustedes es que esta plataforma... Perdona, esta es mi idea, no sé si Chávez está de acuerdo, no, porque si Chávez no está de acuerdo no levantamos mucho.
+[02:23.060 --> 02:38.500]  Yo te veo muy bien este, de esta parte digamos nosotros somos los encargados de los hardware y tú, Alejandro, quieres encargar los software del móvil.
+[02:38.500 --> 02:52.580]  Ahora, no sé si tú tenías también alguna idea de también cómo se utiliza el hardware, que nosotros no tenemos ningún problema, no creo que eso sea ningún problema para tres partes, perdona.
+[02:52.580 --> 03:21.140]  No, a ver, digo, yendo a esta parte y después vuelvo, pero digo, el tema del hardware hay una cuestión, si quieres, local, digamos, yo, el hardware, bueno, de hecho, digamos, yo me contacto con ustedes porque lo que hice fue traducir el PIC que ustedes tienen a un SP32.
+[03:21.780 --> 03:45.300]  Por eso, digamos, es el motivo y es lo que yo, digamos, tengo y lo que bueno que también estuve compartiendo ahí con ustedes para utilizarlo y utilizar la plataforma de ustedes y a eso comunicarme y utilizar, digamos, la plataforma de móvil.
+[03:45.300 --> 04:14.900]  La estrategia de ustedes que tal vez teniendo el hardware es diferente, es porque, por lo que entiendo, ustedes ya están pensando en algo integrado, yo hoy no estoy pensando en algo integrado porque estoy desarrollando la plataforma móvil en algo, en un firmware diferente al firmware que utilizo para conectarme al desktop.
+[04:15.300 --> 04:41.620]  No, no es lo que tengo en principio, digamos, en mente y volviendo a tu propuesta, Blas, sería, yo me hago cargo de la movilidad más o menos con el alcance que hasta ahora estuvimos desarrollando, o sea, los tipos de saltos que están, más o menos funcionalidades, lo que hay,
+[04:41.700 --> 05:07.380]  no aumentar la complejidad porque me parece que si no se hace bastante complejo y finalmente exportar la información para utilizarla en la plataforma del desktop de ustedes con otras variantes seguramente que yo todavía no exploré que es ver cosas en la nube y cosas que seguramente ustedes están desarrollando.
+[05:07.860 --> 05:10.740]  Si esto es lo que entendí, confirmame si es así.
+[05:11.700 --> 05:30.980]  Si además hay cosas como que desde ChronoJAM podamos exportar saltos y que los puedas importar en el móvil, o sea, vos pensabas en unos tipos de saltos, los tienes ya puestos, pero qué pasa, nuestro usuario crea tipos de saltos nuevos y, claro, querrá exportarlos al móvil para usarlos y luego los datos volver a volcar, ¿no?
+[05:31.620 --> 05:35.140]  Tendrá que haber una creación de saltos, de tipo de saltos.
+[05:35.140 --> 05:55.620]  Está bien, está bien, digamos, es una funcionalidad que hoy no está, pero bueno, pero se genera, eso no es problema, con lo cual estoy de acuerdo con lo que plantean, mi punto de vista es que tal vez ahí es diferente,
+[05:55.620 --> 06:17.380]  pero yo primero quiero tener un producto que, o sea, no me gusta tener algo que todavía no está, como producto no está, no es concreto, por eso, digamos, pero desde el punto de vista del modelo de negocio que ustedes quieren plantear es sí, después habría que ver de qué forma eso se concreta,
+[06:17.380 --> 06:28.100]  o sea, a ver, digo, esto tendría que estar, no sé, publicado en uno de estos, ¿cómo es?
+[06:28.100 --> 06:30.100]  Las tiendas.
+[06:30.820 --> 06:47.060]  No me salía la palabra, una de estas tiendas para que la puedan bajar, tener una monetización de eso y después, bueno, llegar a un acuerdo de, bueno, cuánto va para ustedes y cuánto queda para mí, digamos, ese sería más o menos lo que ustedes están viendo, ¿o no?
+[06:48.020 --> 07:16.180]  Sí, lo que pasa es que aquí hay que ver también la manera como se mueve el dinero, o sea, o tú te haces la cuenta en las tiendas y tú gastas y pagas de tus cuentas, o si no quisieras, porque no pudieras, o por cualquier motivo, a lo mejor lo podemos hacer nosotros y nosotros pagarte por esta pared, entonces lo manejaremos nosotros, pero creo que sería mucho mejor que lo hicieras tú, pero la tienda de Apple, por ejemplo, es un quebrader de cabeza.
+[07:16.300 --> 07:46.100]  No, no, no, está bien, digo, es un tema, para mí, un tema medio complejo porque ustedes no se olviden que yo vivo en Argentina, no sé si ustedes tienen noticias de Argentina o no, desconozco, pero si leen un poco lo de Aero, esto es un despelote, ¿no?, es una crisis terrible, ¿no?, así que, nada, digo, eso tal vez, qué sé yo, después afinarlo yo tampoco veo problema,
+[07:46.100 --> 08:16.020]  en ese sentido, ¿no?, pero bueno, nada, sería cuestión de hablarlo más en detalle y hacer números a ver qué es lo que conviene y de qué manera, porque yo sé que ustedes, hay cuestiones, tienen unas cuestiones legales y de movimiento de dinero que es muy estricto, acá es una joda, entonces, ustedes piensen que acá el 60% de la economía es en negro,
+[08:17.020 --> 08:44.020]  ¿entendés?, digo, es una cosa increíble, hay un escándalo de un narcodiputado, digo, es todo un descontrol, esto, viste, pero bueno, yo no estoy en eso, digo, pero no veo inconveniente, digo, sería cuestión de, aparte, bueno, yo tengo mi hija que está viviendo ahí, así que conozco un poco la problemática de ustedes, yo tuve, bueno, ya,
+[08:44.940 --> 09:09.940]  de esta altura pudo adquirir su hipoteca y quedarse ahí, comprar un piso en Madrid y bueno, yo le he prestado algo y bueno, todo un lío para poder transferir y hacer disponible eso, así que entiendo eso perfectamente, creo que no va a haber problema, no más,
+[09:10.860 --> 09:28.860]  yo creo que el primer punto es tener un producto viable, el segundo, el modelo que ustedes plantean, estoy de acuerdo, no veo, digamos, lo veo claro, lo veo sencillo y nada, después lo otro, bueno, será cuestión de ir a arreglarlo.
+[09:29.780 --> 09:54.780]  Si quieres, te cuento un poco lo que son las tiendas, las tiendas, la de Android, no tiene mucha dificultad, o sea, tú entras, te registras y ya está, pero la de Apple sí que tiene, para empezar tienes que pagarles 100 euros a ellos, como mínimo en Europa, no sé en Argentina donde pagas, pero cada año tienes que pagarles a ellos, y este pago es para tener acceso a los certificados,
+[09:55.700 --> 10:00.700]  los certificados es la certificación de que te hacen, de que todo lo, todo lo que se...
+[10:00.700 --> 10:03.700]  Un minuto que me están llamando, un minuto.
+[10:03.700 --> 10:04.700]  Sin problema.
+[10:04.700 --> 10:33.620]  Mira, el John de la Pesportsalud, Xavi, me dice si le podemos dejar una galga en plataforma, pero me envía una en cadena, no sé, una MT plus sería mucho mejor, pero me ha enviado esto, una galga, una superficie en cadena o algo, tío, pero para eso, bueno, tengo que decir mil veces, el John es el que de trabajador tiene el cerejón.
+[10:35.620 --> 11:04.620]  Bueno, estábamos ahora con, es que como hay gente que va contactando, un cliente diría una cosa, mira, te estaba contando un poco como en la tienda, sin el que de laborerte mucho, pero hay los de Apple, el binario que tú haces, ellos comprueban mucho que todo lo que tú estás compilando, lo certificas, y certificarlo significa que tú tienes que firmarlo y notarizarlo,
+[11:04.620 --> 11:24.620]  los procesos que se hacen con Apple, y para firmarlo y notarizarlo, tienen que pasar una serie de cosas, la primera es que tienes que tener los certificados, bajártelo, instalártelo en un ordenador que es un payazo, además tienes que hacerlo en un Apple, no puedes hacerlo si no tienes un ordenador Mac o un móvil, un móvil no creo que lo puedes hacer,
+[11:24.620 --> 11:53.620]  pero que tienes que tener un Mac para poder hacerlo, y supongo que tiene que ser un silicon de los nuevos, o sea que difícil de segunda mano, supongo, pero con los Intel en teoría también podrías, pero no sé por qué, lo hacemos para aplicación Mac de ordenador, pero de móvil no, pero te haría falta esto, además cada vez que sacas una versión, en la notarización, lo que se hace es, bueno, como decir que sí, que ese binario Apple autoriza, porque eso es correcto, etcétera, pero el problema es que los time servers de Apple normalmente están caídos,
+[11:53.620 --> 12:08.620]  entonces a lo mejor tú vas a sacar una versión, y para notarizarla, va contactando con Apple, pero el servidor de hora no funciona, y tienes que esperarte a lo mejor cuatro horas, o algo así, esto pasa muy a menudo, entonces esto es una contra-rollazo, y además los dos certificados,
+[12:09.620 --> 12:20.620]  como luego dejan de funcionar porque cadogan cada año, cada medio año, cada tres años, al final es un rollazo y te lo acaba haciendo la persona, tiene unas contraseñas y pierde un poco la seguridad,
+[12:20.620 --> 12:30.620]  nosotros tenemos el chino que nos hacía esto, y bueno, de aquella manera, unos no podíamos, nos ha ayudado a otras personas, debes pasar todos los datos, bueno, bastante rollo, y claro, el ordenador en el que al final consigues hacer las versiones,
+[12:31.620 --> 12:46.620]  ese hay que protegerlo un poco y no tocarlo, porque si eso compila y notariza y tal, lo tenemos bien, pero eso solo es para que cuando se instale en el Mac, no diga que, o en el móvil, no diga que haya aplicaciones un virus o es peligrosa o lo que sea,
+[12:46.620 --> 12:54.620]  eso es independientemente de que tú lo pongas en la App Store, pero no lo puedes poner en la App Store si no está notarizado, y luego puede haber dependencias, por ejemplo,
+[12:55.620 --> 13:05.620]  a nosotros nos pasa con Intel, con R y con Python, que a lo mejor tú los incluyes y a lo mejor la App Store no te deja incluirlas, porque tienes que referenciar la que ya está incluida en la App Store,
+[13:05.620 --> 13:14.620]  y bueno, es un poco más complicado, entonces es un mundillo, además continuamente te llegan nuevas condiciones que tienes que aceptar y además tu cuenta,
+[13:15.620 --> 13:26.620]  como tú lo cobrarás directamente a tu cuenta bancaria, pues tienes que hacer varios informes para varios países de qué vas a hacer, no es que te pongas a bajar la baga tuya, yo no lo quiero hacer, esto es una basura,
+[13:27.620 --> 13:39.620]  pero hay, por ejemplo, en Brasil, cuando hay un cliente brasileño que compra tu aplicación, pues hay como un certificado que dice que tú lo usas para un psicologial y que no vas a hacer armamento con...
+[13:40.620 --> 13:41.620]  Claro, va a ir a escuchar de lavado.
+[13:42.620 --> 13:48.620]  Sí, hay varias cosas que te van llegando de Apple, que te van tocando las narices de que tienes que aceptar esto o no, pero bueno, es una cosa increíblemente burocrática,
+[13:49.620 --> 13:57.620]  en la que tú certificas o se certifica en el compilado que eso es tuyo y de algún modo no es malo, esto es una incomodidad.
+[13:58.620 --> 14:04.620]  Por otro lado, tú aquí estás ganando una cosa que normalmente no se gana, y es que tienes un producto prácticamente terminado,
+[14:05.620 --> 14:10.620]  y claro, nosotros en nuestra web vamos a decir que hay esta aplicación móvil que se la bajen, y hay un montón de clientes que están esperando,
+[14:10.620 --> 14:13.620]  con lo cual así, en la primera entrada nosotros pensamos que vas a hacer dinero.
+[14:14.620 --> 14:22.620]  Aunque hagas la aplicación a cinco euros, que es lo que un poco nos gustaría a este nivel europeo, aunque hagas algo así, asequible, porque cuando lo damos es muy en plan asequible,
+[14:23.620 --> 14:35.620]  enseguida vas a hacer dinero, seguro, tanto para todos nuestros clientes que ya tienen la plataforma como para las acciones que haremos o cosas futuras,
+[14:35.620 --> 14:40.620]  que estamos haciendo en el Ámbrica, y este en el Ámbrica también irá en móvil, y en móvil irá con tu aplicación.
+[14:41.620 --> 14:51.620]  Y si el día de mañana tú no estás a gusto o cambias alguna cosa, o decides que la aplicación vale 30 euros en lugar de cinco o algo así,
+[14:52.620 --> 14:57.620]  y a nosotros nos parece injusto para el usuario, pues claro, entonces a lo mejor se hace un fork y en lugar de distribuir lo tuyo,
+[14:58.620 --> 15:01.620]  pues bueno, hay otra persona que hace otra aplicación y la ponemos también ahí para bajar.
+[15:01.620 --> 15:07.620]  Entonces, como tenemos todo abierto, siempre hemos buscado el precio más barato posible,
+[15:08.620 --> 15:13.620]  porque si la plataforma la vendemos a mil euros, cualquiera va a coger nuestro código y hacer su empresa y venderlo.
+[15:14.620 --> 15:22.620]  Pues aquí lo mismo, si tú, aunque esté el código cerrado entre nosotros, sacas algo que sale a un precio correcto y tienes un buen trabajo,
+[15:23.620 --> 15:25.620]  pues bueno, claro, contigo hasta el fin del mundo, ¿no?
+[15:26.620 --> 15:29.620]  En cambio, si a ti se te cursan los cables y decides que la aplicación ahora vale un montón de dinero,
+[15:30.620 --> 15:36.620]  o hay cosas importantes que hacemos en el software nuevas y tú te niegas a actualizarlas porque no quieres o lo que sea,
+[15:37.620 --> 15:38.620]  claro, entonces aquí se hace un fork, ¿no?
+[15:39.620 --> 15:42.620]  Como tú, igualmente, tu aplicación no tiene por qué ir ligada a Chrome Jam.
+[15:43.620 --> 15:48.620]  Hay otros productos que pueden ser parecidos de empresas a lo mejor más grandes, que a lo mejor también tienen una plataforma de contacto,
+[15:48.620 --> 15:52.620]  o que están en Chile o otros sitios, y que pueden usar tu aplicación y a lo mejor llamarse de otra manera.
+[15:53.620 --> 16:01.620]  A lo mejor la aplicación se llama, yo que sé, Google Home Mobile, y hay una empresa de cuatro sitios que se llama, yo que sé, Platform Health,
+[16:02.620 --> 16:05.620]  y tú le das a Google Home Mobile y con ese mismo código lo haces con ellos, ¿vale?
+[16:06.620 --> 16:12.620]  O sea que este tipo de jadez o cambio de actitud nuestro o vuestro tendría que permitir el hacer un fork.
+[16:13.620 --> 16:17.620]  Pero si todo el mundo trabaja a gusto como hasta ahora, pues ya está haciendo el mundo.
+[16:18.620 --> 16:19.620]  Es lo mismo, Chávi y yo, pues es lo mismo.
+[16:20.620 --> 16:25.620]  O sea, si mi comportamiento, si ahora resulta que trabajo online y no hago nada, lo que sea, pues buscaran otro.
+[16:26.620 --> 16:28.620]  Y si Chávi ahora se encuentra a una novia, que es muy espectacular,
+[16:29.620 --> 16:35.620]  te lo dice que toca un botón del ordenador, provoca cáncer, y él hace caso, pues yo le digo buscar a otro Chávi.
+[16:36.620 --> 16:37.620]  Eso es decir, de claro.
+[16:38.620 --> 16:41.620]  Correcto. ¿Está bien? No, no, a ver, digo, estoy de acuerdo.
+[16:41.620 --> 16:48.620]  Estoy de acuerdo, no, no, no, estoy de acuerdo. Es una alternativa, un modelo de negocio viable.
+[16:49.620 --> 16:58.620]  Además, al principio, como tú dices, digo, va a haber una monetización concreta
+[16:59.620 --> 17:02.620]  porque todos los usuarios de ustedes van a usar la aplicación móvil.
+[17:02.620 --> 17:12.620]  Eso va a ser en definitiva un beneficio de poder tener que sea sustentable el producto,
+[17:13.620 --> 17:15.620]  que es lo que a mí me interesa fundamentalmente, digo.
+[17:16.620 --> 17:21.620]  No busco otra cosa. Estatuto del partido realmente no me interesa.
+[17:23.620 --> 17:29.620]  Así que, bueno, nada, digo, si yo estoy de acuerdo, ustedes están de acuerdo,
+[17:29.620 --> 17:39.620]  continuemos con esto, y bueno, sí, me interesa poder cerrar el producto.
+[17:40.620 --> 17:47.620]  Yo empecé ya hablando del tema de IOS, empecé a compilarla para IOS.
+[17:48.620 --> 17:49.620]  Ah, ¿dónde empezó?
+[17:50.620 --> 17:56.620]  Sí, lo empecé esta semana, justamente como no avancé, no quise tocar más código ni nada,
+[17:56.620 --> 18:02.620]  hasta tener una respuesta de ustedes de que lo pudiesen probar, porque sé que lo que le entregué tiene errores,
+[18:03.620 --> 18:10.620]  pero bueno, prefiero que lo prueben para depurarlo porque yo puedo avanzar,
+[18:11.620 --> 18:15.620]  pero capaz que me estoy equivocando en esta parte que es importante,
+[18:16.620 --> 18:20.620]  que es el detalle de la exportación de datos, como esto es lo que preguntaba yo hoy,
+[18:20.620 --> 18:30.620]  no le presté atención, la generación del CBS, los opcionales me los saqué del chip,
+[18:31.620 --> 18:34.620]  entonces no le presté atención y ahí estaba la respuesta.
+[18:35.620 --> 18:41.620]  Así que me puse a trabajar, hay una alternativa de hacer la compilación que es la que estoy utilizando,
+[18:42.620 --> 18:47.620]  yo no tengo Mac, tengo una tablet Mac, pero no soy usuario de Mac,
+[18:47.620 --> 19:00.620]  y hay una opción de github donde se puede compilar y generar lo que sería el equivalente de la APK que ahora no me sale cuál es.
+[19:01.620 --> 19:03.620]  Sí, un runner, ¿es un runner?
+[19:04.620 --> 19:09.620]  No, no me suelto, es otra terminación, APA.
+[19:10.620 --> 19:18.620]  Bueno, sí, pero runners son ordenadores que están en github y están compilando continuamente el código que tú lo pongas,
+[19:19.620 --> 19:22.620]  si lo estructuras muy bien, en kernel ya no lo hemos hecho porque no lo hemos sabido poner muy bien,
+[19:23.620 --> 19:29.620]  pero como lo tuyo viene del framework este a lo mejor es un poco más fácil, entonces lo compila todo.
+[19:29.620 --> 19:38.620]  No, no tiene que ver con el framework, pero todavía me está dando errores de compilación,
+[19:39.620 --> 19:49.620]  porque además yo sé que voy a tener que tocar el código, no todas las librerías son tanto para Dios como para...
+[19:50.620 --> 19:55.620]  Entonces yo sé que tengo que tocar el código, todavía no llegué a esa distancia,
+[19:56.620 --> 20:06.620]  porque vieron que yo las iteraciones, por cada iteración fui generando código distinto,
+[20:07.620 --> 20:13.620]  va a código distinto, no, el mismo código, pero cuando terminé una iteración ese código lo islé,
+[20:13.620 --> 20:21.620]  y avancé con la otra iteración, así que estoy con la primera iteración que tiene muchísimo menos complejidad,
+[20:22.620 --> 20:27.620]  voy a tener muchísimas menos bibliotecas, fundamentalmente ahí lo que tengo es la parte de conectividad,
+[20:28.620 --> 20:36.620]  así que estoy compilando eso, pero bueno, pero también tengo un par de conocidos que si no lo pueden...
+[20:37.620 --> 20:45.620]  pasa que también compilarlo y darlo a terceros para compilar también está dando todo el conocimiento, todo el desarrollo,
+[20:48.620 --> 20:57.620]  y bueno, mucho acá al menos mucho no me convence, igual es bastante complejo por más que lo ponga yo,
+[20:57.620 --> 21:07.620]  de hecho por ejemplo yo con ustedes el código fuente para el cliente no lo compilo ni nada,
+[21:08.620 --> 21:16.620]  por eso la otra vuelta yo te pedí con esto la exportación de usuario que me pases directamente el compilado,
+[21:17.620 --> 21:20.620]  para yo poderlo utilizar.
+[21:21.620 --> 21:25.620]  Pero nosotros tenemos tu código fuente o no?
+[21:26.620 --> 21:37.620]  La iteración 1 está puesta en el hit y las otras cosas sí las estoy poniendo,
+[21:38.620 --> 21:44.620]  pero después no las actualicé porque no me resultaba práctica,
+[21:45.620 --> 21:56.620]  porque hay mucho detalle que lo termino haciendo digamos localmente,
+[21:57.620 --> 22:04.620]  pero sí ahora después las otras iteraciones que las tengo todas ordenaditas,
+[22:05.620 --> 22:10.620]  la 1 ya te digo, creo que la 1 y la 2 están puestas en el repositorio que tienen acceso,
+[22:10.620 --> 22:17.620]  la bitácora la actualizo siempre, casi siempre digamos, pero está a lo último está,
+[22:18.620 --> 22:25.620]  y nada, de todos modos no es tan sencillo rearmar,
+[22:26.620 --> 22:30.620]  tienen que tener bastante conocimiento como para poder hacerlo.
+[22:31.620 --> 22:44.620]  Bueno, si les parece no sé ustedes cuando puedan probar lo que les pasé y así podemos avanzar en esta parte,
+[22:45.620 --> 22:52.620]  para mí sería genial, yo voy a ponerme a ver esto de hacerlo a través de este modelo de negocio,
+[22:53.620 --> 22:57.620]  algunos detalles, lo de las tiendas me parece que bueno,
+[22:57.620 --> 23:03.620]  me imagino que todo el mundo es bastante complejo, bastante burocrático,
+[23:04.620 --> 23:10.620]  así que bueno será cuestión de verlo, el de Android no lo conozco,
+[23:11.620 --> 23:16.620]  pero imagino que debe ser mucho más sencillo, pero bueno no hay problema,
+[23:17.620 --> 23:21.620]  me pongo a averiguar un poco ese tema para verlo.
+[23:22.620 --> 23:26.620]  Sí, aquí piensa que hace muchos años ya tuvimos un alumno de prácticas
+[23:27.620 --> 23:32.620]  que creó una entrada de Chrono Jam dentro de la App Store,
+[23:33.620 --> 23:37.620]  y es la que estamos utilizando, y también en la Play Store, aunque no la estamos utilizando,
+[23:38.620 --> 23:42.620]  y ahí pusimos alguna prueba de programa, pero que nunca lo puedes buscar pero no se hace nada,
+[23:43.620 --> 23:47.620]  entonces claro, aquí podría hacer que la tienda que fuéramos lo que te decía,
+[23:48.620 --> 23:49.620]  en función de la independencia que tú quieras,
+[23:49.620 --> 23:53.620]  la tienda podría ser nuestra y es nuestro nombre o tuyo,
+[23:54.620 --> 23:57.620]  si es tuyo no es ningún problema, si es tuyo ponte el nombre que tú quieras,
+[23:58.620 --> 24:01.620]  todo depende si esto irá ligado a Chrono Jam o no,
+[24:02.620 --> 24:04.620]  a tu piensa si eso se va a llamar porque a lo mejor el usuario,
+[24:05.620 --> 24:08.620]  si todo el usuario va a ser vinculado a Chrono Jam o a lo mejor en tu hardware
+[24:09.620 --> 24:12.620]  que estás haciendo en la fontina, si quieres realmente distribuirlo un poco
+[24:13.620 --> 24:14.620]  y crees que van a salir bastantes copias de eso,
+[24:14.620 --> 24:18.620]  pues buscaré un nombre, un nombre genérico de yo que sé,
+[24:19.620 --> 24:22.620]  de Jam Mobile o lo que te parezca, y ya está,
+[24:23.620 --> 24:25.620]  y nosotros diríamos que se usa esa aplicación que es compatible con Chrono Jam,
+[24:26.620 --> 24:28.620]  ¿sabes? o sea la aplicación no será Chrono Jam Mobile
+[24:29.620 --> 24:31.620]  o la aplicación te da un nombre que sea tuyo.
+[24:32.620 --> 24:34.620]  Pero ustedes no tienen, a ver digo, a ver si te entiendo,
+[24:35.620 --> 24:39.620]  digo, a ustedes prefieren que eso lo maneje yo,
+[24:39.620 --> 24:44.620]  o no quieren ser Chrono Jam que digamos manejar el store ustedes,
+[24:45.620 --> 24:46.620]  digo yo no tengo...
+[24:47.620 --> 24:51.620]  Hay muchas opciones, hay muchas opciones y ya te digo que aquí
+[24:52.620 --> 24:54.620]  nosotros económicamente podemos ganar un poco,
+[24:55.620 --> 24:59.620]  pero tú, como mucha gente de Europa te va a comprar y tú estás con pesos,
+[25:00.620 --> 25:01.620]  tú sí que puedes ganar bastante.
+[25:02.620 --> 25:03.620]  No sé si sabes cómo funcionó la negociación de Microsoft
+[25:04.620 --> 25:08.620]  cuando compró el Windows, bueno el MS2 y lo vendió a Intel,
+[25:09.620 --> 25:11.620]  pero tú puedes ganar bastante,
+[25:12.620 --> 25:13.620]  entonces tampoco te vas a decir lo que es mejor para hacer.
+[25:14.620 --> 25:18.620]  En mi opinión lo mejor es que tú te lo montes todo
+[25:19.620 --> 25:20.620]  y que tú ganes el dinero que tú quieras,
+[25:21.620 --> 25:24.620]  pero hay otras opciones, o sea nosotros podríamos decir mira,
+[25:25.620 --> 25:29.620]  te pagamos un viaje a España cada dos años
+[25:30.620 --> 25:32.620]  y el software es nuestro, y ya está, tú has hecho hasta aquí,
+[25:33.620 --> 25:35.620]  y vamos actualizando, tendremos alumnos,
+[25:35.620 --> 25:37.620]  tenemos forks y tú ya tienes este viaje,
+[25:38.620 --> 25:42.620]  o yo que sé, o te pagamos N 1000 euros y te compramos el software,
+[25:43.620 --> 25:45.620]  y eso se puede hacer, esto funciona, o sea y entonces te olvidas,
+[25:46.620 --> 25:49.620]  he hecho esto, lo tengo y luego a lo mejor hago el hardware Argentina,
+[25:50.620 --> 25:52.620]  o hardware nuestro nos ayuda a ser distribuido en Sudamérica
+[25:53.620 --> 25:56.620]  y te dedicas a eso, pero el software ya lo has hecho y vendido,
+[25:57.620 --> 26:01.620]  o sea tú tienes que pensar si tú lo sacas continuamente
+[26:02.620 --> 26:03.620]  y lo actualices y es tu cosa y ya está,
+[26:03.620 --> 26:09.620]  o si nos lo vendes, o si continuamente tal y como va viendo actualizaciones
+[26:10.620 --> 26:14.620]  lo vamos intercambiando por viajes o otros favores,
+[26:15.620 --> 26:16.620]  o qué se hace, esto es tu opinión,
+[26:17.620 --> 26:19.620]  en mi opinión lo que te sale mejor es que tú seas independiente
+[26:20.620 --> 26:22.620]  y que puedas casarte con quien quieras, hacer tu tienda,
+[26:23.620 --> 26:26.620]  ponerte un precio que sea asequible y adelante,
+[26:27.620 --> 26:32.620]  porque ya te digo, porque enseguida vas a vender 100, 150 millones,
+[26:33.620 --> 26:34.620]  de software enseguida, luego se parará,
+[26:35.620 --> 26:37.620]  pero toda la gente que tiene una plataforma lo va a querer
+[26:38.620 --> 26:39.620]  y si es un precio bajo lo van a comprar enseguida,
+[26:40.620 --> 26:43.620]  o sea que vas a tener una buena entrada inicial, seguro que estará guapa,
+[26:44.620 --> 26:46.620]  en cambio la tu opción es decir, bueno es que no quiero preocuparme de esto,
+[26:47.620 --> 26:49.620]  creo que el software vale tanto dinero, ha sido tantas horas,
+[26:50.620 --> 26:53.620]  en pesos es esto y os lo vendo, y decidimos si te lo compramos,
+[26:54.620 --> 26:57.620]  y así, luego es más fácil hacer ports y hacer otras versiones
+[26:58.620 --> 27:01.620]  sin que tú participes o te molestes o lo que sea, porque ya lo he vendido.
+[27:01.620 --> 27:03.620]  En el caso de, ¿sabes cómo funciona lo de Microsoft?
+[27:04.620 --> 27:05.620]  No, no, no.
+[27:06.620 --> 27:08.620]  Bueno, es muy interesante, mira, hay una película,
+[27:09.620 --> 27:10.620]  que es la de Piratos de Silicon Valley,
+[27:11.620 --> 27:15.620]  que está descrito exactamente como fue y está demostrado que fue así,
+[27:16.620 --> 27:18.620]  lo que pasó es que Bill Gates estaba en la universidad,
+[27:19.620 --> 27:23.620]  y tenía un amigo que había hecho MS2,
+[27:24.620 --> 27:27.620]  y que lo había programado como trabajo de prácticas,
+[27:28.620 --> 27:29.620]  y estaba súper bien hecho,
+[27:29.620 --> 27:33.620]  y entonces Bill Gates, la grandeza es que él pensó
+[27:34.620 --> 27:37.620]  que habría un ordenador en cada familia,
+[27:38.620 --> 27:42.620]  y eso no se lo creía a nadie, entonces él habló con Intel,
+[27:43.620 --> 27:47.620]  Intel, claro, vendía unos ordenadores a institutos, a gobiernos, a empresas,
+[27:48.620 --> 27:51.620]  pero no vendía al detalle, vendía al ordenador desde tanto en tanto,
+[27:52.620 --> 27:54.620]  y entonces claro, aquí Bill Gates fue muy listo,
+[27:55.620 --> 27:57.620]  porque fue al amigo este, y le pagó un montón de dinero,
+[27:57.620 --> 28:01.620]  y le pagó un montón de dinero para su sistema operativo,
+[28:02.620 --> 28:03.620]  y era muchísimo,
+[28:04.620 --> 28:09.620]  y eso fue con el alto calvo, con el balmer,
+[28:10.620 --> 28:11.620]  el balmer y él, que el balmer tenía pasta,
+[28:12.620 --> 28:15.620]  pues le compraron el sistema operativo a este amigo,
+[28:16.620 --> 28:17.620]  este amigo se sorprendió porque claro,
+[28:18.620 --> 28:19.620]  ese era mucho dinero para el software que había,
+[28:20.620 --> 28:23.620]  y a Intel le dijeron que le daban el sistema operativo.
+[28:23.620 --> 28:24.620]  No era IBM.
+[28:25.620 --> 28:27.620]  ¿Qué? Ah, perdón, IBM.
+[28:28.620 --> 28:30.620]  A IBM le dijeron que le daban el sistema operativo,
+[28:31.620 --> 28:33.620]  y entonces, pero lo único que tenía que hacer es que IBM,
+[28:34.620 --> 28:36.620]  en cada copia de ordenador, le tenía que pagar un tanto a Microsoft,
+[28:37.620 --> 28:40.620]  y claro, a IBM le pareció que eso era tontería,
+[28:41.620 --> 28:43.620]  porque es que IBM vendía muy pocos ordenadores,
+[28:44.620 --> 28:46.620]  y si por cada ordenador que vendía, imagínate yo que sé,
+[28:47.620 --> 28:49.620]  diez del año, le doy algo a Microsoft por el sistema operativo,
+[28:50.620 --> 28:52.620]  pues eso era verículo, era muy poco, pero claro,
+[28:53.620 --> 28:56.620]  Bill Gates pensó que se venderían muchos ordenadores,
+[28:57.620 --> 28:59.620]  cosa que IBM no sabía, y Bill Gates acertó,
+[29:00.620 --> 29:01.620]  y entonces claro, se vendieron muchos ordenadores,
+[29:02.620 --> 29:03.620]  y desde el pequeño margen que había para Microsoft,
+[29:04.620 --> 29:05.620]  luego fue una cosa escandalosa,
+[29:06.620 --> 29:07.620]  y lo que le habían pagado al estudiante originalmente,
+[29:08.620 --> 29:10.620]  a su amigo, pues era mucho, pero era ridículo con lo que vino,
+[29:11.620 --> 29:12.620]  con lo cual Bill Gates no ha tenido tiempo por programar,
+[29:13.620 --> 29:14.620]  sino porque allí tuvo esa visión,
+[29:15.620 --> 29:17.620]  y bueno, todo el mundo tiene visiones y normalmente se equivocan,
+[29:18.620 --> 29:19.620]  pero en este caso acertó.
+[29:20.620 --> 29:22.620]  No, no, ahora que la lembras,
+[29:23.620 --> 29:25.620]  lo que pasa es que sí, sí, la he visto,
+[29:26.620 --> 29:27.620]  de hecho, yo vengo de esa época,
+[29:28.620 --> 29:32.620]  la viví, digamos, totalmente, eso,
+[29:33.620 --> 29:36.620]  y sí, sí, está bien, digo, pero,
+[29:37.620 --> 29:40.620]  lo que pasa es que si en mi cabeza a veces no funciona tanto
+[29:41.620 --> 29:43.620]  en el dinero y cómo construirlo,
+[29:44.620 --> 29:47.620]  sino tal vez el entusiasmo pasa por otro lado,
+[29:47.620 --> 29:51.620]  pero sí, sí, la conozco, la conozco,
+[29:52.620 --> 29:55.620]  y yo, en parte, algunas cosas de eso,
+[29:56.620 --> 29:57.620]  como yo les dije a ustedes, digo,
+[29:58.620 --> 30:01.620]  yo en un momento tenía mi programa de gestión,
+[30:02.620 --> 30:04.620]  lo que hoy se conoce como un RPE,
+[30:05.620 --> 30:07.620]  yo en los 90 fabriqué mi RPE, digamos,
+[30:08.620 --> 30:14.620]  y lo vendí a, tenía 30 empresas chiquitas,
+[30:14.620 --> 30:16.620]  lo que es en Argentina de la PYME,
+[30:17.620 --> 30:21.620]  y la tenía distribuida y era eso, pagaba,
+[30:22.620 --> 30:31.620]  tenía un servicio por el cual yo le permitía al cliente crecer
+[30:32.620 --> 30:34.620]  sin tener que cambiar nada,
+[30:35.620 --> 30:41.620]  y además también había visto el tema de la apertura
+[30:41.620 --> 30:43.620]  a través de la PC,
+[30:44.620 --> 30:48.620]  y, digamos, lo que en ese momento era muy,
+[30:49.620 --> 30:51.620]  simplemente podías acceder a un centro de cómputo
+[30:52.620 --> 30:54.620]  si había algún equipo IBM grande,
+[30:55.620 --> 30:58.620]  el modelo, digamos, la distribución de la PC
+[30:59.620 --> 31:02.620]  hizo la explosión, una explosión terrible,
+[31:03.620 --> 31:06.620]  con lo cual, sí, sí, yo todo eso que vos dices,
+[31:07.620 --> 31:10.620]  lo viví, digamos, lo viví, lo viví muy intensamente,
+[31:11.620 --> 31:14.620]  lo hicieron hacer los ambientes abiertos,
+[31:15.620 --> 31:18.620]  el mundo Unix y demás, yo lo exploré muchísimo
+[31:19.620 --> 31:22.620]  y fui soporte, y bueno, nada,
+[31:23.620 --> 31:25.620]  son muchos años detrás,
+[31:26.620 --> 31:31.620]  así que sí, está bien, digo, estoy de acuerdo con eso,
+[31:32.620 --> 31:36.620]  y nada, avancemos en terminarlo,
+[31:36.620 --> 31:40.620]  y ya sabés que esto sí.
+[31:41.620 --> 31:44.620]  No, no puedes estar de acuerdo porque he dado varias opciones diferentes.
+[31:45.620 --> 31:48.620]  No, no, es que estoy de acuerdo con todas las opciones.
+[31:49.620 --> 31:51.620]  Tienes que decir con tu tiempo si nos lo quieres vender,
+[31:52.620 --> 31:54.620]  si quieres que te demos regalos como viajes,
+[31:55.620 --> 31:56.620]  o si quieres encargarte tú de todo.
+[31:57.620 --> 32:00.620]  A ver, un viaje cada dos años no me convence,
+[32:01.620 --> 32:04.620]  pero está bien, digo, de todos modos,
+[32:04.620 --> 32:09.620]  por más que yo entiendo, por más que te diga mañana,
+[32:10.620 --> 32:12.620]  o no sé, te diga mira, lo repensé,
+[32:13.620 --> 32:15.620]  y en vez de yo hacer la tienda, te lo vendo,
+[32:16.620 --> 32:19.620]  o digo, bueno, la tienda, ténganla en ustedes,
+[32:20.620 --> 32:24.620]  o sea, no va a cambiar a la proyección que vos tenés
+[32:25.620 --> 32:28.620]  de lo que te interesaría hacer respecto al producto,
+[32:29.620 --> 32:31.620]  o sí, no, digo, no, no, no, no,
+[32:31.620 --> 32:34.620]  me parece que en ese sentido si tenías algo incierto,
+[32:35.620 --> 32:39.620]  sabes que estoy de acuerdo, digamos,
+[32:40.620 --> 32:45.620]  con cualquiera de las alternativas que me planteas.
+[32:47.620 --> 32:51.620]  Nada, lo tendré que, tal vez seguramente que lo voy a repensar,
+[32:52.620 --> 32:53.620]  pero...
+[32:54.620 --> 32:56.620]  Piensa un poco más también el tema de qué vendrá luego,
+[32:57.620 --> 32:58.620]  porque cuando te decía esto el viaje cada dos años
+[32:59.620 --> 33:00.620]  no era muy atractivo,
+[33:01.620 --> 33:03.620]  porque el trabajo más importante ya lo has hecho.
+[33:04.620 --> 33:05.620]  Entonces, luego, ¿qué vas a hacer?
+[33:06.620 --> 33:07.620]  Pues toda la vida vivir de venta de eso,
+[33:08.620 --> 33:09.620]  porque habrá actualizaciones, pero no habrá muchas.
+[33:10.620 --> 33:11.620]  Entonces, claro, a partir de ahí dices, bueno,
+[33:12.620 --> 33:13.620]  me puede interesar hacer el software de la galga,
+[33:14.620 --> 33:15.620]  o hacer el software del encoder,
+[33:16.620 --> 33:17.620]  o aquí hay un software muy popular
+[33:18.620 --> 33:19.620]  en que a partir de vídeos sacan un salto
+[33:20.620 --> 33:21.620]  y algún día lo vamos a hacer,
+[33:22.620 --> 33:23.620]  y a lo mejor lo puedes ver tú a encargarlo por nosotros,
+[33:24.620 --> 33:25.620]  y sería una historia parecida, ¿no?
+[33:26.620 --> 33:28.620]  Entonces, claro, ¿hasta qué punto eres un trabajador en continuo
+[33:29.620 --> 33:30.620]  que va haciendo cosas
+[33:31.620 --> 33:32.620]  que son compartidas,
+[33:33.620 --> 33:35.620]  o no, has hecho esto y lo sacas por tu cuenta,
+[33:36.620 --> 33:37.620]  o has hecho esto, lo vendes y termina?
+[33:38.620 --> 33:39.620]  O sea, piensa un poco...
+[33:40.620 --> 33:41.620]  No, no, pero ya te doy...
+[33:42.620 --> 33:43.620]  te doy alguna respuesta para que las tenga,
+[33:44.620 --> 33:45.620]  digo, para mí no es esto,
+[33:46.620 --> 33:48.620]  yo, digamos, tengo una continuidad,
+[33:49.620 --> 33:50.620]  digamos, en ese sentido,
+[33:51.620 --> 33:52.620]  no es que digo, bueno, hice esto,
+[33:53.620 --> 33:55.620]  ya está, si puedo ganar plata con esto,
+[33:56.620 --> 33:57.620]  y no, no, digo, tengo una continuidad,
+[33:58.620 --> 34:00.620]  y todo lo que vos, digamos, me planteas
+[34:01.620 --> 34:03.620]  es un poco que sigo recorriendo,
+[34:04.620 --> 34:05.620]  en el sentido de decir, bueno,
+[34:06.620 --> 34:07.620]  pienso que esto da para mucho más,
+[34:08.620 --> 34:10.620]  mi intención le decía a Javier,
+[34:11.620 --> 34:13.620]  no sé si conoces Argentino Junior como...
+[34:14.620 --> 34:18.620]  bueno, es ese club donde salió Maradona, ¿no?
+[34:19.620 --> 34:22.620]  Argentino Junior es un club chico,
+[34:23.620 --> 34:24.620]  no es un club grande, pero es un club de primera,
+[34:25.620 --> 34:26.620]  creo que si no me equivoco,
+[34:27.620 --> 34:28.620]  yo tampoco soy futbolero,
+[34:29.620 --> 34:30.620]  pero digo, creo que es de primera,
+[34:31.620 --> 34:33.620]  ahí tengo posiblemente un contacto
+[34:34.620 --> 34:35.620]  para ir a visitar,
+[34:36.620 --> 34:37.620]  todavía no me concretaron,
+[34:38.620 --> 34:39.620]  pero, digamos, la actividad deportiva
+[34:40.620 --> 34:41.620]  futbolística en Argentina sigue muy importante,
+[34:42.620 --> 34:43.620]  hay mucho dinero también ahí,
+[34:44.620 --> 34:47.620]  y nada, mi intención es avanzar,
+[34:48.620 --> 34:52.620]  y avanzar también haciendo cosas,
+[34:53.620 --> 34:54.620]  como dices tú, digo,
+[34:55.620 --> 34:56.620]  si mañana aparece alguna,
+[34:57.620 --> 35:00.620]  algo nuevo para hacer o algo relacionado
+[35:01.620 --> 35:02.620]  con el contenido de eso,
+[35:03.620 --> 35:04.620]  mi idea es encararlo,
+[35:05.620 --> 35:06.620]  no es que termino esto
+[35:07.620 --> 35:08.620]  y ya está, lo vendo, no, no,
+[35:09.620 --> 35:12.620]  eso más o menos para que te dé una idea
+[35:13.620 --> 35:15.620]  de lo que yo apunto.
+[35:16.620 --> 35:19.620]  Aquí yo creo que hay,
+[35:20.620 --> 35:24.620]  aunque veamos que la aplicación está muy acabada
+[35:25.620 --> 35:26.620]  y tal, o sea,
+[35:27.620 --> 35:30.620]  yo doy por desportado que saldrán usuarios
+[35:31.620 --> 35:32.620]  que nos dan nuevas funcionalidades,
+[35:33.620 --> 35:34.620]  pero eso es continuo,
+[35:35.620 --> 35:36.620]  yo al primero,
+[35:37.620 --> 35:39.620]  seguro que en el momento que lo tenga en la mano
+[35:40.620 --> 35:42.620]  ya me saldrán siete u ocho funcionalidades nuevas,
+[35:43.620 --> 35:44.620]  eso seguro,
+[35:45.620 --> 35:46.620]  o sea, que mucho puedes contar,
+[35:47.620 --> 35:48.620]  yo creo que también está bien ir pensando
+[35:49.620 --> 35:50.620]  en qué se va a hacer,
+[35:51.620 --> 35:53.620]  hasta qué punto tu tiempo, tu implicación
+[35:54.620 --> 35:56.620]  puede dedicarse a nuevas funcionalidades,
+[35:57.620 --> 35:58.620]  o no, o nosotros decidimos que no,
+[35:59.620 --> 36:00.620]  que la aplicación es así y nada más,
+[36:01.620 --> 36:03.620]  y nos dedicamos a hacer otra aplicación
+[36:04.620 --> 36:06.620]  para la galga o lo que sea,
+[36:07.620 --> 36:10.620]  que trabajo de programación en las aplicaciones
+[36:11.620 --> 36:13.620]  habrá infinito, bueno, hay infinitoria.
+[36:15.620 --> 36:16.620]  Sí, totalmente,
+[36:17.620 --> 36:18.620]  estoy de acuerdo.
+[36:20.620 --> 36:22.620]  Que yo que conste que mi opción favorita
+[36:23.620 --> 36:25.620]  es no programar nada y utilizar Chrono Jam
+[36:26.620 --> 36:27.620]  funcionando en Linux en móvil con una capa
+[36:28.620 --> 36:29.620]  el día que se pueda,
+[36:29.620 --> 36:30.620]  el 16 dice que se puede,
+[36:31.620 --> 36:32.620]  eso sería lo mío favorito,
+[36:33.620 --> 36:34.620]  entonces aplicación móvil hacer esta cosa de la cámara,
+[36:35.620 --> 36:37.620]  pero no ir haciendo piezas de Chrono Jam
+[36:38.620 --> 36:39.620]  continuamente,
+[36:40.620 --> 36:41.620]  eso es lo que me gustaría, pero bueno,
+[36:42.620 --> 36:43.620]  ahora mismo estamos así en esta película,
+[36:44.620 --> 36:45.620]  por lo que decía,
+[36:46.620 --> 36:47.620]  si el día de mañana, claro,
+[36:48.620 --> 36:49.620]  es que si el día de mañana
+[36:50.620 --> 36:51.620]  Chrono Jam funciona en móvil entero
+[36:52.620 --> 36:53.620]  y solo hay que ir tapando la superficie,
+[36:54.620 --> 36:55.620]  cortando cosas y tapando un poco,
+[36:56.620 --> 36:57.620]  claro, yo preferiría eso,
+[36:57.620 --> 36:58.620]  porque es un concreto pequeño,
+[36:59.620 --> 37:00.620]  entonces hay que mantener dos aplicaciones diferentes,
+[37:01.620 --> 37:02.620]  me encantaría mantener solo una,
+[37:03.620 --> 37:05.620]  pero bueno, ahora mismo no es la realidad.
+[37:06.620 --> 37:08.620]  Yo pienso que hay que también estar abierto
+[37:09.620 --> 37:12.620]  a que esto, la tecnología, digamos,
+[37:13.620 --> 37:17.620]  está cambiando en forma disruptiva,
+[37:18.620 --> 37:21.620]  con lo cual seguramente que lo que vos planteablas,
+[37:22.620 --> 37:23.620]  no sé, de acá a dos años,
+[37:23.620 --> 37:26.620]  con una dimensión de 3D,
+[37:27.620 --> 37:30.620]  capaz que se puede llegar a hacer algo así,
+[37:31.620 --> 37:32.620]  así yo no descarto,
+[37:33.620 --> 37:35.620]  yo creo que los tiempos se acortan,
+[37:36.620 --> 37:37.620]  se acorta muchísimo,
+[37:38.620 --> 37:39.620]  hacer una planificación a largo,
+[37:40.620 --> 37:41.620]  no digo a largo tiempo,
+[37:42.620 --> 37:43.620]  pero a uno o dos años,
+[37:44.620 --> 37:45.620]  en cómo puede evolucionar,
+[37:46.620 --> 37:47.620]  me parece que es muy jugado,
+[37:48.620 --> 37:49.620]  porque puede venir algo
+[37:50.620 --> 37:51.620]  que rompa la estructura,
+[37:51.620 --> 37:52.620]  incluso, a ver, digo,
+[37:53.620 --> 37:54.620]  hoy en día ya se está pensando
+[37:55.620 --> 37:57.620]  que el móvil va a dejar de usarse,
+[37:58.620 --> 38:00.620]  con lo cual cambia,
+[38:01.620 --> 38:04.620]  cambia, digamos, la utilidad.
+[38:09.620 --> 38:11.620]  Bueno, entonces tú te decides,
+[38:12.620 --> 38:13.620]  nos dices el qué,
+[38:14.620 --> 38:16.620]  y así sabemos un poco más cómo orientar las cosas.
+[38:18.620 --> 38:19.620]  Bueno,
+[38:19.620 --> 38:22.620]  está bien, digamos,
+[38:24.620 --> 38:25.620]  está bien, está bien,
+[38:26.620 --> 38:28.620]  yo les doy una respuesta,
+[38:31.620 --> 38:33.620]  y bueno, y a partir de ahí,
+[38:34.620 --> 38:35.620]  seguimos avanzando a ver qué,
+[38:36.620 --> 38:37.620]  para probar, y listo,
+[38:38.620 --> 38:39.620]  yo la semana que viene les contesto
+[38:40.620 --> 38:43.620]  cuál de todas las alternativas que propusieron,
+[38:44.620 --> 38:45.620]  pero siempre focalizada
+[38:46.620 --> 38:48.620]  en comercializar la aplicación,
+[38:49.620 --> 38:50.620]  no hay vuelta,
+[38:51.620 --> 38:53.620]  y bueno, y avanzamos.
+[38:54.620 --> 38:55.620]  Hay otro tema
+[38:56.620 --> 38:57.620]  que se me acaba de ocurrir ahora también,
+[38:58.620 --> 39:00.620]  y es que, bueno, el tema del soporte,
+[39:01.620 --> 39:03.620]  esto según el número de usuarios que tenemos,
+[39:04.620 --> 39:05.620]  esto puede llegar también a
+[39:06.620 --> 39:07.620]  ser tener bastante trabajo,
+[39:08.620 --> 39:09.620]  bueno, evidentemente depende de la implicación
+[39:10.620 --> 39:11.620]  del desarrollador
+[39:12.620 --> 39:13.620]  o el que haga soporte,
+[39:14.620 --> 39:15.620]  pero es que también es una cosa
+[39:16.620 --> 39:17.620]  que seguimos que tener que plantear,
+[39:17.620 --> 39:18.620]  el soporte,
+[39:19.620 --> 39:23.620]  y cómo lo negociamos esto.
+[39:25.620 --> 39:27.620]  Bueno, el soporte, a ver, digo,
+[39:28.620 --> 39:32.620]  el soporte que involucre el código de,
+[39:34.620 --> 39:35.620]  de que el código,
+[39:36.620 --> 39:38.620]  bueno, entiendo que me tengo que hacer cargo yo,
+[39:39.620 --> 39:40.620]  digo, no tengo problema,
+[39:41.620 --> 39:42.620]  digamos que ustedes también estén,
+[39:43.620 --> 39:45.620]  pero digo, ahí ya la cosa se complica mucho más,
+[39:47.620 --> 39:48.620]  no sé cómo lo ven ustedes.
+[39:49.620 --> 39:50.620]  No, yo me refiero
+[39:51.620 --> 39:54.620]  más que al soporte que implica el código,
+[39:55.620 --> 39:56.620]  el usuario, el típico usuario
+[39:57.620 --> 39:58.620]  que no sabe ni cómo instalar una aplicación,
+[39:59.620 --> 40:00.620]  o que, a ver,
+[40:01.620 --> 40:03.620]  que diga, pon de contacto con quien,
+[40:04.620 --> 40:05.620]  a quien le pregunte.
+[40:06.620 --> 40:07.620]  No soporte de VAC,
+[40:08.620 --> 40:09.620]  sino que soporte de usuario.
+[40:10.620 --> 40:11.620]  Bueno, no estáis un VAC o no,
+[40:12.620 --> 40:13.620]  por ejemplo, nosotros,
+[40:14.620 --> 40:15.620]  como hay muchos usuarios,
+[40:15.620 --> 40:16.620]  cuando un usuario tiene un problema,
+[40:17.620 --> 40:18.620]  no contacta conmigo ni con Xavi,
+[40:19.620 --> 40:20.620]  contacta con otro trabajador,
+[40:21.620 --> 40:22.620]  y más o menos ese problema,
+[40:23.620 --> 40:24.620]  pues es un común, y este ya le contesta.
+[40:25.620 --> 40:27.620]  Y le, claro, hoy en día contactan por WhatsApp,
+[40:28.620 --> 40:29.620]  por Instagram,
+[40:30.620 --> 40:31.620]  por correo a la vez,
+[40:32.620 --> 40:33.620]  hay un vídeo en YouTube,
+[40:34.620 --> 40:35.620]  y claro, es una historia.
+[40:36.620 --> 40:37.620]  Y cuando ese problema es un poco más grave
+[40:38.620 --> 40:39.620]  y afecta más gente,
+[40:40.620 --> 40:41.620]  no se sabe cómo responder,
+[40:42.620 --> 40:43.620]  entonces nos acaba llegando a Xavi,
+[40:43.620 --> 40:44.620]  pero está delegado,
+[40:45.620 --> 40:46.620]  o sea, yo no podría,
+[40:47.620 --> 40:48.620]  si estuviera contestando todos los usuarios,
+[40:49.620 --> 40:50.620]  como bien que se documentaba la cosa,
+[40:51.620 --> 40:52.620]  que nadie lee la documentación,
+[40:53.620 --> 40:54.620]  no podría seguir conformando.
+[40:55.620 --> 40:56.620]  Y en nuestro caso nos puede pasar que uno
+[40:57.620 --> 40:58.620]  nos compra una plataforma a nosotros
+[40:59.620 --> 41:00.620]  y la conecta con tu software
+[41:01.620 --> 41:02.620]  y el móvil no lo abre.
+[41:03.620 --> 41:04.620]  Y a lo mejor es culpa de la plataforma nuestra
+[41:05.620 --> 41:06.620]  o es culpa del software,
+[41:07.620 --> 41:08.620]  por eso también decíamos de hasta qué punto
+[41:09.620 --> 41:10.620]  quieres distribuir hardware o no,
+[41:11.620 --> 41:12.620]  pero puede pasar y puede ser cualquier cosa,
+[41:13.620 --> 41:14.620]  por ejemplo,
+[41:15.620 --> 41:16.620]  del Android que hace que no vaya lo tuyo
+[41:17.620 --> 41:18.620]  o que no vaya lo nuestro.
+[41:19.620 --> 41:20.620]  Claro, claro, sí, sí, sí.
+[41:21.620 --> 41:22.620]  No, no, digamos, la complejidad de hoy en día
+[41:23.620 --> 41:24.620]  hace que cualquiera de esas cosas
+[41:25.620 --> 41:26.620]  pueden, yo me he encontrado con problemas
+[41:27.620 --> 41:28.620]  de versiones de Android
+[41:29.620 --> 41:30.620]  que bibliotecas no funcionan.
+[41:31.620 --> 41:34.620]  Claro, esto era en tu uso privado,
+[41:35.620 --> 41:36.620]  pero aquí vendrá mucho uso de uso público
+[41:37.620 --> 41:38.620]  que tiene el conocimiento
+[41:39.620 --> 41:40.620]  y la paciencia que tiene.
+[41:41.620 --> 41:42.620]  No, no, no, obvio.
+[41:43.620 --> 41:44.620]  Yo no he sentido, digo,
+[41:45.620 --> 41:48.620]  he manejado mesas de ayuda grandes,
+[41:49.620 --> 41:50.620]  así que me conozco.
+[41:51.620 --> 41:52.620]  No, no, sí, sí, por supuesto,
+[41:53.620 --> 41:54.620]  es un tema, pero bueno,
+[41:55.620 --> 41:57.620]  listo, yo me pongo a pensar,
+[41:58.620 --> 42:01.620]  me pongo a pensar estos detalles
+[42:02.620 --> 42:03.620]  y quiero que tengan en cuenta esto.
+[42:04.620 --> 42:06.620]  En mi cabeza, tal vez, primero está tener
+[42:07.620 --> 42:08.620]  un producto viable,
+[42:09.620 --> 42:10.620]  por eso esto me parece que,
+[42:10.620 --> 42:11.620]  como decir, yo me siento
+[42:12.620 --> 42:14.620]  a vender el producto hoy,
+[42:15.620 --> 42:16.620]  pero si no lo tengo,
+[42:17.620 --> 42:18.620]  ¿qué voy a vender?
+[42:19.620 --> 42:20.620]  Yo tengo un poco, digamos,
+[42:21.620 --> 42:25.620]  mi forma de haber hecho siempre
+[42:26.620 --> 42:27.620]  trabajos es primero saber
+[42:28.620 --> 42:29.620]  lo que voy a brindar.
+[42:30.620 --> 42:32.620]  Entonces, eso me da la tranquilidad
+[42:33.620 --> 42:34.620]  de dónde me meto.
+[42:35.620 --> 42:38.620]  Ofrecerte algo que no sé cómo va a funcionar
+[42:38.620 --> 42:39.620]  no me da mi tranquilidad.
+[42:40.620 --> 42:41.620]  O sea, imagínate que yo digo,
+[42:42.620 --> 42:43.620]  si yo te lo te doy,
+[42:44.620 --> 42:46.620]  publico en un Play Store,
+[42:47.620 --> 42:48.620]  publico algo que me encuentro
+[42:49.620 --> 42:50.620]  que después es una catarata de problemas,
+[42:51.620 --> 42:52.620]  no, no es para mí,
+[42:53.620 --> 42:56.620]  no me resulta atractivo para nada.
+[42:57.620 --> 43:00.620]  Pero bueno, pero me acoplo a esto
+[43:01.620 --> 43:04.620]  y hago el ejercicio de tener un poco,
+[43:05.620 --> 43:06.620]  a ver qué es lo que necesitaría
+[43:06.620 --> 43:09.620]  y bueno, y les doy para avanzar
+[43:10.620 --> 43:14.620]  y poder tener esto que es el producto final.
+[43:15.620 --> 43:16.620]  Hay otra cosa que yo no sé
+[43:17.620 --> 43:18.620]  hasta qué punto es un problema,
+[43:19.620 --> 43:20.620]  pero en algún software que se vende
+[43:21.620 --> 43:22.620]  bastante por España,
+[43:23.620 --> 43:24.620]  he oído mucha gente que lo tiene,
+[43:25.620 --> 43:26.620]  pero lo tiene pirata,
+[43:27.620 --> 43:28.620]  software de móvil,
+[43:29.620 --> 43:30.620]  y bueno, que por cinco euros
+[43:31.620 --> 43:32.620]  no vale la pena piratear nada,
+[43:33.620 --> 43:34.620]  pero hay gente que sí que lo tiene pirata
+[43:34.620 --> 43:36.620]  en las versiones de Android
+[43:37.620 --> 43:38.620]  o de iOS piratas,
+[43:39.620 --> 43:40.620]  lo digo porque si en el caso
+[43:41.620 --> 43:42.620]  de que el software no se venda
+[43:43.620 --> 43:45.620]  y simplemente con cada hardware
+[43:46.620 --> 43:47.620]  que tú compras,
+[43:48.620 --> 43:49.620]  si compras nuestro microcontrolador
+[43:50.620 --> 43:51.620]  que es reinalámbrico
+[43:52.620 --> 43:53.620]  o compras el aparato que estás haciendo tú,
+[43:54.620 --> 43:55.620]  con eso se regala una licencia de software
+[43:56.620 --> 43:57.620]  e incluso se puede pensar
+[43:58.620 --> 43:59.620]  que esa licencia de software
+[44:00.620 --> 44:01.620]  conecta con ese producto
+[44:02.620 --> 44:03.620]  de manera que va a ser para leer
+[44:04.620 --> 44:05.620]  y efectivo, pero bueno,
+[44:06.620 --> 44:07.620]  en ese caso pues nada,
+[44:08.620 --> 44:09.620]  en ese caso cada uno compra lo suyo,
+[44:10.620 --> 44:11.620]  sabes que el software es de ese producto
+[44:12.620 --> 44:13.620]  y con la venta del producto
+[44:14.620 --> 44:15.620]  tiene el software,
+[44:16.620 --> 44:17.620]  y piratería ninguna porque si no tienen el producto
+[44:18.620 --> 44:19.620]  no van a tener el software para nada,
+[44:20.620 --> 44:21.620]  esto puede llegar a pasar,
+[44:22.620 --> 44:23.620]  puede ser otra opción,
+[44:24.620 --> 44:25.620]  decir que el software no se vende
+[44:26.620 --> 44:27.620]  sino que se incluye con el producto
+[44:28.620 --> 44:29.620]  con tu electrónica o con nuestra electrónica,
+[44:30.620 --> 44:32.620]  que es un poco lo que nos pasa a nosotros,
+[44:32.620 --> 44:33.620]  a nosotros la gente cronolando
+[44:34.620 --> 44:35.620]  lo baja por nada,
+[44:36.620 --> 44:37.620]  lo baja porque compra un hardware
+[44:38.620 --> 44:39.620]  y al comprar un hardware
+[44:40.620 --> 44:41.620]  baja el software para usar ese hardware.
+[44:42.620 --> 44:43.620]  Bueno, pero yo lo he bajado
+[44:44.620 --> 44:45.620]  y no he comprado ningún hardware.
+[44:46.620 --> 44:47.620]  No, pero no es un usuario normal,
+[44:48.620 --> 44:49.620]  pero la mayoría de usuarios
+[44:50.620 --> 44:51.620]  tienen un hardware que nos ha comprado
+[44:52.620 --> 44:53.620]  nosotros, o bueno,
+[44:54.620 --> 44:55.620]  o que lo han fabricado, pero pocos,
+[44:56.620 --> 44:57.620]  y lo compran ¿no?
+[44:58.620 --> 44:59.620]  Entonces te digo,
+[45:00.620 --> 45:01.620]  en la venta del producto
+[45:02.620 --> 45:03.620]  lo que sea para ti o lo que sea,
+[45:04.620 --> 45:05.620]  pues nada, tu opción.
+[45:06.620 --> 45:07.620]  Pero bueno, no es la que más conviene,
+[45:08.620 --> 45:09.620]  yo incluso,
+[45:10.620 --> 45:11.620]  yo,
+[45:12.620 --> 45:13.620]  una de las,
+[45:14.620 --> 45:15.620]  tiene, a ver,
+[45:16.620 --> 45:17.620]  tiene una traba,
+[45:18.620 --> 45:19.620]  yo creo que ahora,
+[45:20.620 --> 45:21.620]  no me acuerdo qué fecha,
+[45:22.620 --> 45:23.620]  pero yo puse una,
+[45:24.620 --> 45:25.620]  una traba para que no pueda ser usado
+[45:26.620 --> 45:27.620]  a partir de una fecha,
+[45:28.620 --> 45:29.620]  no me acuerdo cuál,
+[45:30.620 --> 45:31.620]  qué fecha,
+[45:32.620 --> 45:33.620]  digamos utilizando NTP,
+[45:34.620 --> 45:35.620]  digamos,
+[45:36.620 --> 45:37.620]  algunas cositas de seguridad
+[45:38.620 --> 45:39.620]  como para ver qué función.
+[45:40.620 --> 45:41.620]  La primera fue en septiembre,
+[45:42.620 --> 45:43.620]  pero ustedes no lo usaron,
+[45:44.620 --> 45:45.620]  con lo cual no me dijeron nada,
+[45:46.620 --> 45:47.620]  pero sí, un par de pibes
+[45:48.620 --> 45:49.620]  que lo están usando y probándolo,
+[45:50.620 --> 45:51.620]  me llamaron diciendo,
+[45:52.620 --> 45:53.620]  no sé qué pasó que no lo puedo usar más,
+[45:54.620 --> 45:55.620]  decía,
+[45:56.620 --> 45:57.620]  la versión había caducado,
+[45:58.620 --> 45:59.620]  la prueba,
+[46:00.620 --> 46:01.620]  y bueno, nada,
+[46:02.620 --> 46:03.620]  yo no sé,
+[46:04.620 --> 46:05.620]  es como la piratería,
+[46:06.620 --> 46:07.620]  no sé, pone el enandro,
+[46:08.620 --> 46:10.620]  que es maestrillado,
+[46:11.620 --> 46:12.620]  si hay,
+[46:13.620 --> 46:14.620]  alguna forma de,
+[46:15.620 --> 46:16.620]  pasar del fuente,
+[46:17.620 --> 46:19.620]  pasar del objeto al fuente,
+[46:20.620 --> 46:21.620]  no lo sé,
+[46:22.620 --> 46:23.620]  sé que en otras,
+[46:24.620 --> 46:25.620]  por ejemplo que yo en Arduino,
+[46:26.620 --> 46:27.620]  aparentemente yo del firmware podría pasar al fuente,
+[46:28.620 --> 46:29.620]  pero bueno,
+[46:30.620 --> 46:31.620]  después no sé qué otras formas
+[46:32.620 --> 46:33.620]  de pirateo,
+[46:34.620 --> 46:35.620]  no lo desconecto,
+[46:36.620 --> 46:37.620]  pero bueno, eso me parece que no sería lo deseable,
+[46:40.620 --> 46:41.620]  porque digamos,
+[46:42.620 --> 46:43.620]  si vos tenés que,
+[46:44.620 --> 46:45.620]  tanto yo como vos,
+[46:46.620 --> 46:47.620]  tenemos que incluir,
+[46:48.620 --> 46:49.620]  no sé, los cinco euros de,
+[46:50.620 --> 46:51.620]  de la licencia,
+[46:52.620 --> 46:53.620]  me parece que no sería,
+[46:54.620 --> 46:55.620]  no sé, no sería la mejor opción.
+[46:59.620 --> 47:00.620]  Bueno, es una opción como otra,
+[47:00.620 --> 47:01.620]  el software es tuyo,
+[47:02.620 --> 47:03.620]  o sea que,
+[47:04.620 --> 47:05.620]  piénsalo de quien lo haces.
+[47:06.620 --> 47:07.620]  Bueno, lo pienso,
+[47:08.620 --> 47:09.620]  les doy una respuesta,
+[47:10.620 --> 47:11.620]  a ver qué alternativas,
+[47:12.620 --> 47:14.620]  trato, digamos,
+[47:15.620 --> 47:16.620]  de,
+[47:17.620 --> 47:18.620]  de cómo es,
+[47:19.620 --> 47:20.620]  de ver esta conversación,
+[47:21.620 --> 47:22.620]  a ver qué alternativas,
+[47:23.620 --> 47:24.620]  me seduce,
+[47:25.620 --> 47:26.620]  y bueno,
+[47:27.620 --> 47:28.620]  y nada,
+[47:28.620 --> 47:29.620]  y qué valor,
+[47:30.620 --> 47:31.620]  usted es cosa que no está,
+[47:32.620 --> 47:33.620]  pero para,
+[47:34.620 --> 47:35.620]  para poder tener todos los elementos,
+[47:36.620 --> 47:37.620]  digo,
+[47:38.620 --> 47:39.620]  qué,
+[47:40.620 --> 47:41.620]  qué valor es estar hablando
+[47:42.620 --> 47:43.620]  en caso de que yo diga,
+[47:44.620 --> 47:45.620]  bueno, está bien,
+[47:46.620 --> 47:47.620]  te lo vendo,
+[47:48.620 --> 47:49.620]  te doy todo,
+[47:50.620 --> 47:51.620]  les doy todo el código,
+[47:52.620 --> 47:53.620]  ahí qué opciones,
+[47:54.620 --> 47:55.620]  tienen opciones,
+[47:56.620 --> 47:57.620]  o no es una opción.
+[47:58.620 --> 47:59.620]  Y bueno,
+[48:00.620 --> 48:01.620]  porque,
+[48:02.620 --> 48:03.620]  es un árbol,
+[48:04.620 --> 48:05.620]  es un adjective,
+[48:06.620 --> 48:07.620]  estaba bien,
+[48:08.620 --> 48:23.620]  entonces,
+[48:24.620 --> 48:26.620]  Dot,
+[48:26.620 --> 48:30.540]  te puede pagar en mi opinión mucho porque muchas de las horas han sido de aprendizaje
+[48:30.540 --> 48:35.780]  porque era tu primera aplicación móvil. No, no es mi primera aplicación en móvil,
+[48:35.780 --> 48:40.980]  pero sí con el lenguaje. Bueno, sí, sí, sí, pero está claro que si ahora hicieras
+[48:40.980 --> 48:48.740]  una degalga de fuerza, las horas cundirían más, entonces yo buscaría un precio de persona
+[48:48.740 --> 48:54.740]  en Argentina que está en tecnología pero sin ser una cosa muy alta, más o menos lo
+[48:54.740 --> 49:02.220]  que se paga, minorías las horas y pagaría eso y se terminaría así y se cedería y ya está. Pero
+[49:02.220 --> 49:06.780]  esto sería mi propuesta, a lo mejor Xavi o su padre no están completamente de acuerdo, pero yo
+[49:06.780 --> 49:11.980]  haría algo así. ¿Cuánto cobra un ingeniero de nivel bajo de allá? Que claro, nosotros con el
+[49:11.980 --> 49:16.140]  tema de la diferencia económica seguramente es algo mucho más pagable que si lo hubiera hecho un
+[49:16.140 --> 49:24.460]  canadiense. No, pero guarda, porque ahora, por eso digo, nuestra economía está muy distinta,
+[49:24.460 --> 49:40.540]  yo digo, hoy el peso está muy valuado, un profesional o un programador bajo en Argentina
+[49:40.540 --> 49:47.260]  gana más que capaz que en España, ojo. ¿Por qué? Porque el valor del dólar está barato, por eso
+[49:47.260 --> 49:53.740]  digo, si usted lee las noticias argentinas, este es un país inviable, porque hoy el dólar está
+[49:53.740 --> 50:01.900]  barato. De hecho, yo en mi último, bueno, ahora cuando estuve en marzo, no marzo, una cosa así,
+[50:01.900 --> 50:10.860]  estuve en marzo-abril. Para mí, a diferencia de los años anteriores que había ido, donde sufría
+[50:10.860 --> 50:20.220]  más, yo la verdad que me sentía recontraacomodo porque podía gastar euros, digamos, sin mucho
+[50:20.220 --> 50:32.580]  problema, ¿no? La ecuación, me salía más barato este año tomar un café con la tostada, con tomate
+[50:32.580 --> 50:46.940]  y palta y crudo, que a mí, a ver, en Madrid lo pagaba, creo que tres euros con diez, una cosa así,
+[50:46.940 --> 50:55.020]  y que en ese momento eran algo así como unos, vamos a ponerle, cuatro mil pesos argentinos,
+[50:55.020 --> 51:04.280]  mientras que lo mismo en Argentina me salía 18 mil pesos. Pues viene aquí, la opción mejor es que
+[51:04.280 --> 51:10.380]  esté aquí, ¿eh? Y claro, si ustedes, bueno, pero contratenme y yo me voy para allá. Si ustedes me
+[51:10.380 --> 51:17.860]  contratan y yo voy a trabajar con ustedes, yo me retiraré de mi camino. ¿Cómo? Eso no creo que
+[51:17.860 --> 51:29.140]  fuera un problema. Si no fuera un problema, piénselo y capaz que, digo yo, estaría encantado de estar allá.
+[51:29.140 --> 51:39.300]  Mira, recuerda que yo les dije que compré un S3 que me va a llegar en noviembre, yo estoy, ahora ya
+[51:39.300 --> 51:47.540]  llegó al país, ¿sí? Llegó al país y posiblemente en vez del 7 de noviembre, que era la fecha que
+[51:47.540 --> 51:55.220]  tenía estipulada, en una de esas me llega antes de esa fecha, pero hay que ver porque hace 10 días
+[51:55.220 --> 52:04.840]  que está en el país. Digo, no, yo estaría, a ver, digo, nada, yo, la verdad que estaría feliz y yéndome,
+[52:04.840 --> 52:10.340]  aparte de vuelta, tengo a mi nieto, tengo a mi hija, está bien, uno está en Barcelona, el otro está en Madrid,
+[52:10.340 --> 52:16.740]  pero por ejemplo estas plaquitas que ustedes hacen las mismas, ya en el mismo lugar, ¿eh?
+[52:16.740 --> 52:30.780]  No las encargo de acá, ahora mi hija viene para las fiestas, viene de acá a Argentina, así que voy a encargar,
+[52:30.780 --> 52:43.060]  van a venir antes que si me las mandan de allá, de China, pero bueno, la opción, y ahí sería barato,
+[52:43.060 --> 52:51.660]  porque tampoco quiero, necesito mucha plata, digo, pero nosotros estamos desbordados, hay muchos
+[52:51.660 --> 52:58.140]  proyectos y hay mucho código que hacer, hay muchas cosas que revisar, entonces la opción favorita es
+[52:58.140 --> 53:04.180]  que no es nuestro provecho económico, es que esto pueda funcionar sin que le dediquemos más recursos,
+[53:04.180 --> 53:09.020]  entonces si te contratamos y lo haces, pues lo haces, y si no te contratamos, lo haces por tu cuenta,
+[53:09.020 --> 53:14.980]  pero si Charly o yo tenemos que estar mirando tu código y respondiendo a usuarios y tal, ahora mismo
+[53:14.980 --> 53:20.300]  no llegamos de ninguna manera, y si fichamos a otra persona para que lo haga, pues bueno, mejor que lo hagas tú,
+[53:20.300 --> 53:28.900]  entonces más que pagar por la aplicación, preferiríamos que suscribiras lo más vinculado posible y continuando.
+[53:28.900 --> 53:35.620]  Bueno, yo les dejo, yo la semana que viene pienso esto que me está diciendo, bueno, piensen qué posibilidad
+[53:35.620 --> 53:42.620]  que ya tengo desde el año que viene y que me hagan una especie de contrato, algo que pueda estar trabajando con ustedes.
+[53:42.620 --> 53:45.620]  ¿Pero en Barcelona o en Argentina?
+[53:45.620 --> 53:47.620]  No, no, en Barcelona.
+[53:47.620 --> 53:50.620]  Pero tú sabes lo que vale vivir en Barcelona.
+[53:50.620 --> 53:52.620]  Bueno, también.
+[53:52.620 --> 54:03.620]  Yo no estoy en Barcelona, porque es carísimo, Charly tiene un piso y tiene algún estudiante allí y le sale bastante bien, pero es caro, ¿eh?
+[54:03.620 --> 54:17.620]  No, no, ya lo sé, por supuesto, lo sé, no en Barcelona, no lo sé, si en Madrid lo que es, y además, bueno, yo estoy gestionando todavía la ciudadanía,
+[54:17.620 --> 54:29.620]  me tienen que responder, hace un año que presenté todos los papeles, pero bueno, igual allá yo no sé cómo es el tema, porque
+[54:30.620 --> 54:41.620]  bueno, yo tengo a mi hija viviendo allá, no sé cómo es el tema de papeles, pero bueno, no sé si hay alguna alternativa, yo feliz estaría de trabajar.
+[54:41.620 --> 54:48.620]  Bueno, es una cosa que podemos plantearnos, o incluso un modelo mixto, que pases medio año aquí y medio año allí, no sé.
+[54:48.620 --> 54:54.620]  Bueno, sí, eso sí, pero por supuesto, sí, sí, vale.
+[54:55.620 --> 55:02.620]  Sí, lo que pasa es que el problema de contratarte es que ahí también es un poco diferente, no sé si te interesa tanto,
+[55:02.620 --> 55:10.620]  porque imagínate que te contratamos y tú estás dos años viviendo con nosotros, claro, te pagamos como un trabajador, pero claro, entonces el software es nuestro,
+[55:10.620 --> 55:19.620]  entonces dentro de dos años tú te retiras y tienes una pensión, etcétera, te vas a Argentina o no, pero el software es nuestro y tú ya no ganas ninguna copia,
+[55:19.620 --> 55:27.620]  porque tú simplemente, como Chad y yo, si se venden muchas plataformas, pues se venden, porque tenemos nuestro sueldo, si se venden más plataformas cobramos lo mismo,
+[55:27.620 --> 55:33.620]  entonces si el día de mañana te retiras de trabajar y tal, pues ya no ganas nada de eso porque ya lo has ganado antes.
+[55:33.620 --> 55:44.620]  En cambio, si tú tienes tu aplicación móvil y tienes tu tienda, como si quieres estar hasta los 80 años sacando versiones y tienes ahí la fuente de ingresos mientras sigas programando bien,
+[55:44.620 --> 55:51.620]  o sea que es diferente cosa, vas, das, cobras, es lo que decíamos, sería cobras por horas o cobras por unas copias.
+[55:51.620 --> 55:58.620]  Claro, la ventaja de vender copias es que si el software funciona bien y hay que tocar poco, son copias que salen pues saliendo de ahí.
+[55:58.620 --> 56:04.620]  En cambio, si te contratamos, claro, yo creo que absorbimos el software, creo que eso sería una cosa bastante normal.
+[56:04.620 --> 56:11.620]  Por ejemplo, hay un chico que conocemos muy bien que hizo un software de táctica deportiva y lo hacía a tiempo libre,
+[56:11.620 --> 56:16.620]  pero no ganaba mucho dinero y fichó por una empresa muy buena y al final hacía las dos cosas y no daba.
+[56:16.620 --> 56:23.620]  Y al final él de algún modo lo que hizo es vendió el software a su empresa y en esa empresa se dedicó a hacer su software.
+[56:23.620 --> 56:25.620]  Por eso al final lo derivaron a otra tarea.
+[56:25.620 --> 56:30.620]  Pero lo normal es que cuando contratas a alguien el software de esa persona lo absorbes,
+[56:30.620 --> 56:36.620]  que es lo que hace cualquier Microsoft que pilla el Excel, contara a todos los trabajadores y se queda con el software.
+[56:37.620 --> 56:42.620]  De ahí es de la empresa y el trabajador cobra por las horas y no por el software en sí.
+[56:42.620 --> 56:49.620]  Está bien, bueno, les dejo igual la inquietud, ahí tomo lo de Javi, a eso de estar seis meses y seis meses,
+[56:49.620 --> 56:59.620]  no sería, aparte de ustedes, también podrían venir porque yo sigo teniendo acá, no voy a vender nada ni nada, tengo, digamos, para estar.
+[56:59.620 --> 57:14.620]  Yo la semana que viene, de todos modos, mastico todo esto y les mando un mensaje y nos juntamos un ratito a ver qué opciones,
+[57:14.620 --> 57:27.620]  de todos modos, digamos, mi idea sería poder continuar, buscarle, me interesa mucho esto de terminarlo, de hacerlo.
+[57:27.620 --> 57:39.620]  Yo lo tengo, digamos, de hecho lo tengo como proyecto y yo calculo que incluso en el próximo mes o una cosa así,
+[57:39.620 --> 57:46.620]  estoy cerrando como para tener algo viable, la alfombra la tengo resuelta, que era lo que más me interesaba,
+[57:46.620 --> 58:03.620]  fue una cuestión de materiales, pude hacer una alfombra buena, creo yo, que la siguen probando y empezar a ofrecerlo y tenerlo.
+[58:03.620 --> 58:09.620]  Bueno, la semana que viene les mando un mensaje y nos comunicamos.
+[58:10.620 --> 58:16.620]  Nosotros, por ejemplo, en mi colegio tenemos una en mi facultad como un día especial y vamos a hacer cronograma allá
+[58:16.620 --> 58:22.620]  y a mí me encantaría mostrarles un momento que tenemos una aplicación móvil bastante cerca de salir, mostrarlo un momento.
+[58:22.620 --> 58:33.620]  Bueno, sí, eso sería grandioso, sería bueno. Bueno, hablamos entonces la semana que viene.
+[58:34.620 --> 58:37.620]  Vale, perfecto. Buen fin de semana.
+[58:37.620 --> 58:38.620]  Chau.
+[58:38.620 --> 58:40.620]  Venga, igual a todos.
+[58:40.620 --> 58:43.620]  Chaby, ¿vos queréis parar en dos minutos?
+[58:43.620 --> 58:45.620]  Sí.

@@ -1,0 +1,4610 @@
+
+
+==================================================
+ARCHIVO: add_person_to_session_screen.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/add_person_to_session_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'session_model.dart';
+import 'user_provider.dart';
+import 'session_person_provider.dart';
+import 'user_model.dart';
+
+class AddPersonToSessionScreen extends StatelessWidget {
+  final Session session;
+  const AddPersonToSessionScreen({super.key, required this.session});
+
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    // Usamos 'watch' para que la UI se actualice al marcar/desmarcar
+    final sessionPersonProvider = context.watch<SessionPersonProvider>();
+
+    if (userProvider.isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Seleccionar Personas')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final List<User> allPeople = userProvider.users;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Seleccionar Personas'),
+      ),
+      body: allPeople.isEmpty
+          ? const Center(
+              child: Text('No hay personas creadas.'),
+            )
+          : ListView.builder(
+              itemCount: allPeople.length,
+              itemBuilder: (context, index) {
+                final person = allPeople[index];
+                final bool isSelected = sessionPersonProvider.isPersonInSession(
+                  session.sessionID,
+                  person.uniqueID,
+                );
+
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: CheckboxListTile(
+                    secondary: CircleAvatar(child: Text(person.firstName[0])),
+                    title: Text('${person.firstName} ${person.lastName}'),
+                    subtitle: Text('ID: ${person.uniqueID}'),
+                    value: isSelected,
+                    onChanged: (bool? value) {
+                      // Usamos 'read' dentro de un callback para llamar a la función sin redibujar todo
+                      context.read<SessionPersonProvider>().togglePersonInSession(
+                            session.sessionID,
+                            person,
+                          );
+                    },
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: ble_connection_screen.dart
+==================================================
+
+import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:iteracion6/ble_repository.dart'; // Asegúrate de que la ruta sea correcta
+import 'package:provider/provider.dart'; // Añade esta importación si no la tienes
+
+class BleConnectionScreen extends StatefulWidget {
+  final BluetoothDevice device;
+
+  const BleConnectionScreen({Key? key, required this.device}) : super(key: key);
+
+  @override
+  State<BleConnectionScreen> createState() => _BleConnectionScreenState();
+}
+
+class _BleConnectionScreenState extends State<BleConnectionScreen> {
+  // Ya no necesitas esta línea si usas Provider, pero la dejo por si la usas en otros sitios
+  // final BleRepository _bleRepo = BleRepository();
+  String _status = 'Iniciando conexión...';
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('[BLE] InitState - Dispositivo: ${widget.device.remoteId}');
+
+    // <--- CAMBIO INICIA ---
+    // LÍNEA ORIGINAL (causa el error):
+    // _initiateConnection();
+
+    // CORRECCIÓN APLICADA:
+    // Agendamos la conexión para que se ejecute después de que la pantalla
+    // se haya construido por primera vez.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _initiateConnection();
+      }
+    });
+    // <--- CAMBIO TERMINA ---
+  }
+
+  Future<void> _initiateConnection() async {
+    // Es una buena práctica obtener el provider aquí, dentro de un método.
+    final bleRepo = Provider.of<BleRepository>(context, listen: false);
+
+    setState(() {
+      _status = 'Conectando y descubriendo servicios...';
+      _isLoading = true;
+    });
+
+    final success = await bleRepo.connectAndDiscoverServices(widget.device);
+
+    if (mounted) {
+      setState(() {
+        if (success) {
+          _status = 'Conectado a ${widget.device.platformName}\n'
+              'Servicios encontrados: ${bleRepo.writeCharacteristics.length + bleRepo.notifyCharacteristics.length} (escritura/notificación)';
+        } else {
+          _status = 'Error al conectar/descubrir servicios.';
+        }
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Conexión BLE'),
+        backgroundColor: const Color(0xFF3d5a80),
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: _isLoading
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircularProgressIndicator(color: Color(0xFFee6c4d)),
+                  const SizedBox(height: 20),
+                  Text(_status,
+                      style: const TextStyle(color: Color(0xFF293241))),
+                ],
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _status,
+                    style: const TextStyle(
+                        fontSize: 18, color: Color(0xFF293241)),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF98c1d9),
+                      foregroundColor: const Color(0xFF293241),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text('Volver al menú'),
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: ble_notifications_screen.dart
+==================================================
+
+// ARCHIVO REFACTORIZADO: lib/ble_notifications_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:lottie/lottie.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+// --- NUEVA IMPORTACIÓN DEL SERVICIO DE GUARDADO ---
+import 'jump_storage_service.dart';
+// ------------------------------------------------
+
+import 'ble_repository.dart';
+import 'jump_data_processor.dart';
+import 'bluetooth_provider.dart';
+import 'user_model.dart';
+
+class BleNotificationsScreen extends StatefulWidget {
+  final String jumpType;
+  final int? sessionID;
+  final User? person;
+  final int limiteSaltos;
+  final int limiteTiempo;
+  final bool comienzaDesdeAdentro;
+  final double pesoExtra;
+  final bool ultimoSaltoCompleto;
+  final double alturaCaida;
+  final double pesoPersona;
+  final int alturaPersona;
+
+  const BleNotificationsScreen({
+    super.key,
+    required this.jumpType,
+    this.sessionID,
+    this.person,
+    this.limiteSaltos = 0,
+    this.limiteTiempo = 0,
+    this.comienzaDesdeAdentro = true,
+    this.pesoExtra = 0.0,
+    this.ultimoSaltoCompleto = true,
+    this.alturaCaida = 0.0,
+    this.pesoPersona = 0.0,
+    this.alturaPersona = 0,
+  });
+
+  @override
+  State<BleNotificationsScreen> createState() => _BleNotificationsScreenState();
+}
+
+class _BleNotificationsScreenState extends State<BleNotificationsScreen>
+    with SingleTickerProviderStateMixin {
+  late final BleRepository _bleRepo;
+  late final BleMessageProcessor _messageProcessor;
+  File? _lastSavedFile;
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  StreamSubscription<int>? _pinStateSubscription;
+  StreamSubscription<JumpData>? _jumpDataSubscription;
+  StreamSubscription<bool>? _seriesEndSubscription;
+  StreamSubscription<bool>? _deviceResetSubscription;
+  StreamSubscription<String>? _unrecognizedMessageSubscription;
+
+  int _lastPinState = -1;
+  bool _isSendingCommand = false;
+  bool _isJumpInProgress = false;
+  late AnimationController _animationController;
+
+  List<JumpData> _jumpHistory = [];
+  List<JumpData> _unsavedJumps = [];
+
+  final ScrollController _scrollController = ScrollController();
+  String _tempFeedbackMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('--- Pantalla de Medición Iniciada ---');
+    debugPrint('Parámetro jumpType: ${widget.jumpType}');
+    if (widget.jumpType.startsWith('MULTI')) {
+      debugPrint('Límite de Saltos: ${widget.limiteSaltos}');
+      debugPrint('Límite de Tiempo: ${widget.limiteTiempo}');
+    }
+    debugPrint('-------------------------------------');
+
+    _bleRepo = Provider.of<BleRepository>(context, listen: false);
+    _messageProcessor = Provider.of<BleMessageProcessor>(
+      context,
+      listen: false,
+    );
+
+    _messageProcessor.configurarNuevaPrueba(
+      jumpType: widget.jumpType,
+      limiteSaltos: widget.limiteSaltos,
+      limiteTiempo: widget.limiteTiempo,
+      comienzaDesdeAdentro: widget.comienzaDesdeAdentro,
+    );
+    _lastPinState = BluetoothProvider().lastPinState;
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _setupBluetoothListeners();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _sendInitialCommand();
+      }
+    });
+  }
+
+  void _setupBluetoothListeners() {
+    _pinStateSubscription = _messageProcessor.pinStateStream.listen(
+      (pinState) {
+        debugPrint('[APP] Pin State recibido: $pinState');
+        final previousPinState = _lastPinState;
+        if (mounted) {
+          setState(() {
+            _lastPinState = pinState;
+            if (_isJumpInProgress || widget.jumpType != 'DJ_EX') {
+              _tempFeedbackMessage = '';
+            }
+          });
+        }
+        _controlAnimation();
+        if (widget.jumpType != 'DJ_EX' &&
+            !_isJumpInProgress &&
+            previousPinState != 0 &&
+            pinState == 0) {
+          _playSound('start.wav');
+        }
+        if (pinState == 1) {
+          _deactivateJumpMode();
+        }
+      },
+      onError: (e) => debugPrint('[APP] Error en pinStateStream: $e'),
+    );
+
+    _jumpDataSubscription = _messageProcessor.jumpDataStream.listen(
+      (newJump) {
+        debugPrint('[APP] JumpData recibido: ${newJump.height} cm');
+        if (mounted) {
+          setState(() {
+            _jumpHistory.add(newJump);
+            _unsavedJumps.add(newJump);
+            _isJumpInProgress = false;
+            _tempFeedbackMessage = '';
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('¡Salto registrado! Altura: ${newJump.height.toStringAsFixed(2)} cm'),
+              ),
+            );
+          });
+          _playSound('start.wav');
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (_scrollController.hasClients) {
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
+            }
+          });
+        }
+      },
+      onError: (e) {
+        debugPrint('[APP] Error en jumpDataStream: $e');
+        if (mounted) {
+          setState(() {
+            _isJumpInProgress = false;
+            _tempFeedbackMessage = '';
+          });
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error al procesar datos de salto: $e')),
+          );
+        }
+      },
+    );
+
+    // --- LISTENER ACTUALIZADO ---
+    _seriesEndSubscription = _messageProcessor.seriesEndStream.listen((_) {
+      debugPrint('[APP] Fin de serie detectado. Guardando datos si es necesario...');
+     Future.delayed(const Duration(milliseconds: 250), () {
+        if (mounted && _unsavedJumps.isNotEmpty) {
+          debugPrint('[APP] Retraso completado. Guardando ${_unsavedJumps.length} saltos.');
+          _triggerSaveData();
+        } else if (mounted) {
+           debugPrint('[APP] Retraso completado. No hay saltos sin guardar.');
+        }
+      });
+      if (mounted && _unsavedJumps.isNotEmpty) {
+        // Se llama a la nueva función que delega el guardado.
+        _triggerSaveData();
+      }
+    }, onError: (e) {
+      debugPrint('[APP] Error en seriesEndStream: $e');
+    });
+    // ----------------------------
+
+    _deviceResetSubscription = _messageProcessor.deviceResetStream.listen(
+      (_) {
+        debugPrint('[APP] Dispositivo BLE reiniciado (boton,14).');
+        _resetToInitialState();
+        if (mounted) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Ciclo de salto reiniciado por el dispositivo.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      },
+      onError: (e) => debugPrint('[APP] Error en deviceResetStream: $e'),
+    );
+
+    _unrecognizedMessageSubscription =
+        _messageProcessor.unrecognizedMessageStream.listen(
+      (message) => debugPrint('[APP] Mensaje no reconocido del BLE: "$message"'),
+      onError: (e) => debugPrint('[APP] Error en unrecognizedMessageStream: $e'),
+    );
+  }
+
+  // --- NUEVA FUNCIÓN QUE LLAMA AL SERVICIO DE GUARDADO ---
+  Future<void> _triggerSaveData() async {
+    debugPrint("[UI] Se llamó a _triggerSaveData con ${_unsavedJumps.length} saltos.");
+
+    if (_unsavedJumps.isEmpty) {
+      debugPrint('[UI] No hay nuevos saltos para guardar.');
+      return;
+    }
+
+    // Se obtiene el servicio desde el provider.
+    final storageService = context.read<JumpStorageService>();
+
+    try {
+      // Se llama al servicio con todos los datos necesarios.
+      final savedFile = await storageService.saveData(
+        jumpsToSave: List.from(_unsavedJumps), // Se pasa una copia de la lista
+        jumpType: widget.jumpType,
+        person: widget.person,
+        sessionID: widget.sessionID,
+        limiteSaltos: widget.limiteSaltos,
+        limiteTiempo: widget.limiteTiempo,
+        alturaCaida: widget.alturaCaida,
+        pesoPersona: widget.pesoPersona,
+        alturaPersona: widget.alturaPersona,
+      );
+
+      // Si el servicio tuvo éxito, se actualiza la UI.
+      if (savedFile != null && mounted) {
+        setState(() {
+          _unsavedJumps.clear(); // Se limpia el búfer de saltos no guardados.
+          _lastSavedFile = savedFile; // Se guarda la referencia para "Compartir".
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Nuevos saltos guardados en: ${savedFile.path}')),
+        );
+      }
+    } catch (e) {
+      // Si el servicio falló, se muestra el error en la UI.
+      debugPrint("!!! ERROR en _triggerSaveData (UI): $e !!!");
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al guardar el archivo: $e')),
+        );
+      }
+    }
+  }
+
+  // --- EL RESTO DE FUNCIONES DE LA PANTALLA PERMANECEN IGUAL ---
+
+  Future<void> _stopSeriesCommand() async {
+    if (mounted) {
+      setState(() => _isJumpInProgress = false);
+      final command = utf8.encode('69');
+      await _bleRepo.writeData(command);
+      _playSound('end.wav');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Serie de saltos finalizada.')),
+      );
+    }
+  }
+
+  Future<void> _shareDataFile() async {
+    if (_lastSavedFile != null && await _lastSavedFile!.exists()) {
+      try {
+        final xFile = XFile(_lastSavedFile!.path);
+        await Share.shareXFiles([xFile], text: 'Historial de Saltos');
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error al compartir el archivo: $e')),
+          );
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No hay un archivo guardado recientemente para compartir.')),
+      );
+    }
+  }
+
+  Future<void> _playSound(String soundFile) async {
+    try {
+      await _audioPlayer.play(AssetSource('sounds/$soundFile'));
+    } catch (e) {
+      debugPrint('Error al reproducir sonido $soundFile: $e');
+      HapticFeedback.heavyImpact();
+    }
+  }
+
+  Future<void> _sendInitialCommand() async {
+    if (!_bleRepo.isConnected || _bleRepo.writeCharacteristics.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Dispositivo no conectado o no listo.')),
+        );
+      }
+      return;
+    }
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Comando enviado. Por favor, colóquese en la alfombra.'),
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
+
+  void _controlAnimation() {
+    if (_lastPinState == 0) {
+      _animationController.duration = const Duration(milliseconds: 700);
+      if (!_animationController.isAnimating) {
+        _animationController.repeat(reverse: true);
+      }
+    } else {
+      _animationController.duration = const Duration(milliseconds: 1000);
+      if (_animationController.isAnimating) {
+        _animationController.reset();
+      }
+    }
+  }
+
+  void _resetToInitialState() {
+    debugPrint('[APP] Reiniciando estado general.');
+    if (mounted) {
+      setState(() {
+        _isSendingCommand = false;
+        _isJumpInProgress = false;
+        _lastPinState = -1;
+        _animationController.reset();
+        _tempFeedbackMessage = '';
+      });
+    }
+    _sendInitialCommand();
+  }
+
+  void _deactivateJumpMode() {
+    if (mounted) {
+      setState(() {
+        _lastPinState = 1;
+        _isJumpInProgress = false;
+        _tempFeedbackMessage = '';
+      });
+    }
+    _controlAnimation();
+  }
+
+  Future<void> _sendJumpCommand() async {
+    if (!_bleRepo.isConnected || _bleRepo.writeCharacteristics.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No hay conexión BLE activa.')),
+        );
+      }
+      return;
+    }
+
+    String feedbackMessage = '';
+    String soundToPlay = '';
+    bool canSendBluetoothCommand = false;
+
+    bool debeComenzarAfuera = (widget.jumpType == 'DJ_EX') ? true : !widget.comienzaDesdeAdentro;
+
+    if (debeComenzarAfuera) {
+      if (_lastPinState == 1 || _lastPinState == -1) {
+        canSendBluetoothCommand = true;
+        feedbackMessage = '¡Listo! Inicie desde FUERA de la alfombra.';
+        soundToPlay = 'start.wav';
+      } else {
+        feedbackMessage = 'ERROR: DEBE INICIAR FUERA DE LA ALFOMBRA.';
+        soundToPlay = 'bad.wav';
+      }
+    } else {
+      if (_lastPinState == 0) {
+        canSendBluetoothCommand = true;
+        feedbackMessage = '¡Listo! Inicie desde DENTRO de la alfombra.';
+        soundToPlay = 'start.wav';
+      } else {
+        feedbackMessage = 'ERROR: DEBE ESTAR SOBRE LA ALFOMBRA PARA INICIAR.';
+        soundToPlay = 'bad.wav';
+      }
+    }
+
+    if (!canSendBluetoothCommand) {
+      await _playSound(soundToPlay);
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(feedbackMessage), duration: const Duration(seconds: 3)),
+        );
+        setState(() => _tempFeedbackMessage = feedbackMessage);
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) setState(() => _tempFeedbackMessage = '');
+        });
+      }
+      return;
+    }
+
+    _messageProcessor.iniciarRecoleccionManual(widget.jumpType);
+
+    if (mounted) {
+      setState(() {
+        _isSendingCommand = true;
+        _isJumpInProgress = true;
+        _tempFeedbackMessage = '';
+      });
+    }
+
+    try {
+      await _playSound(soundToPlay);
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(feedbackMessage), duration: const Duration(seconds: 3)),
+        );
+      }
+    } catch (e) {
+      debugPrint('Error al enviar comando de salto: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al enviar el comando de salto: $e')),
+        );
+        setState(() => _isJumpInProgress = false);
+      }
+    } finally {
+      if (mounted) setState(() => _isSendingCommand = false);
+    }
+  }
+
+  void _clearJumpHistory() {
+    if (mounted) {
+      setState(() {
+        _jumpHistory.clear();
+        _unsavedJumps.clear();
+      });
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Historial de saltos borrado.')),
+      );
+    }
+  }
+
+  void _removeJump(int index) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Eliminar Salto'),
+        content:
+            const Text('¿Estás seguro de que quieres eliminar este salto del historial?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Eliminar', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      // NOTA: Aquí aún existe la inconsistencia que discutimos.
+      // Se arreglará en un paso posterior.
+      final jumpToRemove = _jumpHistory[index];
+      setState(() {
+        _jumpHistory.removeAt(index);
+        _unsavedJumps.remove(jumpToRemove); // <-- ARREGLO TEMPORAL DE CONSISTENCIA
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Salto eliminado del historial.')),
+        );
+      }
+    }
+  }
+
+  Widget _buildStatusMessage() {
+    if (_isJumpInProgress) {
+      return const Text(
+        '¡SERIE DE SALTOS EN CURSO!',
+        style: TextStyle(fontSize: 18, color: Colors.orange, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      );
+    }
+    if (_tempFeedbackMessage.isNotEmpty) {
+      return Text(
+        _tempFeedbackMessage,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
+        textAlign: TextAlign.center,
+      );
+    }
+    final bool debeComenzarAdentro = (widget.jumpType == 'DJ_EX') ? false : widget.comienzaDesdeAdentro;
+    if (debeComenzarAdentro) {
+      switch (_lastPinState) {
+        case -1: return const Text('Esperando estado de la plataforma...', style: TextStyle(fontSize: 18, color: Colors.grey), textAlign: TextAlign.center);
+        case 0: return const Text('¡LISTO PARA SALTAR! Estás en la alfombra.', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green), textAlign: TextAlign.center);
+        case 1: return const Text('DEBE ESTAR EN LA ALFOMBRA PARA INICIAR.', style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.red), textAlign: TextAlign.center);
+      }
+    } else {
+      switch (_lastPinState) {
+        case -1:
+        case 1: return const Text('¡LISTO PARA SALTAR! Estás fuera de la alfombra.', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green), textAlign: TextAlign.center);
+        case 0: return const Text('DEBE ESTAR FUERA DE LA ALFOMBRA PARA INICIAR.', style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.red), textAlign: TextAlign.center);
+      }
+    }
+    return Text('Estado de sensor desconocido: $_lastPinState', style: const TextStyle(fontSize: 16, color: Colors.red), textAlign: TextAlign.center);
+  }
+
+  Widget _buildJumpHistoryList() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Historial de Saltos (${_jumpHistory.length})',
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.share, color: Colors.blue),
+                    onPressed: _shareDataFile,
+                    tooltip: 'Compartir archivo CSV',
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete_sweep_outlined),
+                    onPressed: _clearJumpHistory,
+                    tooltip: 'Limpiar todo el historial',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(4.0)),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+          child: Row(
+            children: const [
+              SizedBox(width: 40, child: Center(child: Text('N°', style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 2, child: Center(child: Text('Altura (cm)', style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 2, child: Center(child: Text('Vuelo (ms)', style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 2, child: Center(child: Text('Contacto (ms)', style: TextStyle(fontWeight: FontWeight.bold)))),
+              SizedBox(width: 40),
+            ],
+          ),
+        ),
+        Expanded(
+          child: _jumpHistory.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Los saltos registrados aparecerán aquí.',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : ListView.builder(
+                  controller: _scrollController,
+                  itemCount: _jumpHistory.length,
+                  itemBuilder: (context, index) {
+                    final jump = _jumpHistory[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      elevation: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 40, child: Center(child: Text('${index + 1}'))),
+                            Expanded(flex: 2, child: Center(child: Text(jump.height.toStringAsFixed(2)))),
+                            Expanded(flex: 2, child: Center(child: Text(jump.flightTime.toStringAsFixed(2)))),
+                            Expanded(flex: 2, child: Center(child: Text(jump.contactTime == 0 ? '-1' : jump.contactTime.toStringAsFixed(2)))),
+                            SizedBox(
+                              width: 40,
+                              child: IconButton(
+                                icon: const Icon(Icons.delete, color: Colors.red, size: 20),
+                                onPressed: () => _removeJump(index),
+                                tooltip: 'Eliminar este salto',
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    _pinStateSubscription?.cancel();
+    _jumpDataSubscription?.cancel();
+    _seriesEndSubscription?.cancel();
+    _deviceResetSubscription?.cancel();
+    _unrecognizedMessageSubscription?.cancel();
+    _animationController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Medición de Salto - ${widget.jumpType}'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _resetToInitialState,
+            tooltip: 'Reiniciar la medición',
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 150,
+            child: Lottie.asset(
+              'assets/animations/Animationjump.json',
+              controller: _animationController,
+              fit: BoxFit.contain,
+              animate: _lastPinState != -1,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: _buildStatusMessage(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Tooltip(
+              message: 'Inicia o detiene la serie de saltos.',
+              child: ElevatedButton.icon(
+                icon: _isJumpInProgress
+                    ? const Icon(Icons.stop, color: Colors.white)
+                    : (_isSendingCommand
+                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                        : const Icon(Icons.play_arrow, color: Colors.white)),
+                label: Text(
+                  _isJumpInProgress
+                      ? 'DETENER SERIE'
+                      : (_isSendingCommand ? 'ENVIANDO...' : 'INICIAR SERIE'),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _isJumpInProgress ? Colors.red : Colors.orange,
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                ),
+                onPressed: (_isSendingCommand || !_bleRepo.isConnected)
+                    ? null
+                    : () {
+                        if (_isJumpInProgress) _stopSeriesCommand();
+                        else _sendJumpCommand();
+                      },
+              ),
+            ),
+          ),
+          Expanded(child: _buildJumpHistoryList()),
+        ],
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: ble_repository.dart
+==================================================
+
+// ARCHIVO: ble_repository.dart
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'dart:convert'; // Necesario para utf8.decode
+ // <--- CAMBIO INICIA
+// 1. Importamos el provider para poder usarlo.
+import 'bluetooth_provider.dart';
+// <--- CAMBIO TERMINA
+
+class BleRepository extends ChangeNotifier {
+// Patrón Singleton para asegurar una única instancia del repositorio BLE
+static final BleRepository _instance = BleRepository._internal();
+factory BleRepository() => _instance;
+BleRepository._internal();
+
+BluetoothDevice? _device;
+final List<BluetoothCharacteristic> _writeChars = [];
+final List<BluetoothCharacteristic> _notifyChars = [];
+StreamSubscription<BluetoothConnectionState>? _connectionSub;
+
+// StreamController para exponer los mensajes BLE decodificados
+final StreamController<String> _messageController = StreamController<String>.broadcast();
+StreamSubscription<List<int>>? _notificationDataSubscription; // Nueva suscripción para los datos recibidos
+
+// Propiedades públicas para acceder al estado y características
+BluetoothDevice? get connectedDevice => _device;
+bool get isConnected => _device?.isConnected ?? false;
+List<BluetoothCharacteristic> get writeCharacteristics => _writeChars;
+List<BluetoothCharacteristic> get notifyCharacteristics => _notifyChars;
+
+// Getter para el stream de notificaciones procesadas (Strings)
+// Las pantallas de UI se suscribirán a este stream
+Stream<String> get bleMessageStream => _messageController.stream;
+
+// --- MÉTODOS PARA INTERACTUAR CON BLE ---
+
+/// Conecta a un dispositivo BLE y descubre sus servicios.
+/// Retorna `true` si la conexión y el descubrimiento son exitosos, `false` en caso contrario.
+Future<bool> connectAndDiscoverServices(BluetoothDevice device) async {
+try {
+// Si ya estamos conectados al mismo dispositivo, no hacer nada
+if (_device != null && _device?.remoteId == device.remoteId && _device!.isConnected) {
+debugPrint('[BLE Repo] Ya conectado al dispositivo: ${device.platformName}');
+  // <--- CAMBIO INICIA
+        // 2. Aseguramos que el estado sea 'conectado' si ya lo estaba.
+        BluetoothProvider().updateStatus(BleStatus.connected);
+        // <--- CAMBIO TERMINA
+// Asegurarse de que las notificaciones estén activas si ya estaba conectado
+if (_notifyChars.isNotEmpty && _notifyChars.first.isNotifying) {
+_startListeningToNotifications(); // Reiniciar la escucha si es necesario
+}
+return true;
+}
+
+// Limpia recursos de una conexión anterior si existiera
+if (_device != null) {
+await disconnect();
+}
+
+_device = device; // Asigna el nuevo dispositivo antes de intentar conectar
+notifyListeners(); // Notifica a los listeners que se está iniciando una nueva conexión
+// <--- CAMBIO INICIA
+      // 3. Notificamos que el proceso de conexión ha comenzado.
+      BluetoothProvider().updateStatus(BleStatus.connecting);
+      // <--- CAMBIO TERMINA
+
+// Intento de conexión
+debugPrint('[BLE Repo] Iniciando conexión a ${device.platformName}...');
+await device.connect(timeout: const Duration(seconds: 15));
+debugPrint('[BLE Repo] Conexión establecida con ${device.platformName}.');
+
+// Suscripción al estado de conexión del dispositivo
+_connectionSub?.cancel(); // Cancela cualquier suscripción anterior
+_connectionSub = device.connectionState.listen((state) {
+debugPrint('[BLE Repo] Estado de conexión de ${device.platformName}: $state');
+if (state == BluetoothConnectionState.disconnected) {
+_clearResources(); // Limpia los recursos si el dispositivo se desconecta
+}
+notifyListeners(); // Notifica cambios en el estado de conexión
+});
+
+// Descubrimiento de servicios y características
+debugPrint('[BLE Repo] Descubriendo servicios...');
+final services = await device.discoverServices();
+_writeChars.clear();
+_notifyChars.clear(); // Limpiar listas antes de añadir nuevas características
+
+int servicesFoundCount = 0;
+int charsFoundCount = 0;
+
+for (var service in services) {
+final serviceUuid = service.uuid.toString().toLowerCase();
+final shortServiceUuid = _getShortUuid(serviceUuid);
+
+// Ignorar servicios BLE estándar conocidos (GAP y GATT)
+if (shortServiceUuid == '1800' || shortServiceUuid == '1801') {
+debugPrint('[BLE Repo] Servicio $shortServiceUuid ignorado (estándar)');
+continue;
+}
+servicesFoundCount++;
+debugPrint('[BLE Repo] Servicio UUID: $shortServiceUuid ($serviceUuid)');
+
+for (var characteristic in service.characteristics) {
+final charShortUuid = _getShortUuid(characteristic.uuid.toString());
+debugPrint('[BLE Repo] Característica $charShortUuid | Propiedades: ${characteristic.properties}');
+charsFoundCount++;
+
+// Identificar y almacenar características de escritura
+if (characteristic.properties.write) {
+_writeChars.add(characteristic);
+debugPrint('[BLE Repo] Característica de escritura añadida: $charShortUuid');
+}
+// Identificar y configurar características de notificación
+if (characteristic.properties.notify) {
+_notifyChars.add(characteristic); // Añadir primero a la lista
+await characteristic.setNotifyValue(true); // Activar notificaciones
+debugPrint('[BLE Repo] Característica de notificación activada: $charShortUuid');
+}
+}
+}
+
+// Una vez que se encuentran las características de notificación, iniciar la escucha
+if (_notifyChars.isNotEmpty) {
+_startListeningToNotifications();
+} else {
+debugPrint('[BLE Repo] No se encontraron características de notificación, no se iniciará la escucha.');
+}
+ // <--- CAMBIO INICIA
+      // 4. Notificamos que la conexión y descubrimiento fueron exitosos.
+      BluetoothProvider().updateStatus(BleStatus.connected);
+      // <--- CAMBIO TERMINA
+debugPrint('[BLE Repo] Resumen del descubrimiento: $servicesFoundCount servicios, $charsFoundCount características.');
+notifyListeners(); // Notifica que las características han sido cargadas
+return true;
+
+} catch (e) {
+debugPrint('[BLE Repo] Error en connectAndDiscoverServices: $e');
+await disconnect(); // Asegura la limpieza si ocurre un error durante la conexión/descubrimiento
+notifyListeners(); // Notifica el cambio de estado debido al error
+return false;
+}
+}
+
+/// Inicia la suscripción para escuchar los datos de notificación del BLE.
+void _startListeningToNotifications() {
+_notificationDataSubscription?.cancel(); // Cancelar cualquier suscripción anterior de datos
+if (_notifyChars.isNotEmpty) {
+// Nos suscribimos a la primera característica de notificación encontrada
+_notificationDataSubscription = _notifyChars.first.onValueReceived.listen(
+(data) {
+final message = utf8.decode(data).trim();
+debugPrint('[BLE Repo] Datos crudos recibidos: "$message"');
+_messageController.add(message); // Añade el mensaje decodificado al stream público
+},
+onError: (error) {
+debugPrint('[BLE Repo] Error en el stream de datos de notificación: $error');
+// Podrías decidir qué hacer aquí, quizás añadir un mensaje de error específico al stream
+// _messageController.addError('Error en datos: $error');
+// Considerar si esto es un error fatal o un glitch temporal
+},
+onDone: () {
+debugPrint('[BLE Repo] Stream de datos de notificación cerrado.');
+_notificationDataSubscription = null;
+// Esto puede ocurrir si el dispositivo se desconecta, _clearResources ya lo manejará.
+},
+);
+debugPrint('[BLE Repo] Suscripción a notificaciones iniciada.');
+}
+}
+
+/// Desconecta el dispositivo BLE actual y limpia todos los recursos asociados.
+Future<void> disconnect() async {
+debugPrint('[BLE Repo] Desconectando...');
+await _device?.disconnect(); // Intenta desconectar el dispositivo
+_clearResources(); // Llama a la función interna para limpiar el estado
+debugPrint('[BLE Repo] Desconexión completada y recursos limpiados.');
+}
+
+/// Escribe datos en la primera característica de escritura disponible.
+Future<void> writeData(List<int> data) async {
+if (!isConnected) {
+throw Exception('No hay un dispositivo BLE conectado para escribir.');
+}
+if (_writeChars.isEmpty) {
+throw Exception('No se encontraron características de escritura en el dispositivo conectado.');
+}
+// Escribe los datos en la primera característica de escritura
+await _writeChars.first.write(data, withoutResponse: false); // Añadir withoutResponse si es apropiado
+debugPrint('[BLE Repo] Datos escritos: $data');
+}
+
+// --- MÉTODOS INTERNOS DE APOYO ---
+
+/// Extrae los últimos 4 caracteres de un UUID completo para una representación corta.
+String _getShortUuid(String fullUuid) {
+try {
+final cleanUuid = fullUuid.toLowerCase()
+.replaceAll('-', '')
+.replaceAll('0000', '')
+.replaceAll('00805f9b34fb', ''); // Limpia partes comunes de UUID base
+return cleanUuid.length >= 4
+? cleanUuid.substring(cleanUuid.length - 4) // Toma los últimos 4 si es lo suficientemente largo
+: cleanUuid; // Si es más corto, usa todo el UUID
+} catch (e) {
+debugPrint('[BLE] Error al procesar UUID: $fullUuid');
+return fullUuid; // Retorna el UUID original si hay un error
+}
+}
+
+/// Limpia el estado interno del repositorio BLE.
+void _clearResources() {
+_device = null;
+_writeChars.clear();
+_notifyChars.clear();
+_connectionSub?.cancel(); // Cancela la suscripción al estado de conexión
+_connectionSub = null;
+_notificationDataSubscription?.cancel(); // ¡Importante! Cancelar también esta suscripción
+_notificationDataSubscription = null;
+debugPrint('[BLE Repo] Recursos internos limpiados.');
+// <--- CAMBIO INICIA
+    // 5. Centralizamos la notificación de 'desconectado' aquí.
+    //    Este método se llama tanto en `disconnect()` como cuando la conexión se pierde.
+    BluetoothProvider().updateStatus(BleStatus.disconnected);
+    // <--- CAMBIO TERMINA
+notifyListeners(); // Notifica a los listeners que el estado ha cambiado (desconectado)
+}
+
+@override
+void dispose() {
+debugPrint('[BLE Repo] Dispose - Limpiando recursos finales del repositorio.');
+_connectionSub?.cancel();
+_notificationDataSubscription?.cancel(); // Asegura que se cancelen las suscripciones al desechar
+_messageController.close(); // Cierra el StreamController
+super.dispose();
+}
+}
+
+==================================================
+ARCHIVO: ble_status_indicator.dart
+==================================================
+
+// ARCHIVO CORREGIDO: lib/ble_status_indicator.dart
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'bluetooth_provider.dart';
+
+class BleStatusIndicator extends StatelessWidget {
+  const BleStatusIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Consumer se redibuja automáticamente cuando notifyListeners() es llamado
+    return Consumer<BluetoothProvider>(
+      builder: (context, bleProvider, child) {
+        IconData icon;
+        Color color;
+        // String tooltip; // Ya no necesitamos el tooltip
+
+        switch (bleProvider.status) {
+          case BleStatus.connected:
+            icon = Icons.bluetooth_connected;
+            color = Colors.lightBlueAccent;
+            // tooltip = 'Bluetooth Conectado';
+            break;
+          case BleStatus.connecting:
+            icon = Icons.bluetooth_searching;
+            color = Colors.grey;
+            // tooltip = 'Conectando Bluetooth...';
+            break;
+          case BleStatus.disconnected:
+          default:
+            icon = Icons.bluetooth_disabled;
+            color = Colors.redAccent;
+            // tooltip = 'Bluetooth Desconectado';
+            break;
+        }
+
+        // Devolvemos directamente el Icon, sin el Tooltip que causaba el error.
+        return Icon(icon, color: color);
+      },
+    );
+  }
+}
+
+==================================================
+ARCHIVO: bluetooth_provider.dart
+==================================================
+
+// ARCHIVO MODIFICADO: lib/bluetooth_provider.dart
+
+import 'package:flutter/material.dart';
+
+enum BleStatus {
+  disconnected,
+  connecting,
+  connected,
+}
+
+class BluetoothProvider extends ChangeNotifier {
+  // <--- CAMBIO INICIA
+  // 1. Añadimos el patrón Singleton para que sea consistente con tu BleRepository.
+  static final BluetoothProvider _instance = BluetoothProvider._internal();
+  factory BluetoothProvider() => _instance;
+  BluetoothProvider._internal();
+  // <--- CAMBIO TERMINA
+
+  BleStatus _status = BleStatus.disconnected;
+  BleStatus get status => _status;
+
+ // --- LÍNEAS AÑADIDAS ---
+  int _lastPinState = -1;
+  int get lastPinState => _lastPinState;
+  // --- FIN LÍNEAS AÑADIDAS ---
+
+  void updateStatus(BleStatus newStatus) {
+ debugPrint("--- CAMBIANDO ESTADO BLE A: $newStatus ---"); 
+    if (_status != newStatus) {
+      _status = newStatus;
+      notifyListeners();
+    }
+  }
+// --- MÉTODO AÑADIDO ---
+  void updatePinState(int newState) {
+    if (_lastPinState != newState) {
+      _lastPinState = newState;
+      notifyListeners(); // Notifica a los widgets que el estado del pin cambió
+    }
+  }
+  // --- FIN MÉTODO AÑADIDO ---
+}
+
+==================================================
+ARCHIVO: bluetooth_screen.dart
+==================================================
+
+import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'ble_connection_screen.dart';
+
+class BluetoothScreen extends StatelessWidget {
+  const BluetoothScreen({super.key}); // Usando super parameter
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Dispositivos BLE')),
+      body: StreamBuilder<List<ScanResult>>(
+        stream: FlutterBluePlus.scanResults,
+        builder: (context, snapshot) {
+          final results = snapshot.data ?? [];
+          return ListView.builder(
+            itemCount: results.length,
+            itemBuilder: (context, index) {
+              final device = results[index].device;
+              return ListTile(
+                title: Text(device.platformName.isNotEmpty 
+                    ? device.platformName 
+                    : 'Dispositivo Desconocido'),
+                subtitle: Text(device.remoteId.toString()), // Usando remoteId
+                onTap: () {
+                  FlutterBluePlus.stopScan();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BleConnectionScreen(device: device),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.refresh),
+        onPressed: () => FlutterBluePlus.startScan(timeout: const Duration(seconds: 10)),
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: export_service.dart
+==================================================
+
+import 'dart:io';
+import 'package:csv/csv.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:intl/intl.dart';
+import 'user_model.dart';
+// En lib/export_service.dart
+import 'settings_provider.dart';
+
+class ExportService {
+  // En el archivo: lib/export_service.dart
+
+  // En el archivo: lib/export_service.dart
+
+// En el archivo: lib/export_service.dart
+// Reemplaza esta función completa:
+
+Future<void> smartExportToChronojumpFormat({
+  required File sourceFile,
+  required List<User> allUsers,
+  required BuildContext context,
+  required ExportFormat format,
+}) async {
+  debugPrint("--- INICIANDO EXPORTACIÓN INTELIGENTE ---");
+  try {
+    final inputString = await sourceFile.readAsString();
+    final List<List<dynamic>> rows = CsvToListConverter(eol: '\n').convert(inputString);
+
+    if (rows.length <= 1) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('El archivo no contiene datos.')));
+      return;
+    }
+
+    final header = rows.first;
+    if (header.length < 5 || header[0] != 'SessionID' || header[2] != 'Jump Type') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Este archivo no es un registro de saltos exportable.')));
+      return;
+    }
+
+    List<List<dynamic>> simpleJumpsOutput = [];
+    List<List<dynamic>> multiJumpsOutput = [];
+    final validSimpleJumps = {'SJ', 'SJl', 'CMJ', 'ABK', 'DJ_EX', 'DJ_IN'};
+
+    for (var i = 1; i < rows.length; i++) {
+      final row = rows[i];
+      if (row.length < 6) continue;
+      
+      final jumpType = row[2].toString();
+      if (validSimpleJumps.contains(jumpType)) {
+        // --- CORRECCIÓN 1: Se pasa el parámetro 'format' ---
+        simpleJumpsOutput.add(_processSimpleJumpRow(row, allUsers, format));
+      } else if (jumpType.startsWith('RJ') && row.length >= 9) {
+        // --- CORRECCIÓN 2: Se pasa el parámetro 'format' ---
+        multiJumpsOutput.add(_processMultiJumpRow(row, allUsers, format));
+      }
+    }
+
+    List<XFile> filesToShare = [];
+    if (simpleJumpsOutput.isNotEmpty) {
+      // --- CORRECCIÓN 3: Se pasa el parámetro 'format' ---
+      final file = await _buildSimpleJumpFile(simpleJumpsOutput, sourceFile.path, format);
+      filesToShare.add(XFile(file.path));
+    }
+    if (multiJumpsOutput.isNotEmpty) {
+      // --- CORRECCIÓN 4: Se pasa el parámetro 'format' ---
+      final file = await _buildMultiJumpFile(multiJumpsOutput, sourceFile.path, format);
+      filesToShare.add(XFile(file.path));
+    }
+
+    if (filesToShare.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No se encontraron saltos con formato exportable en este archivo.')));
+    } else {
+      await Share.shareXFiles(filesToShare);
+    }
+
+  } catch (e, s) {
+    debugPrint("!!! ERROR en smartExport: $e, $s");
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error al procesar el archivo: $e')));
+  }
+}
+  List<dynamic> _processSimpleJumpRow(
+    List<dynamic> row,
+    List<User> allUsers,
+    ExportFormat format,
+  ) {
+    final userId = int.tryParse(row[1].toString());
+    final jumpType = row[2].toString();
+    final contactTimeMs = double.tryParse(row[3].toString()) ?? 0;
+    final flightTimeMs = double.tryParse(row[4].toString()) ?? 0;
+    User? user;
+    try {
+      user = allUsers.firstWhere((u) => u.uniqueID == userId);
+    } catch (e) {
+      user = User(
+        uniqueID: 0,
+        muuid: '',
+        firstName: 'Desconocido',
+        lastName: '',
+      );
+    }
+
+    // Se preparan los valores en segundos
+    String flightTimeSec = (flightTimeMs / 1000).toStringAsFixed(3);
+    String contactTimeSec =
+        (contactTimeMs == -1)
+            ? '-1'
+            : (contactTimeMs / 1000).toStringAsFixed(3);
+
+    // --- CAMBIO: Se aplica la preferencia de formato decimal ---
+    if (format == ExportFormat.LATIN) {
+      flightTimeSec = flightTimeSec.replaceAll('.', ',');
+      contactTimeSec = contactTimeSec.replaceAll('.', ',');
+    }
+
+    // --- CAMBIO: La función ahora devuelve solo 5 columnas ---
+    return [
+      user.firstName,
+      user.lastName,
+      jumpType,
+      flightTimeSec,
+      contactTimeSec,
+    ];
+  }
+
+  Future<File> _buildSimpleJumpFile(
+    List<List<dynamic>> rows,
+    String sourcePath,
+    ExportFormat format,
+  ) async {
+    // --- CAMBIO: El encabezado ahora solo tiene 5 columnas ---
+    rows.insert(0, [
+      'Nombre',
+      'Apellido',
+      'Tipo de Salto',
+      'Tiempo de Vuelo (s)',
+      'Tiempo de Contacto (s)',
+    ]);
+
+    // --- CAMBIO: El separador de columnas se decide según la preferencia ---
+    final fieldDelimiter = (format == ExportFormat.LATIN) ? ';' : ',';
+    final converter = ListToCsvConverter(fieldDelimiter: fieldDelimiter);
+
+    final String csvString = converter.convert(rows);
+    final tempDir = await getTemporaryDirectory();
+    final String fileName = 'Export_Simple_${sourcePath.split('/').last}';
+    final File tempFile = File('${tempDir.path}/$fileName');
+    await tempFile.writeAsString(csvString);
+    return tempFile;
+  }
+  // En el archivo: lib/export_service.dart
+
+  // --- CAMBIO: La firma de la función ahora acepta el parámetro 'format' ---
+  List<dynamic> _processMultiJumpRow(
+    List<dynamic> row,
+    List<User> allUsers,
+    ExportFormat format,
+  ) {
+    final userId = int.tryParse(row[1].toString());
+    final jumpType = row[2].toString();
+    final allContactTimesStr = row[3].toString();
+    final allFlightTimesStr = row[4].toString();
+    final pesoPersona = double.tryParse(row[7].toString()) ?? 0.0;
+    final alturaPersona = int.tryParse(row[8].toString()) ?? 0;
+    User? user;
+    try {
+      user = allUsers.firstWhere((u) => u.uniqueID == userId);
+    } catch (e) {
+      user = User(
+        uniqueID: 0,
+        muuid: '',
+        firstName: 'Desconocido',
+        lastName: '',
+      );
+    }
+
+    // --- CAMBIO: Se aplica la preferencia de formato al peso ---
+    String pesoPersonaFormatted = pesoPersona.toStringAsFixed(2);
+    if (format == ExportFormat.LATIN) {
+      pesoPersonaFormatted = pesoPersonaFormatted.replaceAll('.', ',');
+    }
+
+    List<dynamic> newRow = [
+      user.firstName,
+      user.lastName,
+      jumpType,
+      alturaPersona,
+      pesoPersonaFormatted,
+    ];
+
+    final contactTimes = allContactTimesStr.split('=');
+    final flightTimes = allFlightTimesStr.split('=');
+    int jumpCount =
+        contactTimes.length < flightTimes.length
+            ? contactTimes.length
+            : flightTimes.length;
+
+    for (int j = 0; j < jumpCount; j++) {
+      final tcMs = double.tryParse(contactTimes[j]) ?? 0;
+      final tfMs = double.tryParse(flightTimes[j]) ?? 0;
+
+      String tcSec = (tcMs == -1) ? '-1' : (tcMs / 1000).toStringAsFixed(3);
+      String tfSec = (tfMs / 1000).toStringAsFixed(3);
+
+      // --- CAMBIO: Se aplica la preferencia de formato a los tiempos ---
+      if (format == ExportFormat.LATIN) {
+        tcSec = tcSec.replaceAll('.', ',');
+        tfSec = tfSec.replaceAll('.', ',');
+      }
+
+newRow.add(tcSec);
+newRow.add(tfSec);
+    }
+    return newRow;
+  }
+
+  Future<File> _buildMultiJumpFile(
+    List<List<dynamic>> rows,
+    String sourcePath,
+    ExportFormat format,
+  ) async {
+    int maxJumps =
+        rows.fold(0, (prev, row) => row.length > prev ? row.length : prev) - 5;
+    List<String> header = [
+      'Nombre',
+      'Apellido',
+      'Tipo de Salto',
+      'Altura',
+      'Peso',
+    ];
+    for (int k = 1; k <= maxJumps; k++) {
+     header.add('TC$k (s)');
+header.add('TF$k (s)');
+    }
+    rows.insert(0, header);
+
+    // --- CAMBIO: El separador de columnas se decide según la preferencia ---
+    final fieldDelimiter = (format == ExportFormat.LATIN) ? ';' : ',';
+    final converter = ListToCsvConverter(fieldDelimiter: fieldDelimiter);
+
+    final String csvString = converter.convert(rows);
+    final tempDir = await getTemporaryDirectory();
+    final String fileName = 'Export_MultiJump_${sourcePath.split('/').last}';
+    final File tempFile = File('${tempDir.path}/$fileName');
+    await tempFile.writeAsString(csvString);
+    return tempFile;
+  }
+}
+
+
+==================================================
+ARCHIVO: file_manager_screen.dart
+==================================================
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'export_service.dart';
+import 'user_provider.dart';
+// En lib/file_manager_screen.dart
+import 'settings_provider.dart';
+
+class FileManagerScreen extends StatefulWidget {
+  const FileManagerScreen({super.key});
+  @override
+  State<FileManagerScreen> createState() => _FileManagerScreenState();
+}
+
+class _FileManagerScreenState extends State<FileManagerScreen> {
+  List<File> _csvFiles = [];
+  bool _isLoading = true;
+  final ExportService _exportService = ExportService(); // <-- LÍNEA EN SU LUGAR CORRECTO
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFiles();
+  }
+
+  Future<void> _loadFiles() async {
+    setState(() { _isLoading = true; });
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final files = directory.listSync();
+      final csvFiles = files.whereType<File>().where((file) => file.path.endsWith('.csv')).toList();
+      csvFiles.sort((a, b) => b.lastModifiedSync().compareTo(a.lastModifiedSync()));
+      setState(() {
+        _csvFiles = csvFiles;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() { _isLoading = false; });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error al cargar archivos: $e')));
+      }
+    }
+  }
+
+  Future<void> _shareFile(File file) async {
+    try {
+      final xFile = XFile(file.path);
+      await Share.shareXFiles([xFile], text: 'Archivo de datos de ChronoJump');
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error al compartir: $e')));
+      }
+    }
+  }
+
+  Future<void> _deleteFile(File file) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmar Eliminación'),
+        content: Text('¿Estás seguro de que quieres eliminar "${file.path.split('/').last}"?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancelar')),
+          TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Eliminar', style: TextStyle(color: Colors.red))),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        await file.delete();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Archivo eliminado.')));
+        }
+        _loadFiles();
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error al eliminar: $e')));
+        }
+      }
+    }
+  }
+
+  String _formatFileName(String path) {
+    try {
+      final name = path.split('/').last;
+      if (name.contains("Chronojump_saltos_") || name.contains("Export_")) {
+        final dateString = name.split('_').last.replaceAll('.csv', '');
+        final date = DateFormat('yyyy-MM-dd').parse(dateString);
+        final formattedDate = DateFormat.yMMMMEEEEd('es').format(date);
+
+        if (name.contains('Export_Simple')) { return 'Export. Simple ($formattedDate)'; }
+        else if (name.contains('Export_MultiJump')) { return 'Export. Múltiple ($formattedDate)'; }
+        else if (name.contains('Chronojump_saltos')) { return 'Registro Diario ($formattedDate)'; }
+      }
+      return name;
+    } catch (e) {
+      return path.split('/').last;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+ final settingsProvider = context.watch<SettingsProvider>();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Archivos Guardados')),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _csvFiles.isEmpty
+              ? const Center(child: Text('No hay archivos guardados.'))
+              : RefreshIndicator(
+                  onRefresh: _loadFiles,
+                  child: ListView.builder(
+                    itemCount: _csvFiles.length,
+                    itemBuilder: (context, index) {
+                      final file = _csvFiles[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        child: ListTile(
+                          leading: const Icon(Icons.description_outlined, color: Colors.blueGrey),
+                          title: Text(_formatFileName(file.path)),
+                          subtitle: Text(file.path.split('/').last),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.send_and_archive, color: Colors.teal),
+                                onPressed: () {
+  _exportService.smartExportToChronojumpFormat(
+    sourceFile: file,
+    allUsers: userProvider.users,
+    context: context,
+    // --- AÑADE ESTA LÍNEA ---
+    format: settingsProvider.exportFormat,
+  );
+},
+                                tooltip: 'Exportar para Chronojump',
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.share, color: Colors.blue),
+                                onPressed: () => _shareFile(file),
+                                tooltip: 'Compartir (Original)',
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete_outline, color: Colors.red),
+                                onPressed: () => _deleteFile(file),
+                                tooltip: 'Eliminar',
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: inicio_saltos_multiples.dart
+==================================================
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'ble_notifications_screen.dart';
+import 'user_model.dart';
+
+class InicioSaltosMultiples extends StatefulWidget {
+  final int? sessionID;
+  final User? person;
+
+  const InicioSaltosMultiples({
+    super.key,
+    this.sessionID,
+    this.person,
+  });
+
+  @override
+  State<InicioSaltosMultiples> createState() => _InicioSaltosMultiplesState();
+}
+
+enum LimiteOpcion { saltos, tiempo, sinLimite }
+
+class _InicioSaltosMultiplesState extends State<InicioSaltosMultiples> {
+  LimiteOpcion _limiteSeleccionado = LimiteOpcion.sinLimite;
+  final TextEditingController _cantidadSaltosController = TextEditingController();
+  final TextEditingController _tiempoLimiteController = TextEditingController();
+  final TextEditingController _pesoExtraController = TextEditingController();
+  bool _comienzaDesdeAdentro = true;
+  bool _ultimoSaltoCompleto = true;
+
+  // --- AÑADIDO: Controladores para los nuevos campos ---
+  final TextEditingController _alturaCaidaController = TextEditingController(text: '0');
+  final TextEditingController _pesoPersonaController = TextEditingController();
+  final TextEditingController _alturaPersonaController = TextEditingController();
+
+  @override
+  void dispose() {
+    _cantidadSaltosController.dispose();
+    _tiempoLimiteController.dispose();
+    _pesoExtraController.dispose();
+    // --- AÑADIDO: Dispose para los nuevos controladores ---
+    _alturaCaidaController.dispose();
+    _pesoPersonaController.dispose();
+    _alturaPersonaController.dispose();
+    super.dispose();
+  }
+
+  void _aceptarConfiguracion() {
+    if (_limiteSeleccionado == LimiteOpcion.saltos && _cantidadSaltosController.text.isEmpty) {
+      _mostrarSnackBar('Por favor, ingresa la cantidad de saltos.');
+      return;
+    }
+    if (_limiteSeleccionado == LimiteOpcion.tiempo && _tiempoLimiteController.text.isEmpty) {
+      _mostrarSnackBar('Por favor, ingresa el tiempo límite en segundos.');
+      return;
+    }
+
+    int limiteSaltos = int.tryParse(_cantidadSaltosController.text) ?? 0;
+    int limiteTiempo = int.tryParse(_tiempoLimiteController.text) ?? 0;
+    double pesoExtra = double.tryParse(_pesoExtraController.text) ?? 0.0;
+
+    // --- AÑADIDO: Parseo de los nuevos valores ---
+    final double alturaCaida = double.tryParse(_alturaCaidaController.text) ?? 0.0;
+    final double pesoPersona = double.tryParse(_pesoPersonaController.text) ?? 0.0;
+    final int alturaPersona = int.tryParse(_alturaPersonaController.text) ?? 0;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BleNotificationsScreen(
+          sessionID: widget.sessionID,
+          person: widget.person,
+          jumpType: "MULTI",
+          limiteSaltos: limiteSaltos,
+          limiteTiempo: limiteTiempo,
+          comienzaDesdeAdentro: _comienzaDesdeAdentro,
+          pesoExtra: pesoExtra,
+          ultimoSaltoCompleto: _ultimoSaltoCompleto,
+          // --- AÑADIDO: Se envían los nuevos datos ---
+          alturaCaida: alturaCaida,
+          pesoPersona: pesoPersona,
+          alturaPersona: alturaPersona,
+        ),
+      ),
+    );
+  }
+
+  void _cancelar() {
+    Navigator.pop(context);
+  }
+
+  void _mostrarSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Configuración de Saltos Múltiples'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // --- SECCIÓN ORIGINAL: Límite por ---
+              Text(
+                'Límite por:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              RadioListTile<LimiteOpcion>(
+                title: const Text('Saltos', style: TextStyle(fontSize: 15.0)),
+                value: LimiteOpcion.saltos,
+                groupValue: _limiteSeleccionado,
+                onChanged: (LimiteOpcion? value) {
+                  setState(() { _limiteSeleccionado = value!; });
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
+                  controller: _cantidadSaltosController,
+                  keyboardType: TextInputType.number,
+                  enabled: _limiteSeleccionado == LimiteOpcion.saltos,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(
+                    labelText: 'Cantidad de saltos',
+                    border: OutlineInputBorder(), isDense: true,
+                  ),
+                ),
+              ),
+              RadioListTile<LimiteOpcion>(
+                title: const Text('Tiempo (segundos)', style: TextStyle(fontSize: 15.0)),
+                value: LimiteOpcion.tiempo,
+                groupValue: _limiteSeleccionado,
+                onChanged: (LimiteOpcion? value) {
+                  setState(() { _limiteSeleccionado = value!; });
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
+                  controller: _tiempoLimiteController,
+                  keyboardType: TextInputType.number,
+                  enabled: _limiteSeleccionado == LimiteOpcion.tiempo,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(
+                    labelText: 'Tiempo límite en segundos',
+                    border: OutlineInputBorder(), isDense: true,
+                  ),
+                ),
+              ),
+              RadioListTile<LimiteOpcion>(
+                title: const Text('Sin límite', style: TextStyle(fontSize: 15.0)),
+                value: LimiteOpcion.sinLimite,
+                groupValue: _limiteSeleccionado,
+                onChanged: (LimiteOpcion? value) {
+                  setState(() { _limiteSeleccionado = value!; });
+                },
+              ),
+              const SizedBox(height: 15),
+
+              // --- SECCIÓN ORIGINAL: Comienza desde ---
+              Text(
+                'Comienza desde:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<bool>(
+                      title: const Text('Adentro', style: TextStyle(fontSize: 15.0)),
+                      value: true,
+                      groupValue: _comienzaDesdeAdentro,
+                      onChanged: (bool? value) {
+                        setState(() { _comienzaDesdeAdentro = value!; });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: RadioListTile<bool>(
+                      title: const Text('Afuera', style: TextStyle(fontSize: 15.0)),
+                      value: false,
+                      groupValue: _comienzaDesdeAdentro,
+                      onChanged: (bool? value) {
+                        setState(() { _comienzaDesdeAdentro = value!; });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              
+              // --- AÑADIDO: Campo condicional para "Altura de Caída" ---
+              Visibility(
+                visible: !_comienzaDesdeAdentro,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
+                  child: TextField(
+                    controller: _alturaCaidaController,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: false),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: const InputDecoration(
+                      labelText: 'Altura de Caída (cm)',
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+
+              // --- SECCIÓN ORIGINAL: Peso Extra ---
+              Text(
+                'Peso Extra (kg):',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextField(
+                  controller: _pesoExtraController,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
+                  decoration: const InputDecoration(
+                    labelText: 'Kilogramos', border: OutlineInputBorder(),
+                    hintText: 'Ej: 5.5', isDense: true,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              
+              // --- AÑADIDO: Nuevos campos para "Peso" y "Altura" de la persona ---
+              const Divider(height: 20, thickness: 1),
+              Text(
+                'Datos Adicionales de la Persona:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _pesoPersonaController,
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
+                decoration: const InputDecoration(
+                  labelText: 'Peso de la Persona (kg)',
+                  border: OutlineInputBorder(),
+                  isDense: true,
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _alturaPersonaController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: const InputDecoration(
+                  labelText: 'Altura de la Persona (cm)',
+                  border: OutlineInputBorder(),
+                  isDense: true,
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Divider(height: 20, thickness: 1),
+              // ----------------------------------------------------------------
+
+              // --- SECCIÓN ORIGINAL: Último salto completo ---
+              Text(
+                'Último salto completo:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<bool>(
+                      title: const Text('Sí', style: TextStyle(fontSize: 15.0)),
+                      value: true,
+                      groupValue: _ultimoSaltoCompleto,
+                      onChanged: (bool? value) {
+                        setState(() { _ultimoSaltoCompleto = value!; });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: RadioListTile<bool>(
+                      title: const Text('No', style: TextStyle(fontSize: 15.0)),
+                      value: false,
+                      groupValue: _ultimoSaltoCompleto,
+                      onChanged: (bool? value) {
+                        setState(() { _ultimoSaltoCompleto = value!; });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+
+              // --- SECCIÓN ORIGINAL: Botones ---
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: _aceptarConfiguracion,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    ),
+                    child: const Text('Aceptar', style: TextStyle(fontSize: 16)),
+                  ),
+                  OutlinedButton(
+                    onPressed: _cancelar,
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    ),
+                    child: const Text('Cancelar', style: TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: jump_calculator.dart
+==================================================
+
+// ARCHIVO ACTUALIZADO: jump_calculator.dart
+
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'jump_data_processor.dart';
+
+// ----- CLASES HELPER PARA GESTIONAR EVENTOS -----
+enum EventType { Despegue, Aterrizaje }
+
+class JumpEvent {
+  final EventType type;
+  final double timestamp_ms;
+
+  JumpEvent({required this.type, required this.timestamp_ms});
+
+  @override
+  String toString() => 'Evento: $type, Tiempo: $timestamp_ms';
+}
+// ------------------------------------------------
+
+class JumpCalculator {
+  static const double gravity = 9.81;
+
+  /// Método principal que delega el cálculo según el tipo de salto.
+  /// Ahora devuelve una LISTA de JumpData, ya que un tipo de salto (como DJ_IN) puede generar múltiples resultados.
+  List<JumpData> calculateJumpFromRawData(Map<String, dynamic> rawCollection) {
+    final String? jumpType = rawCollection['jumpType'];
+    // final List<Map<String, String>> dataPoints = rawCollection['data'];
+    final List<dynamic> rawDataPoints = rawCollection['data'] ?? [];
+    final bool comienzaDesdeAdentro = rawCollection['comienzaDesdeAdentro'] ?? true; // <-- AÑADÍ ESTA LÍNEA
+    final List<Map<String, String>> dataPoints = List<Map<String, String>>.from(
+      rawDataPoints,
+    );
+    if (jumpType == null || dataPoints.isEmpty) return [];
+
+    // FASE 1: Convertir datos crudos en una lista de eventos claros.
+    final List<JumpEvent> eventos = _convertDataToEvents(dataPoints);
+    debugPrint('[JumpCalculator] Eventos detectados: $eventos');
+
+    // FASE 2: Aplicar la lógica de cálculo según el patrón de eventos y el tipo de salto.
+    switch (jumpType) {
+      case 'SJ':
+        return _calculateSJ(eventos);
+case 'SJl':
+        return _calculateSJ(eventos);
+case 'CMJ':
+        return _calculateSJ(eventos);
+case 'ABK':
+        return _calculateSJ(eventos);
+      case 'SS_EX':
+        return _calculateSS_EX(eventos);
+      case 'DJ_IN':
+        return _calculateDJ_IN(eventos);
+      case 'DJ_EX':
+        return _calculateDJ_EX(eventos);
+      case 'MULTI': // <-- CASO AÑADIDO
+        return _calculateMulti(eventos, comienzaDesdeAdentro: comienzaDesdeAdentro); // <-- MODIFICÁ ESTA LÍNEA
+      default:
+        debugPrint(
+          '[JumpCalculator] No hay lógica de cálculo para el tipo: $jumpType',
+        );
+        return [];
+    }
+  }
+
+  // ----- FASE 1: Conversor de Datos a Eventos -----
+  List<JumpEvent> _convertDataToEvents(List<Map<String, String>> dataPoints) {
+    final List<JumpEvent> eventos = [];
+
+    // Recorremos cada punto de dato individualmente
+    for (var point in dataPoints) {
+      try {
+        final String estado = point['estado'] ?? '';
+        final double timestamp = double.parse(point['tiempo'] ?? '0.0');
+
+        // Cada trama es un evento en sí misma:
+        // estado '1' es Despegue (fuera de la alfombra)
+        // estado '0' es Aterrizaje (en la alfombra)
+        if (estado == '1') {
+          eventos.add(
+            JumpEvent(type: EventType.Despegue, timestamp_ms: timestamp),
+          );
+        } else if (estado == '0') {
+          eventos.add(
+            JumpEvent(type: EventType.Aterrizaje, timestamp_ms: timestamp),
+          );
+        }
+      } catch (e) {
+        debugPrint('[JumpCalculator] Error parseando punto de dato: $e');
+      }
+    }
+    return eventos;
+  }
+
+  // ----- FASE 2: Métodos de Cálculo por Tipo de Salto -----
+
+  List<JumpData> _calculateSJ(List<JumpEvent> eventos) {
+    // Patrón esperado: [Despegue, Aterrizaje]
+    if (eventos.length >= 2 &&
+        eventos[0].type == EventType.Despegue &&
+        eventos[1].type == EventType.Aterrizaje) {
+      final double flightTime_us =
+          eventos[1].timestamp_ms - eventos[0].timestamp_ms;
+      final double height = _calculateHeight(flightTime_us);
+
+      final jump = JumpData(
+        height: height,
+        flightTime: flightTime_us / 1000,
+        contactTime: 0,
+        fallTime: 0,
+        timestamp: DateTime.now(),
+      );
+      return [jump];
+    }
+    return [];
+  }
+
+  List<JumpData> _calculateSS_EX(List<JumpEvent> eventos) {
+    // Patrón esperado para Salto Simple desde Fuera: [Aterrizaje, Despegue, Aterrizaje]
+    if (eventos.length >= 3 &&
+        eventos[0].type == EventType.Aterrizaje &&
+        eventos[1].type == EventType.Despegue &&
+        eventos[2].type == EventType.Aterrizaje) {
+      final double contactTime_us =
+          eventos[1].timestamp_ms - eventos[0].timestamp_ms;
+      final double flightTime_us =
+          eventos[2].timestamp_ms - eventos[1].timestamp_ms;
+      final double height = _calculateHeight(flightTime_us);
+
+      final jump = JumpData(
+        height: height,
+        flightTime: flightTime_us / 1000,
+        contactTime: contactTime_us / 1000,
+        fallTime: 0,
+        timestamp: DateTime.now(),
+      );
+      return [jump];
+    }
+    return [];
+  }
+
+  List<JumpData> _calculateDJ_IN(List<JumpEvent> eventos) {
+    // Patrón esperado: [Despegue, Aterrizaje, Despegue, Aterrizaje]
+    if (eventos.length >= 4) {
+      final double flightTime1_us =
+          eventos[1].timestamp_ms - eventos[0].timestamp_ms;
+      final double height1 = _calculateHeight(flightTime1_us);
+      final jump1 = JumpData(
+        height: height1,
+        flightTime: flightTime1_us / 1000,
+        contactTime: -1,
+        fallTime: 0,
+        timestamp: DateTime.now(),
+      );
+
+      final double contactTime_us =
+          eventos[2].timestamp_ms - eventos[1].timestamp_ms;
+      final double flightTime2_us =
+          eventos[3].timestamp_ms - eventos[2].timestamp_ms;
+      final double height2 = _calculateHeight(flightTime2_us);
+      // La ALTURA de caída del 2do salto se calcula con el tiempo de vuelo del 1ro.
+      final double alturaCaida_cm = _calculateHeight(flightTime1_us);
+      final jump2 = JumpData(
+        height: height2,
+        flightTime: flightTime2_us / 1000,
+        contactTime: contactTime_us / 1000,
+        fallTime: alturaCaida_cm, // <-- Guarda la altura en cm
+        timestamp: DateTime.now(),
+      );
+
+      return [jump1, jump2];
+    }
+    return [];
+  }
+
+  // --- MÉTODO PARA SALTO MÚLTIPLE (A DESARROLLAR) ---
+ // En: jump_calculator.dart
+// Dentro de la clase JumpCalculator
+
+// --- MÉTODO PARA SALTO MÚLTIPLE (DESARROLLADO) ---
+// En: jump_calculator.dart
+// Dentro de la clase JumpCalculator
+
+// --- MÉTODO PARA SALTO MÚLTIPLE (DESARROLLADO) ---
+// Reemplazá la función _calculateMulti completa con esta:
+
+// Reemplazá la función _calculateMulti completa con esta:
+
+List<JumpData> _calculateMulti(List<JumpEvent> eventos, {required bool comienzaDesdeAdentro}) {
+  final List<JumpData> saltosResultantes = [];
+  int startIndex = 0;
+
+  // --- LÓGICA NUEVA: Manejo especial si se inicia desde afuera ---
+  if (!comienzaDesdeAdentro && eventos.length >= 2 && eventos[0].type == EventType.Aterrizaje && eventos[1].type == EventType.Despegue) {
+    
+    // Este es el primer contacto con la alfombra. Lo registramos como un "salto de entrada".
+    final aterrizajeInicial = eventos[0];
+    final primerDespegue = eventos[1];
+
+    final double contactTime_us = primerDespegue.timestamp_ms - aterrizajeInicial.timestamp_ms;
+
+    final entryJump = JumpData(
+      height: 0.0,
+      flightTime: 0.0,
+      contactTime: contactTime_us / 1000,
+      fallTime: 0.0,
+      timestamp: DateTime.now(),
+    );
+    saltosResultantes.add(entryJump);
+    
+    // Empezamos a buscar saltos reales desde el primer despegue
+    startIndex = 1;
+  }
+
+  // --- Bucle principal para buscar saltos medibles (Despegue -> Aterrizaje) ---
+  for (int i = startIndex; i < eventos.length - 1; i++) {
+    if (eventos[i].type == EventType.Despegue && eventos[i + 1].type == EventType.Aterrizaje) {
+      final despegue = eventos[i];
+      final aterrizaje = eventos[i + 1];
+
+      // 1. Tiempo de Vuelo y Altura
+      final double flightTime_us = aterrizaje.timestamp_ms - despegue.timestamp_ms;
+      final double height = _calculateHeight(flightTime_us);
+
+      // 2. Tiempo de Contacto
+      double contactTime_us = 0;
+      if (i > 0 && eventos[i - 1].type == EventType.Aterrizaje) {
+        final aterrizajeAnterior = eventos[i - 1];
+        contactTime_us = despegue.timestamp_ms - aterrizajeAnterior.timestamp_ms;
+      }
+
+      // 3. Altura de Caída
+      double alturaCaida_cm = 0;
+      if (saltosResultantes.isNotEmpty) {
+        final double prevFlightTime_us = saltosResultantes.last.flightTime * 1000;
+        alturaCaida_cm = _calculateHeight(prevFlightTime_us);
+      }
+
+      final jump = JumpData(
+        height: height,
+        flightTime: flightTime_us / 1000,
+        contactTime: contactTime_us / 1000,
+        fallTime: alturaCaida_cm,
+        timestamp: DateTime.now(),
+      );
+      saltosResultantes.add(jump);
+    }
+  }
+  
+  debugPrint('[JumpCalculator] >>> Proceso MULTI finalizado. Se encontraron ${saltosResultantes.length} registros.');
+  return saltosResultantes;
+} 
+List<JumpData> _calculateDJ_EX(List<JumpEvent> eventos) {
+    // Patrón esperado: [Aterrizaje, Despegue, Aterrizaje]
+    if (eventos.length >= 3 &&
+        eventos[0].type == EventType.Aterrizaje &&
+        eventos[1].type == EventType.Despegue &&
+        eventos[2].type == EventType.Aterrizaje) {
+      final double contactTime_us =
+          eventos[1].timestamp_ms - eventos[0].timestamp_ms;
+      final double flightTime_us =
+          eventos[2].timestamp_ms - eventos[1].timestamp_ms;
+      final double height = _calculateHeight(flightTime_us);
+
+      // Para DJ_EX, el 'fallTime' no se puede medir solo con la alfombra. Se deja en 0.
+      final jump = JumpData(
+        height: height,
+        flightTime: flightTime_us / 1000,
+        contactTime: contactTime_us / 1000,
+        fallTime: 0,
+        timestamp: DateTime.now(),
+      );
+      return [jump];
+    }
+    return [];
+  }
+
+  // ----- MÉTODO HELPER DE CÁLCULO -----
+double _calculateHeight(double flightTime_ms) { // Renombramos para mayor claridad
+  if (flightTime_ms <= 0) return 0.0;
+  // Convertimos de microsegundos a segundos dividiendo por 1000
+  final double flightTime_s = flightTime_ms / 1000000.0; // <-- DIVISOR CORREGIDO
+  return (gravity * pow(flightTime_s, 2)) / 8 * 100;
+}}
+
+
+==================================================
+ARCHIVO: jump_data_processor.dart
+==================================================
+
+// ARCHIVO CORREGIDO Y COMPLETO: jump_data_processor.dart
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'ble_repository.dart';
+import 'dart:convert';
+import 'jump_calculator.dart';
+import 'bluetooth_provider.dart';
+
+// La clase JumpData no tiene cambios
+class JumpData {
+  final double height;
+  final double flightTime;
+  final double contactTime;
+  final double? fallTime;
+  final DateTime timestamp;
+
+  JumpData({
+    required this.height,
+    required this.flightTime,
+    required this.contactTime,
+    this.fallTime,
+    required this.timestamp,
+  });
+
+  factory JumpData.fromBleMessage(String message) {
+    final parts = message.split(';');
+    if (parts.length < 4) {
+      throw FormatException(
+        'Mensaje de salto malformado o incompleto: $message',
+      );
+    }
+    final height = double.tryParse(parts[1].trim()) ?? 0.0;
+    final flightTime = double.tryParse(parts[2].trim()) ?? 0.0;
+    final contactTime = double.tryParse(parts[3].trim()) ?? 0.0;
+    double? fallTime;
+    if (parts.length >= 5) {
+      fallTime = double.tryParse(parts[4].trim()) ?? 0.0;
+    }
+    return JumpData(
+      height: height,
+      flightTime: flightTime,
+      contactTime: contactTime,
+      fallTime: fallTime,
+      timestamp: DateTime.now(),
+    );
+  }
+}
+
+enum CollectionState { Idle, FixedCycles, OpenEnded }
+
+// Variables para la nueva lógica de estado
+CollectionState _collectionState = CollectionState.Idle;
+int _expectedCycles = 0;
+String? _currentJumpType;
+
+class BleMessageProcessor {
+  final BleRepository _bleRepository;
+  final BluetoothProvider _bluetoothProvider; // <-- AÑADIDO
+  int _configuredLimiteSaltos = 0; // Para guardar el límite de la prueba MULTI
+  Timer? _watchdogTimer;
+  StreamSubscription<String>? _bleMessageSubscription;
+  final JumpCalculator _jumpCalculator = JumpCalculator();
+
+  final _pinStateController = StreamController<int>.broadcast();
+  final _jumpDataController = StreamController<JumpData>.broadcast();
+  final _seriesEndController = StreamController<bool>.broadcast();
+  final _deviceResetController = StreamController<bool>.broadcast();
+  final _unrecognizedMessageController = StreamController<String>.broadcast();
+
+  static const Map<String, int> _jumpCyclesMap = {
+    'SJ': 2,
+    'SJl': 2,
+    'CMJ': 2,
+    'ABK': 2,
+    'SS_EX': 4,
+    'DJ_IN': 5,
+    'DJ_EX': 4,
+  };
+  // --- AÑADIR ESTAS LÍNEAS ---
+  int _configuredLimiteTiempo = 0;
+  bool _comienzaDesdeAdentro = true;
+  double? _timestampInicioSerie;
+  double? _timestampUltimoAterrizaje;
+  double? _timestampUltimoDespegue;
+  // Constantes para el timeout por inactividad
+  static const double tiempoPromedioEstimado_us = 75000;
+  static const double multiplicadorTimeout = 3.0;
+  // ---------------------------
+  bool _isDataCollectionMode = false;
+  String? _collectionJumpType;
+  // int _expectedCycles = 0; // Ya estaba declarada arriba
+  int _receivedCycles = 0;
+  final List<Map<String, String>> _collectedData = [];
+
+  Stream<int> get pinStateStream => _pinStateController.stream;
+  Stream<JumpData> get jumpDataStream => _jumpDataController.stream;
+  Stream<bool> get seriesEndStream => _seriesEndController.stream;
+  Stream<bool> get deviceResetStream => _deviceResetController.stream;
+  Stream<String> get unrecognizedMessageStream =>
+      _unrecognizedMessageController.stream;
+
+  BleMessageProcessor(this._bleRepository, this._bluetoothProvider) {
+    // <-- AÑADIDO
+    _initListener();
+  }
+
+  void _initListener() {
+    _bleMessageSubscription = _bleRepository.bleMessageStream.listen(
+      (message) {
+        final cleanMessage = message.replaceAll('"', '').trim();
+
+        if (_isDataCollectionMode) {
+          _watchdogTimer?.cancel();
+          _watchdogTimer = Timer(const Duration(seconds: 2), () {
+            debugPrint(
+              'WATCHDOG TIMEOUT: No se recibieron datos del BLE. Finalizando prueba.',
+            );
+            _completeDataCollection();
+          });
+        }
+
+        final parts = cleanMessage.split(';');
+        if (parts.length == 2 && int.tryParse(parts[0].trim()) != null) {
+          final int pinState = int.parse(parts[0].trim());
+
+          final double timestampActual_us = double.parse(parts[1].trim());
+
+          _pinStateController.add(pinState);
+          _bluetoothProvider.updatePinState(pinState);
+
+          if (_isDataCollectionMode) {
+            _timestampInicioSerie ??= timestampActual_us;
+
+            if (_configuredLimiteTiempo > 0) {
+              final double tiempoTranscurrido_us =
+                  timestampActual_us - _timestampInicioSerie!;
+              final double limiteTiempo_us =
+                  _configuredLimiteTiempo * 1000000.0;
+              if (tiempoTranscurrido_us >= limiteTiempo_us) {
+                debugPrint('LÍMITE DE TIEMPO ALCANZADO.');
+                _completeDataCollection();
+                return;
+              }
+            }
+
+            if (_expectedCycles == 0 && _configuredLimiteTiempo == 0) {
+              if (pinState == 0) {
+                _timestampUltimoAterrizaje ??= timestampActual_us;
+                _timestampUltimoDespegue = null;
+                final double tiempoQuieto_us =
+                    timestampActual_us - _timestampUltimoAterrizaje!;
+                if (tiempoQuieto_us >
+                    (tiempoPromedioEstimado_us * multiplicadorTimeout)) {
+                  debugPrint('TIMEOUT: Atleta quieto en la alfombra.');
+                  _completeDataCollection();
+                  return;
+                }
+              } else {
+                _timestampUltimoDespegue ??= timestampActual_us;
+                _timestampUltimoAterrizaje = null;
+                final double tiempoEnAire_us =
+                    timestampActual_us - _timestampUltimoDespegue!;
+                if (tiempoEnAire_us > 2000000) {
+                  debugPrint('FIN DE SERIE: Atleta abandonó la alfombra.');
+                  _completeDataCollection();
+                  return;
+                }
+              }
+            }
+            _handleCollectionData(cleanMessage);
+          }
+        } else {
+          if (cleanMessage.startsWith('boton,') &&
+              cleanMessage.endsWith(',14')) {
+            _deviceResetController.add(true);
+          } else {
+            if (!_isDataCollectionMode) {
+              _unrecognizedMessageController.add(cleanMessage);
+            }
+          }
+        }
+      },
+      onError: (error) {
+        debugPrint('[Processor] ERROR en stream: $error');
+      },
+      onDone: () {
+        debugPrint('[Processor] Stream cerrado.');
+        dispose();
+      },
+    );
+  }
+
+  void iniciarRecoleccionManual(String jumpType) {
+    _timestampInicioSerie = null;
+    if (_isDataCollectionMode) {
+      _resetCollectionMode(
+        reason: 'Inicio manual forzado mientras ya estaba activo.',
+      );
+    }
+
+    if (jumpType == 'MULTI') {
+      _expectedCycles = _configuredLimiteSaltos * 2;
+      _isDataCollectionMode = true;
+      _collectionJumpType = jumpType;
+      _receivedCycles = 0;
+      _collectedData.clear();
+
+      debugPrint(
+        '[Processor] MODO RECOLECCIÓN (MULTI) activado. Esperando $_expectedCycles ciclos (0 = sin límite).',
+      );
+
+      _watchdogTimer?.cancel();
+      _watchdogTimer = Timer(const Duration(seconds: 2), () {
+        debugPrint(
+          'WATCHDOG TIMEOUT: No se recibieron datos en 2s tras iniciar.',
+        );
+        _completeDataCollection();
+      });
+    } else if (_jumpCyclesMap.containsKey(jumpType)) {
+      final cycles = _jumpCyclesMap[jumpType]!;
+      _isDataCollectionMode = true;
+      _collectionJumpType = jumpType;
+      _expectedCycles = cycles;
+      _receivedCycles = 0;
+      _collectedData.clear();
+
+      debugPrint(
+        '[Processor] MODO RECOLECCIÓN (Simple) activado para $jumpType, esperando $cycles ciclos.',
+      );
+    } else {
+      debugPrint(
+        '[Processor] ADVERTENCIA: Se intentó iniciar recolección para un tipo de salto no configurado: $jumpType',
+      );
+    }
+  }
+
+  void configurarNuevaPrueba({
+    required String jumpType,
+    int limiteSaltos = 0,
+    int limiteTiempo = 0,
+    bool comienzaDesdeAdentro = true,
+  }) {
+    debugPrint('--- [Processor] Se llamó a configurarNuevaPrueba ---');
+    debugPrint('Tipo de Salto recibido: $jumpType');
+    debugPrint('Límite de Saltos recibido: $limiteSaltos');
+    debugPrint('Límite de Tiempo recibido: $limiteTiempo');
+    debugPrint('Comienza Desde Adentro recibido: $comienzaDesdeAdentro');
+    debugPrint('----------------------------------------------------');
+    _configuredLimiteSaltos = limiteSaltos;
+    _configuredLimiteTiempo = limiteTiempo;
+    _comienzaDesdeAdentro = comienzaDesdeAdentro; // <-- AÑADÍ ESTA LÍNEA
+  }
+
+  void _startDataCollection(String message) {
+    debugPrint('[startDataCollection] $message');
+    final parts = message.split(',');
+    debugPrint('[final] $parts');
+
+    if (parts.length == 2) {
+      final jumpType = parts[1].trim();
+      debugPrint('[jumpType] $jumpType');
+
+      if (jumpType == 'MULTI') {
+        _isDataCollectionMode = true;
+        _collectionJumpType = jumpType;
+        _expectedCycles = _configuredLimiteSaltos * 2;
+        _receivedCycles = 0;
+        debugPrint(
+          '[Processor] Modo recolección MULTI activado, esperando $_configuredLimiteSaltos saltos.',
+        );
+      } else {
+        if (_jumpCyclesMap.containsKey(jumpType)) {
+          final cycles = _jumpCyclesMap[jumpType]!;
+          _isDataCollectionMode = true;
+          _collectionJumpType = jumpType;
+          _expectedCycles = cycles;
+          _receivedCycles = 0;
+          _collectedData.clear();
+          debugPrint(
+            '[Processor] Modo recolección activado para $jumpType, esperando $cycles ciclos.',
+          );
+        }
+      }
+    }
+  }
+
+  void _handleCollectionData(String message) {
+    final parts = message.split(';');
+    if (parts.length == 2) {
+      final state = parts[0].trim();
+      final time = parts[1].trim();
+      _collectedData.add({'estado': state, 'tiempo': time});
+      _receivedCycles++;
+      if (_expectedCycles > 0 && _receivedCycles >= _expectedCycles) {
+        _completeDataCollection();
+      }
+    }
+  }
+
+  Future<void> _completeDataCollection() async {
+    if (!_isDataCollectionMode) return;
+
+    debugPrint(
+      '[Processor] Recolección completada. Pasando datos al calculador...',
+    );
+    _watchdogTimer?.cancel();
+
+    final collectionForCalculator = {
+      'jumpType': _collectionJumpType,
+      'data': List.from(_collectedData),
+      'comienzaDesdeAdentro': _comienzaDesdeAdentro, // <-- AÑADÍ ESTA LÍNEA
+    };
+
+    final List<JumpData> results = _jumpCalculator.calculateJumpFromRawData(
+      collectionForCalculator,
+    );
+
+    if (results.isNotEmpty) {
+      debugPrint(
+        '[Processor] ¡Cálculo exitoso! Se obtuvieron ${results.length} resultados de salto.',
+      );
+      for (final jump in results) {
+        _jumpDataController.add(jump);
+      }
+    } else {
+      debugPrint('[Processor] El calculador no devolvió resultados.');
+    }
+
+    _resetCollectionMode(reason: 'Recolección completada');
+    _seriesEndController.add(
+      true,
+    ); // <-- CAMBIO: Notificar a la UI que la sesión ha terminado.
+
+    try {
+      //  final command = '27,FIN';
+      //  await _bleRepository.writeData(utf8.encode(command));
+    } catch (e) {
+      debugPrint('[Processor] Error al enviar el comando "27,FIN": $e');
+    }
+  }
+
+  void _resetCollectionMode({required String reason}) {
+    debugPrint('[Processor] Reseteando estado interno. Razón: $reason');
+    _watchdogTimer?.cancel();
+    _isDataCollectionMode = false;
+    _collectionJumpType = null;
+    _expectedCycles = 0;
+    _receivedCycles = 0;
+    _collectedData.clear();
+  }
+
+  void dispose() {
+    _bleMessageSubscription?.cancel();
+    _pinStateController.close();
+    _jumpDataController.close();
+    _seriesEndController.close();
+    _deviceResetController.close();
+    _unrecognizedMessageController.close();
+  }
+}
+
+
+==================================================
+ARCHIVO: jump_storage_service.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/jump_storage_service.dart
+
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/material.dart';
+
+// Importamos los modelos de datos que necesita
+import 'jump_data_processor.dart';
+import 'user_model.dart';
+
+class JumpStorageService {
+  // --- LÓGICA DE RUTAS (Movida desde ble_notifications_screen) ---
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> _localFile(String dateStamp) async {
+    final path = await _localPath;
+    return File('$path/Chronojump_saltos_$dateStamp.csv');
+  }
+
+  // --- LÓGICA DE EXPORTACIÓN (Movida desde ble_notifications_screen) ---
+
+  // Esta función era _saveChronojumpFormattedFile
+  Future<void> _saveChronojumpFormattedFile({
+    required List<JumpData> jumps,
+    required User? person,
+    required String jumpType,
+  }) async {
+    if (jumps.isEmpty || person == null) {
+      return;
+    }
+
+    try {
+      final path = await _localPath;
+      final dateFormat = DateFormat('yyyy-MM-dd');
+      final dateStamp = dateFormat.format(DateTime.now());
+      final file = File('$path/Chronojump_Export_Simple_$dateStamp.csv');
+
+      List<List<dynamic>> rows = [];
+
+      if (!await file.exists()) {
+        rows.add([
+          'Nombre',
+          'Apellido',
+          'Tipo de Salto',
+          'Tiempo de Vuelo (s)',
+          'Tiempo de Contacto (s)'
+        ]);
+      }
+
+      for (final jump in jumps) {
+        final tfEnSegundos = jump.flightTime / 1000;
+        final tcEnSegundos =
+            jump.contactTime == 0 ? -1 : jump.contactTime / 1000;
+
+        final tfFormatted = tfEnSegundos.toStringAsFixed(3).replaceAll('.', ',');
+        final tcFormatted = tcEnSegundos == -1
+            ? '-1'
+            : tcEnSegundos.toStringAsFixed(3).replaceAll('.', ',');
+
+        rows.add([
+          person.firstName,
+          person.lastName,
+          jumpType,
+          tfFormatted,
+          tcFormatted,
+        ]);
+      }
+
+      final converter = ListToCsvConverter(fieldDelimiter: ';');
+      final String csvContent = converter.convert(rows);
+
+      final contentToWrite = (await file.exists())
+          ? csvContent.substring(csvContent.indexOf('\n') + 1)
+          : csvContent;
+
+      await file.writeAsString(contentToWrite, mode: FileMode.append);
+      debugPrint('Exportación formato Chronojump guardada en: ${file.path}');
+    } catch (e) {
+      debugPrint('Error al guardar el archivo en formato Chronojump: $e');
+    }
+  }
+
+  // --- LÓGICA PRINCIPAL DE GUARDADO (Movida desde ble_notifications_screen) ---
+
+  // Esta es la función pública que llamará la pantalla.
+  // Reemplaza a _saveDataToFile
+  Future<File?> saveData({
+    required List<JumpData> jumpsToSave,
+    required String jumpType,
+    required User? person,
+    required int? sessionID,
+    required int limiteSaltos,
+    required int limiteTiempo,
+    required double alturaCaida,
+    required double pesoPersona,
+    required int alturaPersona,
+  }) async {
+    // La pantalla ya no debe llamar a este servicio si la lista está vacía,
+    // pero mantenemos la comprobación por seguridad.
+    if (jumpsToSave.isEmpty) {
+      debugPrint(
+          "[SAVE_SERVICE] Se llamó a saveData con 0 saltos. Saliendo.");
+      return null;
+    }
+
+    debugPrint(
+        "[SAVE_SERVICE] Se llamó a saveData con ${jumpsToSave.length} saltos.");
+
+    try {
+      final dateFormat = DateFormat('yyyy-MM-dd');
+      final dateStamp = dateFormat.format(DateTime.now());
+      final file = await _localFile(dateStamp); // Pasa el dateStamp
+      String csvContent = '';
+
+      if (!await file.exists()) {
+        debugPrint("[SAVE_SERVICE] El archivo no existe. Creando encabezado.");
+        csvContent +=
+            'SessionID,UserID,Jump Type,TC,TF,Timestamp,AlturaCaida(cm),PesoPersona(kg),AlturaPersona(cm)\n';
+      }
+
+      if (jumpType == 'MULTI' || jumpType == 'DJ_IN') {
+        debugPrint("[SAVE_SERVICE] Detectado salto Múltiple/Complejo.");
+        String jumpTypeString;
+        if (jumpType == 'MULTI') {
+          if (limiteSaltos > 0) {
+            jumpTypeString = 'RJ(j)';
+          } else if (limiteTiempo > 0) {
+            jumpTypeString = 'RJ(t)';
+          } else {
+            jumpTypeString = 'RJ(unlimited)';
+          }
+        } else {
+          jumpTypeString = jumpType;
+        }
+        debugPrint("[SAVE_SERVICE] Tipo de salto a guardar: $jumpTypeString");
+
+        final String allContactTimes = jumpsToSave
+            .map((j) => j.contactTime == 0 ? '-1' : j.contactTime.toStringAsFixed(2))
+            .join('=');
+        final String allFlightTimes =
+            jumpsToSave.map((j) => j.flightTime.toStringAsFixed(2)).join('=');
+        final timestamp = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+        final sID = sessionID ?? 0;
+        final userID = person?.uniqueID.toString() ?? ''; // <-- USA EL CAMPO VACÍO
+        final aCaida = alturaCaida.toStringAsFixed(2);
+        final pPersona = pesoPersona.toStringAsFixed(2);
+        final aPersona = alturaPersona.toString();
+
+        csvContent +=
+            '$sID,$userID,$jumpTypeString,$allContactTimes,$allFlightTimes,$timestamp,$aCaida,$pPersona,$aPersona\n';
+      } else {
+        debugPrint("[SAVE_SERVICE] Detectado salto Simple.");
+        // Llama a la función de guardado secundario
+        await _saveChronojumpFormattedFile(
+          jumps: jumpsToSave,
+          person: person,
+          jumpType: jumpType,
+        );
+
+        for (final jump in jumpsToSave) {
+          final tc =
+              jump.contactTime == 0 ? '-1' : jump.contactTime.toStringAsFixed(2);
+          final tf = jump.flightTime.toStringAsFixed(2);
+          final timestamp =
+              DateFormat('yyyy-MM-dd HH:mm:ss').format(jump.timestamp);
+          final sID = sessionID ?? 0;
+          final userID = person?.uniqueID.toString() ?? ''; // <-- USA EL CAMPO VACÍO
+          csvContent += '$sID,$userID,$jumpType,$tc,$tf,$timestamp,,,\n';
+        }
+      }
+
+      debugPrint(
+          "[SAVE_SERVICE] Contenido a escribir en el archivo: $csvContent");
+
+      await file.writeAsString(csvContent, mode: FileMode.append);
+      debugPrint("[SAVE_SERVICE] Escritura en archivo completada.");
+
+      // Devuelve el archivo guardado para que la UI pueda usarlo
+      return file;
+    } catch (e) {
+      debugPrint("!!! ERROR en JumpStorageService: $e !!!");
+      // Lanza el error para que la UI pueda manejarlo (mostrar SnackBar)
+      throw Exception('Error al guardar el archivo: $e');
+    }
+  }
+}
+
+==================================================
+ARCHIVO: main.dart
+==================================================
+
+// ARCHIVO MODIFICADO: main.dart
+
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:ntp/ntp.dart';
+
+import 'ble_notifications_screen.dart';
+import 'ble_repository.dart';
+import 'bluetooth_screen.dart';
+import 'inicio_saltos_multiples.dart';
+import 'jump_data_processor.dart';
+import 'file_manager_screen.dart';
+import 'user_management_screen.dart';
+import 'user_provider.dart';
+import 'bluetooth_provider.dart';
+import 'ble_status_indicator.dart';
+import 'session_provider.dart';
+import 'session_management_screen.dart';
+import 'package:intl/date_symbol_data_local.dart'; // <-- AÑADIR ESTA LÍNEA
+import 'settings_provider.dart';
+// --- IMPORTACIÓN NUEVA ---
+import 'session_person_provider.dart';
+import 'jump_storage_service.dart'; // <-- AÑADIR ESTA LÍNEA
+// -------------------------
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+await initializeDateFormatting('es', null); // <-- AÑADIR ESTA LÍNEA
+  final fechaDeCaducidad = DateTime(2025, 11, 21);
+  DateTime fechaActual;
+
+  try {
+    fechaActual = await NTP.now();
+    debugPrint('Verificación de fecha con hora de red exitosa.');
+  } catch (e) {
+    debugPrint('Fallo al obtener hora de red. Usando hora local. Error: $e');
+    fechaActual = DateTime.now();
+  }
+
+  Widget appParaEjecutar;
+
+  if (fechaActual.isAfter(fechaDeCaducidad)) {
+    appParaEjecutar = const AppExpirada();
+  } else {
+    appParaEjecutar = MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BleRepository()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => BluetoothProvider()),
+        ChangeNotifierProvider(create: (_) => SessionProvider()),
+        
+        // --- NUEVO PROVIDER AÑADIDO ---
+        ChangeNotifierProvider(create: (_) => SessionPersonProvider()),
+        // -----------------------------
+        // --- AÑADE ESTO ---
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        // -----------------
+
+// --- AÑADE ESTO (Puede ser ChangeNotifierProvider si prefieres) ---
+    Provider(create: (_) => JumpStorageService()),
+    // -----------------------------------------------------------------
+
+        ProxyProvider2<BleRepository, BluetoothProvider, BleMessageProcessor>(
+          update: (_, bleRepo, bluetoothProvider, __) =>
+              BleMessageProcessor(bleRepo, bluetoothProvider),
+          lazy: false,
+        ),
+      ],
+      child: const ChronoJumpApp(),
+    );
+  }
+
+  runApp(appParaEjecutar);
+}
+
+// ... (El resto del archivo main.dart no necesita cambios)
+// ... (Puedes dejarlo como estaba desde la línea de "class ChronoJumpApp")
+class ChronoJumpApp extends StatelessWidget {
+  const ChronoJumpApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'ChronoJump',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: MainScreen(),
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!,
+            Positioned(
+              top: 60.0,
+              right: 20.0,
+              child: BleStatusIndicator(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    HomePage(),
+    ConnectionPage(),
+    SettingsPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    if (index == 1) {
+      Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (_) => const BluetoothScreen()));
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
+  void _onDrawerItemTapped(String title) {
+    Navigator.pop(context);
+
+    final bleRepo = Provider.of<BleRepository>(context, listen: false);
+
+    if (!bleRepo.isConnected) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No hay dispositivo BLE conectado')),
+      );
+      return;
+    }
+
+    final validJumpTypes = ['SJ', 'SJl', 'CMJ', 'ABK', 'DJ_IN', 'DJ_EX'];
+
+    if (validJumpTypes.contains(title)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BleNotificationsScreen(jumpType: title),
+        ),
+      );
+      return;
+    } else if (title == 'Salto Múltiple') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const InicioSaltosMultiples()),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Opción seleccionada: $title')));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Chronojump')),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text(
+                'Opciones',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('SJ'),
+              onTap: () => _onDrawerItemTapped('SJ'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('SJl'),
+              onTap: () => _onDrawerItemTapped('SJl'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('CMJ'),
+              onTap: () => _onDrawerItemTapped('CMJ'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('ABK'),
+              onTap: () => _onDrawerItemTapped('ABK'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('DJ_IN'),
+              onTap: () => _onDrawerItemTapped('DJ_IN'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_run),
+              title: const Text('DJ_EX'),
+              onTap: () => _onDrawerItemTapped('DJ_EX'),
+            ),
+            ListTile(
+              leading: const FaIcon(FontAwesomeIcons.personRunning),
+              title: const Text('Salto Múltiple'),
+              onTap: () => _onDrawerItemTapped('Salto Múltiple'),
+            ),
+            const Divider(), // Separador visual
+            
+            // --- NUEVA OPCIÓN DE MENÚ ---
+            ListTile(
+              leading: const Icon(Icons.event_note),
+              title: const Text('Gestión de Sesiones'),
+              onTap: () {
+                Navigator.pop(context); // Cierra el drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SessionManagementScreen(),
+                  ),
+                );
+              },
+            ),
+            // ---------------------------
+            
+            ListTile(
+              leading: const Icon(Icons.people),
+              // --- CAMBIO AQUÍ ---
+              title: const Text('Gestión de Personas'),
+              onTap: () {
+                Navigator.pop(context); // Cierra el drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UserManagementScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bluetooth),
+            label: 'Conexión',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configuración',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Container(
+      color: Colors.black,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: screenWidth,
+              child: Image.asset(
+                'assets/images/canguro.png',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            const Divider(color: Colors.white, thickness: 1, height: 32),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                'Plataforma de\n Contacto',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ConnectionPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('Página de Conexión'));
+  }
+}
+
+// En el archivo: lib/main.dart
+
+// --- REEMPLAZA LA CLASE SettingsPage COMPLETA CON ESTE CÓDIGO ---
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Usamos un Consumer para que la UI se actualice automáticamente
+    // cuando el usuario cambie la preferencia.
+    return Consumer<SettingsProvider>(
+      builder: (context, settings, child) {
+        return ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.folder_open),
+              title: const Text('Gestionar Archivos Guardados'),
+              subtitle: const Text('Ver, compartir o eliminar registros'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FileManagerScreen(),
+                  ),
+                );
+              },
+            ),
+            const Divider(),
+
+            // --- SECCIÓN NUEVA AÑADIDA ---
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                'Preferencias de Exportación',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            RadioListTile<ExportFormat>(
+              title: const Text('Formato Latino'),
+              subtitle: const Text('Separador de columna: ; (punto y coma)\nSeparador decimal: , (coma)'),
+              value: ExportFormat.LATIN,
+              groupValue: settings.exportFormat,
+              onChanged: (ExportFormat? value) {
+                if (value != null) {
+                  // Cuando el usuario selecciona una opción, llamamos al provider
+                  // para que guarde el cambio.
+                  settings.setExportFormat(value);
+                }
+              },
+            ),
+            RadioListTile<ExportFormat>(
+              title: const Text('Formato No Latino (EE.UU.)'),
+              subtitle: const Text('Separador de columna: , (coma)\nSeparador decimal: . (punto)'),
+              value: ExportFormat.NON_LATIN,
+              groupValue: settings.exportFormat,
+              onChanged: (ExportFormat? value) {
+                if (value != null) {
+                  settings.setExportFormat(value);
+                }
+              },
+            ),
+            const Divider(),
+            // --- FIN DE LA SECCIÓN NUEVA ---
+          ],
+        );
+      },
+    );
+  }
+}
+// -----------------------------------------------------------------
+
+class AppExpirada extends StatelessWidget {
+  const AppExpirada({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Esta versión de la aplicación ha expirado. Por favor, contacta al proveedor.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, color: Colors.red[700]),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: session_detail_screen.dart
+==================================================
+
+// ARCHIVO MODIFICADO: lib/session_detail_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'session_model.dart';
+import 'user_model.dart';
+import 'user_provider.dart';
+import 'session_person_provider.dart';
+import 'add_person_to_session_screen.dart';
+// --- AÑADIR IMPORTACIONES PARA NAVEGAR A LAS PANTALLAS DE SALTO ---
+import 'ble_notifications_screen.dart';
+import 'inicio_saltos_multiples.dart';
+
+
+class SessionDetailScreen extends StatelessWidget {
+  final Session session;
+  const SessionDetailScreen({super.key, required this.session});
+
+// --- REEMPLAZA EL MÉTODO EXISTENTE CON ESTA VERSIÓN COMPLETA ---
+void _showJumpSelectionMenu(BuildContext context, User person) {
+  final sessionID = session.sessionID; // Para usarlo más fácil abajo
+
+  showModalBottomSheet(
+    context: context,
+    builder: (ctx) {
+      // Usamos ListView para que funcione bien si hay muchas opciones
+      return ListView(
+        shrinkWrap: true, // Se ajusta al contenido
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test SJ'),
+            onTap: () {
+              Navigator.pop(ctx); // Cierra el menú
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'SJ',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test SJl'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'SJl',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test CMJ'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'CMJ',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test ABK'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'ABK',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test DJ_IN'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'DJ_IN',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('Iniciar Test DJ_EX'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BleNotificationsScreen(
+                    jumpType: 'DJ_EX',
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.fitness_center),
+            title: const Text('Configurar Salto Múltiple'),
+            onTap: () {
+              Navigator.pop(ctx);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InicioSaltosMultiples(
+                    sessionID: sessionID,
+                    person: person,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+    final sessionPersonProvider = context.watch<SessionPersonProvider>();
+
+    if (userProvider.isLoading || sessionPersonProvider.isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Cargando...")),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final participants = sessionPersonProvider.getPeopleForSession(
+      session.sessionID,
+      userProvider.users,
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Participantes: ${session.name}'),
+      ),
+      body: participants.isEmpty
+          ? const Center(
+              child: Text(
+                'No hay personas en esta sesión.\nPresiona "+" para agregar.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            )
+          : ListView.builder(
+              itemCount: participants.length,
+              itemBuilder: (context, index) {
+                final person = participants[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: ListTile(
+                    leading: CircleAvatar(child: Text(person.firstName[0])),
+                    title: Text('${person.firstName} ${person.lastName}'),
+                    subtitle: Text('ID: ${person.uniqueID}'),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                      tooltip: 'Quitar de la sesión',
+                      onPressed: () {
+                        context.read<SessionPersonProvider>().togglePersonInSession(
+                              session.sessionID,
+                              person,
+                            );
+                      },
+                    ),
+                    // --- CAMBIO CLAVE: Al tocar, se abre el menú de saltos ---
+                    onTap: () {
+                      _showJumpSelectionMenu(context, person);
+                    },
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPersonToSessionScreen(session: session),
+            ),
+          );
+        },
+        tooltip: 'Agregar o quitar personas',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: session_management_screen.dart
+==================================================
+
+// ARCHIVO MODIFICADO: lib/session_management_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'session_model.dart';
+import 'session_provider.dart';
+import 'session_detail_screen.dart'; // <-- AÑADIR ESTA IMPORTACIÓN
+
+class SessionManagementScreen extends StatelessWidget {
+  const SessionManagementScreen({super.key});
+
+  void _showSessionDialog(BuildContext context, {Session? session}) {
+    final formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController(text: session?.name ?? '');
+    final placeController = TextEditingController(text: session?.place ?? '');
+    final commentController = TextEditingController(text: session?.comment ?? '');
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(session == null ? 'Agregar Sesión' : 'Editar Sesión'),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: nameController,
+                    decoration: const InputDecoration(labelText: 'Nombre'),
+                    validator: (value) =>
+                        (value == null || value.isEmpty) ? 'Campo requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: placeController,
+                    decoration: const InputDecoration(labelText: 'Lugar'),
+                    validator: (value) =>
+                        (value == null || value.isEmpty) ? 'Campo requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: commentController,
+                    decoration: const InputDecoration(labelText: 'Comentario'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  final sessionProvider = Provider.of<SessionProvider>(
+                    context,
+                    listen: false,
+                  );
+                  if (session == null) {
+                    sessionProvider.addSession(
+                      name: nameController.text,
+                      place: placeController.text,
+                      comment: commentController.text,
+                    );
+                  } else {
+                    final updatedSession = Session(
+                      sessionID: session.sessionID,
+                      name: nameController.text,
+                      place: placeController.text,
+                      ts: session.ts,
+                      comment: commentController.text,
+                    );
+                    sessionProvider.updateSession(updatedSession);
+                  }
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SessionProvider>(
+      builder: (context, sessionProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Gestión de Sesiones'),
+          ),
+          body: sessionProvider.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : sessionProvider.sessions.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'No hay sesiones. Agrega una con el botón "+".',
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: sessionProvider.sessions.length,
+                      itemBuilder: (context, index) {
+                        final session = sessionProvider.sessions[index];
+                        final formattedDate =
+                            DateFormat('dd/MM/yyyy HH:mm').format(session.ts);
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          child: ListTile(
+                            leading: CircleAvatar(child: Text(session.name[0])),
+                            title: Text('${session.name} - ${session.place}'),
+                            subtitle:
+                                Text('Fecha: $formattedDate\nID: ${session.sessionID}'),
+                            isThreeLine: true,
+                            // --- INICIO DE CAMBIOS ---
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit, color: Colors.blueGrey),
+                                  tooltip: 'Editar datos de la sesión',
+                                  onPressed: () => _showSessionDialog(context, session: session),
+                                ),
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.delete_outline,
+                                    color: Colors.red,
+                                  ),
+                                  tooltip: 'Eliminar sesión',
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (ctx) => AlertDialog(
+                                        title: const Text('Confirmar eliminación'),
+                                        content: Text(
+                                            '¿Estás seguro de que quieres eliminar la sesión "${session.name}"?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(ctx),
+                                            child: const Text('No'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              sessionProvider.deleteSession(session.sessionID);
+                                              Navigator.pop(ctx);
+                                            },
+                                            child: const Text('Sí, eliminar'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SessionDetailScreen(session: session),
+                                ),
+                              );
+                            },
+                            // --- FIN DE CAMBIOS ---
+                          ),
+                        );
+                      },
+                    ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showSessionDialog(context),
+            tooltip: 'Agregar Nueva Sesión',
+            child: const Icon(Icons.add),
+          ),
+        );
+      },
+    );
+  }
+}
+
+==================================================
+ARCHIVO: session_model.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/session_model.dart
+
+class Session {
+  final int sessionID;
+  String name;
+  String place;
+  DateTime ts;
+  String comment;
+
+  Session({
+    required this.sessionID,
+    required this.name,
+    required this.place,
+    required this.ts,
+    this.comment = '',
+  });
+
+  // Método para convertir la sesión a una lista para el CSV
+  List<dynamic> toList() {
+    // Formatear el timestamp a un string estándar (ISO 8601) para consistencia
+    String formattedTs = ts.toIso8601String();
+    return [sessionID, name, place, formattedTs, comment];
+  }
+
+  // Factory constructor para crear una Sesión desde una fila de CSV
+  factory Session.fromList(List<dynamic> list) {
+    return Session(
+      sessionID: int.tryParse(list[0].toString()) ?? 0,
+      name: list[1].toString(),
+      place: list[2].toString(),
+      ts: DateTime.tryParse(list[3].toString()) ?? DateTime.now(),
+      comment: list[4].toString(),
+    );
+  }
+}
+
+==================================================
+ARCHIVO: session_person_link.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/session_person_link.dart
+
+class SessionPersonLink {
+  final int sessionID;
+  final int personUniqueID;
+  final String personName;
+
+  SessionPersonLink({
+    required this.sessionID,
+    required this.personUniqueID,
+    required this.personName,
+  });
+}
+
+==================================================
+ARCHIVO: session_person_provider.dart
+==================================================
+
+// ARCHIVO MODIFICADO: lib/session_person_provider.dart
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
+
+// Se importa el modelo de datos del vínculo y el modelo de persona
+import 'session_person_link.dart';
+import 'user_model.dart';
+
+class SessionPersonProvider extends ChangeNotifier {
+  List<SessionPersonLink> _links = [];
+  bool _isLoading = true;
+
+  bool get isLoading => _isLoading;
+
+  SessionPersonProvider() {
+    loadLinks();
+  }
+
+  Future<File> get _localFile async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File('${directory.path}/chronojump_session_people.csv');
+  }
+
+  Future<void> loadLinks() async {
+    try {
+      final file = await _localFile;
+      if (!await file.exists()) {
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+      final contents = await file.readAsString();
+      final rows = const CsvToListConverter().convert(contents);
+      _links.clear();
+      
+      for (var i = 1; i < rows.length; i++) {
+        final row = rows[i];
+        // --- CAMBIO: Se leen 3 columnas ---
+        if (row.length >= 3) {
+          final sessionID = int.tryParse(row[0].toString());
+          final personID = int.tryParse(row[1].toString());
+          final personName = row[2].toString(); // El nombre también se lee
+          if (sessionID != null && personID != null) {
+            _links.add(SessionPersonLink(
+              sessionID: sessionID,
+              personUniqueID: personID,
+              personName: personName,
+            ));
+          }
+        }
+      }
+    } catch (e) {
+      print('Error cargando los vínculos sesión-persona: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _saveLinks() async {
+    try {
+      final file = await _localFile;
+      // --- CAMBIO: El encabezado y los datos ahora tienen 3 columnas ---
+      List<List<dynamic>> rows = [['SessionID', 'UniqueID', 'Name']];
+      for (var link in _links) {
+        rows.add([link.sessionID, link.personUniqueID, link.personName]);
+      }
+      String csv = const ListToCsvConverter().convert(rows);
+      await file.writeAsString(csv);
+    } catch (e) {
+      print('Error guardando los vínculos sesión-persona: $e');
+    }
+  }
+
+  bool isPersonInSession(int sessionID, int personID) {
+    return _links.any((link) => link.sessionID == sessionID && link.personUniqueID == personID);
+  }
+
+  // --- CAMBIO: El método ahora recibe un objeto User completo para tener el nombre ---
+  Future<void> togglePersonInSession(int sessionID, User person) async {
+    final personFullName = '${person.firstName} ${person.lastName}';
+    final index = _links.indexWhere((link) => link.sessionID == sessionID && link.personUniqueID == person.uniqueID);
+
+    if (index != -1) {
+      // Si la persona existe, se elimina
+      _links.removeAt(index);
+    } else {
+      // Si no existe, se agrega con su nombre completo
+      _links.add(SessionPersonLink(
+        sessionID: sessionID,
+        personUniqueID: person.uniqueID,
+        personName: personFullName,
+      ));
+    }
+    await _saveLinks();
+    notifyListeners();
+  }
+
+  // Nuevo método para obtener la lista de personas (objetos User) para una sesión
+  List<User> getPeopleForSession(int sessionID, List<User> allPeople) {
+    final peopleIDs = _links
+        .where((link) => link.sessionID == sessionID)
+        .map((link) => link.personUniqueID)
+        .toSet(); // Usar un Set para búsquedas más eficientes
+
+    if (peopleIDs.isEmpty) return [];
+
+    return allPeople.where((person) => peopleIDs.contains(person.uniqueID)).toList();
+  }
+}
+
+==================================================
+ARCHIVO: session_provider.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/session_provider.dart
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
+import 'session_model.dart';
+
+class SessionProvider extends ChangeNotifier {
+  List<Session> _sessions = [];
+  int _nextSessionId = 1; // Las sesiones empiezan con ID 1
+  bool _isLoading = true;
+
+  List<Session> get sessions => _sessions;
+  bool get isLoading => _isLoading;
+
+  SessionProvider() {
+    loadSessions();
+  }
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/chronojump_sessions.csv');
+  }
+
+  Future<void> loadSessions() async {
+    try {
+      final file = await _localFile;
+      if (!await file.exists()) {
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+
+      final contents = await file.readAsString();
+      final List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(contents);
+
+      _sessions.clear();
+      // Empezamos desde 1 para saltar la fila de encabezado
+      for (var i = 1; i < rowsAsListOfValues.length; i++) {
+        final row = rowsAsListOfValues[i];
+        if (row.length >= 5) {
+            _sessions.add(Session.fromList(row));
+        }
+      }
+      
+      // Ordenar por fecha, de la más reciente a la más antigua
+      _sessions.sort((a, b) => b.ts.compareTo(a.ts));
+
+      if (_sessions.isNotEmpty) {
+        _nextSessionId = _sessions.map((s) => s.sessionID).reduce((a, b) => a > b ? a : b) + 1;
+      } else {
+        _nextSessionId = 1;
+      }
+
+    } catch (e) {
+      print("Error al cargar sesiones: $e");
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _saveSessions() async {
+    try {
+      final file = await _localFile;
+      List<List<dynamic>> rows = [];
+      // Encabezado
+      rows.add(["SessionID", "Name", "Place", "Ts", "Comment"]);
+      // Datos
+      for (var session in _sessions) {
+        rows.add(session.toList());
+      }
+      String csv = const ListToCsvConverter().convert(rows);
+      await file.writeAsString(csv);
+    } catch (e) {
+      print("Error al guardar sesiones: $e");
+    }
+  }
+
+  void addSession({
+    required String name,
+    required String place,
+    String comment = '',
+  }) {
+    final newSession = Session(
+      sessionID: _nextSessionId,
+      name: name,
+      place: place,
+      ts: DateTime.now(), // El timestamp se crea aquí
+      comment: comment,
+    );
+    _sessions.insert(0, newSession); // Inserta al principio para que aparezca primero
+    _nextSessionId++;
+    _saveSessions();
+    notifyListeners();
+  }
+
+  void deleteSession(int sessionID) {
+    _sessions.removeWhere((session) => session.sessionID == sessionID);
+    _saveSessions();
+    notifyListeners();
+  }
+
+  void updateSession(Session updatedSession) {
+    final index = _sessions.indexWhere((session) => session.sessionID == updatedSession.sessionID);
+    if (index != -1) {
+      updatedSession.ts = DateTime.now(); // Actualiza el timestamp al editar
+      _sessions[index] = updatedSession;
+      _sessions.sort((a, b) => b.ts.compareTo(a.ts)); // Re-ordena la lista
+      _saveSessions();
+      notifyListeners();
+    }
+  }
+}
+
+==================================================
+ARCHIVO: settings_provider.dart
+==================================================
+
+// ARCHIVO NUEVO: lib/settings_provider.dart
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// Definimos un 'enum' para que el código sea más legible y seguro.
+// En lugar de usar strings como "latino", usaremos ExportFormat.LATIN.
+enum ExportFormat { LATIN, NON_LATIN }
+
+class SettingsProvider extends ChangeNotifier {
+  
+  // --- PROPIEDADES ---
+
+  // Clave que usaremos para guardar el dato en el dispositivo.
+  static const _formatKey = 'export_format';
+  
+  // La preferencia actual. Por defecto, será LATIN.
+  ExportFormat _exportFormat = ExportFormat.LATIN;
+  
+  // Getter público para que el resto de la app pueda leer la preferencia actual.
+  ExportFormat get exportFormat => _exportFormat;
+
+  // --- CONSTRUCTOR ---
+
+  // Cuando se crea el SettingsProvider, automáticamente intenta cargar la preferencia guardada.
+  SettingsProvider() {
+    loadSettings();
+  }
+
+  // --- MÉTODOS ---
+
+  /// Carga la preferencia de formato desde el almacenamiento del dispositivo.
+  Future<void> loadSettings() async {
+    // Obtenemos la instancia de SharedPreferences.
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Leemos el valor guardado como un String. Si no hay nada, usamos 'LATIN' por defecto.
+    final formatString = prefs.getString(_formatKey) ?? 'LATIN';
+    
+    // Convertimos el String guardado a nuestro tipo de dato 'ExportFormat'.
+    _exportFormat = (formatString == 'NON_LATIN') ? ExportFormat.NON_LATIN : ExportFormat.LATIN;
+    
+    // Notificamos a cualquier widget que esté escuchando que la data se cargó.
+    notifyListeners();
+  }
+
+  /// Guarda la nueva preferencia de formato en el dispositivo.
+  Future<void> setExportFormat(ExportFormat newFormat) async {
+    // Si el nuevo formato es el mismo que ya teníamos, no hacemos nada.
+    if (_exportFormat == newFormat) return;
+
+    // Actualizamos el valor en nuestra clase.
+    _exportFormat = newFormat;
+    
+    // Notificamos a los widgets que el valor ha cambiado para que se redibujen.
+    notifyListeners();
+    
+    // Guardamos el nuevo valor en el almacenamiento del dispositivo.
+    final prefs = await SharedPreferences.getInstance();
+    // Guardamos el enum como un String (ej: "ExportFormat.LATIN" -> "LATIN")
+    prefs.setString(_formatKey, newFormat.name);
+  }
+}
+
+==================================================
+ARCHIVO: user_management_screen.dart
+==================================================
+
+// ARCHIVO MODIFICADO: lib/user_management_screen.dart
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'user_model.dart';
+import 'user_provider.dart';
+
+class UserManagementScreen extends StatelessWidget {
+  const UserManagementScreen({super.key});
+
+  void _showUserDialog(BuildContext context, {User? user}) {
+    final formKey = GlobalKey<FormState>();
+    final firstNameController = TextEditingController(
+      text: user?.firstName ?? '',
+    );
+    final lastNameController = TextEditingController(
+      text: user?.lastName ?? '',
+    );
+    final descriptionController = TextEditingController(
+      text: user?.descripcion ?? '',
+    );
+    String selectedSex = user?.sex ?? 'U';
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(user == null ? 'Agregar Persona' : 'Editar Persona'),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: firstNameController,
+                    decoration: const InputDecoration(labelText: 'Nombre'),
+                    validator: (value) =>
+                        (value == null || value.isEmpty) ? 'Campo requerido' : null,
+                  ),
+                  TextFormField(
+                    controller: lastNameController,
+                    decoration: const InputDecoration(labelText: 'Apellido'),
+                    validator: (value) =>
+                        (value == null || value.isEmpty) ? 'Campo requerido' : null,
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: selectedSex,
+                    decoration: const InputDecoration(labelText: 'Sexo'),
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'U',
+                        child: Text('No especificado'),
+                      ),
+                      DropdownMenuItem(value: 'M', child: Text('Masculino')),
+                      DropdownMenuItem(value: 'F', child: Text('Femenino')),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) selectedSex = value;
+                    },
+                  ),
+                  TextFormField(
+                    controller: descriptionController,
+                    decoration: const InputDecoration(labelText: 'Descripción'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  final userProvider = Provider.of<UserProvider>(
+                    context,
+                    listen: false,
+                  );
+                  if (user == null) {
+                    userProvider.addUser(
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                      sex: selectedSex,
+                      description: descriptionController.text,
+                    );
+                  } else {
+                    final updatedUser = User(
+                      uniqueID: user.uniqueID,
+                      muuid: user.muuid,
+                      firstName: firstNameController.text,
+                      lastName: lastNameController.text,
+                      sex: selectedSex,
+                      descripcion: descriptionController.text,
+                    );
+                    userProvider.updateUser(updatedUser);
+                  }
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            // --- CAMBIO AQUÍ ---
+            title: const Text('Gestión de Personas'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.file_download),
+                onPressed: () => userProvider.exportUsers(context),
+                tooltip: 'Exportar a CSV',
+              ),
+              IconButton(
+                icon: const Icon(Icons.file_upload),
+                onPressed: () async {
+                  final resultado = await userProvider.importUsers();
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          resultado > 0
+                              ? 'Se importaron $resultado personas nuevas.'
+                              : resultado == 0
+                                  ? 'No se encontraron personas nuevas para importar.'
+                                  : 'Ocurrió un error al importar el archivo.',
+                        ),
+                      ),
+                    );
+                  }
+                },
+                tooltip: 'Importar desde CSV',
+              ),
+            ],
+          ),
+          body: userProvider.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : userProvider.users.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'No hay personas. Agrega una con el botón "+".',
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: userProvider.users.length,
+                      itemBuilder: (context, index) {
+                        final user = userProvider.users[index];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          child: ListTile(
+                            leading: CircleAvatar(child: Text(user.firstName[0])),
+                            title: Text('${user.firstName} ${user.lastName}'),
+                            subtitle: Text(
+                              'ID: ${user.uniqueID} | MUUID: ${user.muuid.substring(0, 8)}...',
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(
+                                Icons.delete_outline,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    title: const Text(
+                                      'Confirmar eliminación',
+                                    ),
+                                    content: Text(
+                                      '¿Estás seguro de que quieres eliminar a ${user.firstName}?',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(ctx),
+                                        child: const Text('No'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          userProvider.deleteUser(
+                                            user.uniqueID,
+                                          );
+                                          Navigator.pop(ctx);
+                                        },
+                                        child: const Text('Sí, eliminar'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                            onTap: () => _showUserDialog(context, user: user),
+                          ),
+                        );
+                      },
+                    ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showUserDialog(context),
+            tooltip: 'Agregar Nueva Persona',
+            child: const Icon(Icons.add),
+          ),
+        );
+      },
+    );
+  }
+}
+
+==================================================
+ARCHIVO: user_model.dart
+==================================================
+
+// ARCHIVO ACTUALIZADO: lib/user_model.dart
+
+class User {
+  final int uniqueID;
+  final String muuid;
+  String firstName;
+  String lastName;
+  String sex; // 'U', 'M', 'F'
+  String descripcion;
+
+  User({
+    required this.uniqueID,
+    required this.muuid,
+    required this.firstName,
+    required this.lastName,
+    this.sex = 'U',
+    this.descripcion = '',
+  });
+
+  // Método para convertir el usuario a una lista para el CSV
+  List<dynamic> toList() {
+    return [uniqueID, muuid, firstName, lastName, sex, descripcion];
+  }
+}
+
+==================================================
+ARCHIVO: user_provider.dart
+==================================================
+
+// ARCHIVO ACTUALIZADO: lib/user_provider.dart
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
+import 'package:share_plus/share_plus.dart';
+import 'user_model.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:convert'; // Para el encoding UTF-8
+import 'dart:math';
+
+class UserProvider extends ChangeNotifier {
+  List<User> _users = [];
+  int _nextUniqueId = 0;
+  final _uuid = Uuid();
+  bool _isLoading = true;
+
+  // Getters
+  List<User> get users => _users;
+  bool get isLoading => _isLoading;
+
+  // Constructor: Carga los usuarios al iniciar la app
+  UserProvider() {
+    loadUsers();
+  }
+
+  // --- LÓGICA DE PERSISTENCIA (GUARDADO Y CARGA) ---
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/chronojump_users.csv');
+  }
+
+
+// --- COMIENZA EL CÓDIGO A AGREGAR ---
+
+// FUNCIÓN DE IMPORTACIÓN
+// En el archivo: user_provider.dart
+
+// En el archivo: user_provider.dart
+// No olvides añadir 'import 'dart:math';' y 'import 'package:flutter/foundation.dart';' al principio del archivo.
+
+Future<int> importUsers() async {
+  try {
+    debugPrint("--- INICIANDO PROCESO DE IMPORTACIÓN (FORMATO PERSONALIZADO) ---");
+    final resultado = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['csv'],
+    );
+
+    if (resultado == null || resultado.files.single.path == null) {
+      debugPrint("--- IMPORTACIÓN CANCELADA POR EL USUARIO ---");
+      return -1;
+    }
+
+    final archivo = File(resultado.files.single.path!);
+    var contenido = await archivo.readAsString(encoding: utf8);
+    debugPrint("Archivo seleccionado y leído correctamente.");
+
+    if (contenido.startsWith('\uFEFF')) {
+      contenido = contenido.substring(1);
+      debugPrint("Carácter BOM detectado y eliminado.");
+    }
+
+    final String contenidoNormalizado = contenido.replaceAll('\r\n', '\n');
+    List<List<dynamic>> filasComoLista = const CsvToListConverter(eol: '\n').convert(contenidoNormalizado);
+    debugPrint("Archivo convertido a lista. Total de filas (incluyendo encabezado): ${filasComoLista.length}");
+
+    final Set<int> existingUniqueIDs = _users.map((u) => u.uniqueID).toSet();
+    debugPrint("Total de usuarios existentes en la app: ${existingUniqueIDs.length}. IDs: $existingUniqueIDs");
+    
+    int usuariosAgregados = 0;
+
+    for (var i = 1; i < filasComoLista.length; i++) {
+      final fila = filasComoLista[i];
+      debugPrint("\n[Procesando Fila #${i}]: $fila");
+
+      if (fila.length >= 6) {
+        debugPrint(" -> OK: La fila tiene ${fila.length} columnas.");
+        
+        // --- CAMBIO: Se aplica la nueva lógica de mapeo ---
+        final uniqueID = int.tryParse(fila[0].toString());
+
+        if (uniqueID == null) {
+          debugPrint(" -> ERROR: El ID '${fila[0]}' no es un número válido. Se ignora la fila.");
+          continue;
+        }
+
+        debugPrint(" -> OK: El ID parseado es $uniqueID.");
+
+        if (existingUniqueIDs.contains(uniqueID)) {
+          debugPrint(" -> ERROR: El ID $uniqueID ya existe. Se ignora la fila.");
+        } else {
+          debugPrint(" -> ¡ÉXITO! Usuario nuevo. Se va a agregar.");
+          
+          // --- CAMBIO: Se reasignan las columnas según tus reglas ---
+          
+          // 1. Unir MUUID_m (columna 2) y MUUID_id (columna 3)
+          final String muuidCombinado = '${fila[1]}-${fila[2]}';
+          
+          // 2. Asignar el resto de las columnas y la descripción fija
+          final user = User(
+            uniqueID: uniqueID,
+            muuid: muuidCombinado,
+            firstName: fila[3].toString().trim(),     // NameFirst (columna 4)
+            lastName: fila[4].toString().trim(),      // NameLast (columna 5)
+            sex: fila[5].toString().trim(),           // Sex (columna 6)
+            descripcion: "importado de Chronojump", // Descripción fija
+          );
+          
+          _users.add(user);
+          usuariosAgregados++;
+        }
+      } else {
+        debugPrint(" -> ERROR: La fila solo tiene ${fila.length} columnas (se necesitan >= 6). Se ignora la fila.");
+      }
+    }
+
+    debugPrint("\n--- PROCESO FINALIZADO ---");
+    debugPrint("Total de usuarios nuevos agregados: $usuariosAgregados");
+
+    if (usuariosAgregados > 0) {
+      await _saveUsers();
+      notifyListeners(); // Notifica a la UI que la lista de usuarios ha cambiado
+      debugPrint("Usuarios guardados en el archivo.");
+    }
+    return usuariosAgregados;
+
+  } catch (e) {
+    debugPrint("--- ERROR CATASTRÓFICO EN LA IMPORTACIÓN: $e ---");
+    return -2;
+  }
+}
+  Future<void> loadUsers() async {
+    try {
+      final file = await _localFile;
+      if (!await file.exists()) {
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+      
+      final contents = await file.readAsString();
+      final List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(contents);
+      
+      _users.clear();
+      // Empezamos desde 1 para saltar la fila de encabezado
+      for (var i = 1; i < rowsAsListOfValues.length; i++) {
+        final row = rowsAsListOfValues[i];
+        final user = User(
+          uniqueID: int.parse(row[0].toString()),
+          muuid: row[1].toString(),
+          firstName: row[2].toString(),
+          lastName: row[3].toString(),
+          sex: row[4].toString(),
+          descripcion: row[5].toString(),
+        );
+        _users.add(user);
+      }
+
+      // Actualizar el siguiente ID único
+      if (_users.isNotEmpty) {
+        _nextUniqueId = _users.map((u) => u.uniqueID).reduce((a, b) => a > b ? a : b) + 1;
+      }
+
+    } catch (e) {
+      print("Error al cargar usuarios: $e");
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _saveUsers() async {
+    try {
+      final file = await _localFile;
+      List<List<dynamic>> rows = [];
+      // Encabezado
+      rows.add(["uniqueID", "muuid", "firstName", "lastName", "sex", "description"]);
+      // Datos
+      for (var user in _users) {
+        rows.add(user.toList());
+      }
+      String csv = const ListToCsvConverter().convert(rows);
+      await file.writeAsString(csv);
+    } catch (e) {
+      print("Error al guardar usuarios: $e");
+    }
+  }
+
+  // --- GESTIÓN DE USUARIOS (Ahora con guardado automático) ---
+
+  void addUser({
+    required String firstName,
+    required String lastName,
+    String sex = 'U',
+    String description = '',
+  }) {
+    final newUser = User(
+      uniqueID: _nextUniqueId,
+      muuid: _uuid.v4().hashCode.toString(),
+      firstName: firstName,
+      lastName: lastName,
+      sex: sex,
+      descripcion: description,
+    );
+    _users.add(newUser);
+    _nextUniqueId++;
+    _saveUsers(); // Guarda los cambios
+    notifyListeners();
+  }
+
+  void deleteUser(int uniqueID) {
+    _users.removeWhere((user) => user.uniqueID == uniqueID);
+    _saveUsers(); // Guarda los cambios
+    notifyListeners();
+  }
+
+  void updateUser(User updatedUser) {
+    final index = _users.indexWhere((user) => user.uniqueID == updatedUser.uniqueID);
+    if (index != -1) {
+      _users[index] = updatedUser;
+      _saveUsers(); // Guarda los cambios
+      notifyListeners();
+    }
+  }
+
+  // --- FUNCIÓN DE EXPORTACIÓN ---
+
+  Future<void> exportUsers(BuildContext context) async {
+    // Asegurarse de que el archivo esté actualizado
+    await _saveUsers();
+    
+    final file = await _localFile;
+    if (await file.exists()) {
+      final xFile = XFile(file.path);
+      await Share.shareXFiles(
+        [xFile], 
+        text: 'Archivo de usuarios de ChronoJump.',
+      );
+    } else {
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No hay usuarios para exportar.')),
+      );
+    }
+  }
+}

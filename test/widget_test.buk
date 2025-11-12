@@ -1,0 +1,36 @@
+// test/widget_test.dart
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart'; // <-- AÑADIR IMPORT DE PROVIDER
+import 'package:iteracion6/main.dart'; // Ya lo tienes
+
+// AÑADE AQUÍ LOS IMPORTS PARA TUS CLASES
+// import 'package:iteracion6/providers/user_provider.dart';
+// import 'package:iteracion6/ble_repository.dart';
+// import 'package:iteracion6/ble_message_processor.dart';
+
+void main() {
+  testWidgets('Main app smoke test', (WidgetTester tester) async {
+    // Construye el mismo árbol de widgets que en tu main.dart
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => BleRepository()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          Provider(
+            create: (context) =>
+                BleMessageProcessor(Provider.of<BleRepository>(context, listen: false)),
+            lazy: false,
+          ),
+        ],
+        child: const ChronoJumpApp(), // Este es el widget principal que pruebas
+      ),
+    );
+
+    // ⚠️ NOTA: Las siguientes líneas probablemente fallarán.
+    // Debes adaptarlas para que busquen texto y widgets que
+    // realmente existan en tu pantalla 'ChronoJumpApp'.
+    expect(find.text('Algun texto de tu app'), findsOneWidget);
+  });
+}
