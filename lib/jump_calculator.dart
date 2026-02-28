@@ -187,70 +187,49 @@ case 'ABK':
 // Reemplazá la función _calculateMulti completa con esta:
 
 List<JumpData> _calculateMulti(List<JumpEvent> eventos, {required bool comienzaDesdeAdentro}) {
-  final List<JumpData> saltosResultantes = [];
-  int startIndex = 0;
+    final List<JumpData> saltosResultantes = [];
 
-  // --- LÓGICA NUEVA: Manejo especial si se inicia desde afuera ---
-  if (!comienzaDesdeAdentro && eventos.length >= 2 && eventos[0].type == EventType.Aterrizaje && eventos[1].type == EventType.Despegue) {
-    
-    // Este es el primer contacto con la alfombra. Lo registramos como un "salto de entrada".
-    final aterrizajeInicial = eventos[0];
-    final primerDespegue = eventos[1];
+    // --- Bucle principal unificado para buscar saltos medibles (Despegue -> Aterrizaje) ---
+    // Ya no forzamos un vuelo 0.0. El bucle empareja todo de forma natural.
+    for (int i = 0; i < eventos.length - 1; i++) {
+      if (eventos[i].type == EventType.Despegue && eventos[i + 1].type == EventType.Aterrizaje) {
+        final despegue = eventos[i];
+        final aterrizaje = eventos[i + 1];
 
-    final double contactTime_us = primerDespegue.timestamp_ms - aterrizajeInicial.timestamp_ms;
+        // 1. Tiempo de Vuelo y Altura
+        final double flightTime_us = aterrizaje.timestamp_ms - despegue.timestamp_ms;
+        final double height = _calculateHeight(flightTime_us);
 
-    final entryJump = JumpData(
-      height: 0.0,
-      flightTime: 0.0,
-      contactTime: contactTime_us / 1000,
-      fallTime: 0.0,
-      timestamp: DateTime.now(),
-    );
-    saltosResultantes.add(entryJump);
-    
-    // Empezamos a buscar saltos reales desde el primer despegue
-    startIndex = 1;
-  }
+        // 2. Tiempo de Contacto
+        double contactTime_us = 0;
+        // Si hay un aterrizaje previo, calculamos el contacto real. 
+        // Si no lo hay (porque empezó adentro), el contacto queda en 0.
+        if (i > 0 && eventos[i - 1].type == EventType.Aterrizaje) {
+          final aterrizajeAnterior = eventos[i - 1];
+          contactTime_us = despegue.timestamp_ms - aterrizajeAnterior.timestamp_ms;
+        }
 
-  // --- Bucle principal para buscar saltos medibles (Despegue -> Aterrizaje) ---
-  for (int i = startIndex; i < eventos.length - 1; i++) {
-    if (eventos[i].type == EventType.Despegue && eventos[i + 1].type == EventType.Aterrizaje) {
-      final despegue = eventos[i];
-      final aterrizaje = eventos[i + 1];
+        // 3. Altura de Caída
+        double alturaCaida_cm = 0;
+        if (saltosResultantes.isNotEmpty) {
+          final double prevFlightTime_us = saltosResultantes.last.flightTime * 1000;
+          alturaCaida_cm = _calculateHeight(prevFlightTime_us);
+        }
 
-      // 1. Tiempo de Vuelo y Altura
-      final double flightTime_us = aterrizaje.timestamp_ms - despegue.timestamp_ms;
-      final double height = _calculateHeight(flightTime_us);
-
-      // 2. Tiempo de Contacto
-      double contactTime_us = 0;
-      if (i > 0 && eventos[i - 1].type == EventType.Aterrizaje) {
-        final aterrizajeAnterior = eventos[i - 1];
-        contactTime_us = despegue.timestamp_ms - aterrizajeAnterior.timestamp_ms;
+        final jump = JumpData(
+          height: height,
+          flightTime: flightTime_us / 1000,
+          contactTime: contactTime_us / 1000,
+          fallTime: alturaCaida_cm,
+          timestamp: DateTime.now(),
+        );
+        saltosResultantes.add(jump);
       }
-
-      // 3. Altura de Caída
-      double alturaCaida_cm = 0;
-      if (saltosResultantes.isNotEmpty) {
-        final double prevFlightTime_us = saltosResultantes.last.flightTime * 1000;
-        alturaCaida_cm = _calculateHeight(prevFlightTime_us);
-      }
-
-      final jump = JumpData(
-        height: height,
-        flightTime: flightTime_us / 1000,
-        contactTime: contactTime_us / 1000,
-        fallTime: alturaCaida_cm,
-        timestamp: DateTime.now(),
-      );
-      saltosResultantes.add(jump);
     }
-  }
-  
-  debugPrint('[JumpCalculator] >>> Proceso MULTI finalizado. Se encontraron ${saltosResultantes.length} registros.');
-  return saltosResultantes;
-} 
-List<JumpData> _calculateDJ_EX(List<JumpEvent> eventos) {
+    
+    debugPrint('[JumpCalculator] >>> Proceso MULTI finalizado. Se encontraron ${saltosResultantes.length} registros reales.');
+    return saltosResultantes;
+  }List<JumpData> _calculateDJ_EX(List<JumpEvent> eventos) {
     // Patrón esperado: [Aterrizaje, Despegue, Aterrizaje]
     if (eventos.length >= 3 &&
         eventos[0].type == EventType.Aterrizaje &&

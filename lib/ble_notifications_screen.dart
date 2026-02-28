@@ -82,6 +82,24 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
   @override
   void initState() {
     super.initState();
+_lastPinState = context.read<BluetoothProvider>().lastPinState;
+
+// --- NORMALIZACIÓN TÉCNICA ---
+  String tipoTecnico = widget.jumpType;
+  bool inicioReal = widget.comienzaDesdeAdentro;
+
+  if (widget.jumpType == 'DJ_EX') {
+    tipoTecnico = 'DJna'; // 'na' = No Adentro / Externo
+    inicioReal = false;   // Forzamos lógica de inicio afuera
+  } else if (widget.jumpType == 'DJ_IN') {
+    tipoTecnico = 'DJa';  // 'a' = Adentro / Interno
+    inicioReal = true;
+  }
+  // -----------------------------
+
+
+
+
     debugPrint('--- Pantalla de Medición Iniciada ---');
     debugPrint('Parámetro jumpType: ${widget.jumpType}');
     if (widget.jumpType.startsWith('MULTI')) {
@@ -90,17 +108,37 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
     }
     debugPrint('-------------------------------------');
 
+// AÑADE ESTO AQUÍ:
+  debugPrint('--- [DEBUG ENTRADA] ---');
+  debugPrint('Valor local _lastPinState: $_lastPinState');
+  final providerPin = Provider.of<BluetoothProvider>(context, listen: false).lastPinState;
+  debugPrint('Valor en BluetoothProvider: $providerPin');
+  debugPrint('-----------------------');
+// --- SOLUCIÓN: Ajuste automático de lógica para DJ_EX ---
+  bool inicioDesdeAdentro = widget.comienzaDesdeAdentro;
+//  if (widget.jumpType == 'DJ_EX') {
+ //   inicioDesdeAdentro = false; // Forzamos inicio desde afuera
+//  }
+
+
+
+
+
     _bleRepo = Provider.of<BleRepository>(context, listen: false);
     _messageProcessor = Provider.of<BleMessageProcessor>(
       context,
       listen: false,
     );
-
+debugPrint('Parámetro parado: $inicioDesdeAdentro');
     _messageProcessor.configurarNuevaPrueba(
-      jumpType: widget.jumpType,
+    //  jumpType: widget.jumpType,
+      jumpType: tipoTecnico, // Usamos la variable normalizada
       limiteSaltos: widget.limiteSaltos,
       limiteTiempo: widget.limiteTiempo,
-      comienzaDesdeAdentro: widget.comienzaDesdeAdentro,
+      comienzaDesdeAdentro: inicioReal,
+   //   comienzaDesdeAdentro: inicioDesdeAdentro,
+       
+    
     );
    // _lastPinState = BluetoothProvider().lastPinState;
  
@@ -117,10 +155,12 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
     _pinStateSubscription = _messageProcessor.pinStateStream.listen(
       (pinState) {
         debugPrint('[APP] Pin State recibido: $pinState');
+        
         final previousPinState = _lastPinState;
         if (mounted) {
           setState(() {
             _lastPinState = pinState;
+            if (pinState == -1) return; // Si es -1, ignoramos el evento por completo
             if (_isJumpInProgress || widget.jumpType != 'DJ_EX') {
               _tempFeedbackMessage = '';
             }
@@ -250,7 +290,14 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
   // --- NUEVA FUNCIÓN QUE LLAMA AL SERVICIO DE GUARDADO ---
   Future<void> _triggerSaveData() async {
     debugPrint("[UI] Se llamó a _triggerSaveData con ${_unsavedJumps.length} saltos.");
+// DEBUG 1: Verificamos las listas apenas entra la función
+  debugPrint("[DEBUG SAVE] Cantidad en _unsavedJumps: ${_unsavedJumps.length}");
+  debugPrint("[DEBUG SAVE] Cantidad en _jumpHistory: ${_jumpHistory.length}");
 
+  if (_unsavedJumps.isEmpty) {
+    debugPrint('[DEBUG SAVE] ABORTANDO: La lista de pendientes está vacía.');
+    return;
+  }
     if (_unsavedJumps.isEmpty) {
       debugPrint('[UI] No hay nuevos saltos para guardar.');
       return;
@@ -261,9 +308,25 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
 
     try {
       // Se llama al servicio con todos los datos necesarios.
+      String nombreTecnico = widget.jumpType;
+      
+      if (widget.jumpType == 'DJ_EX') nombreTecnico = 'DJna';
+      if (widget.jumpType == 'DJ_IN') nombreTecnico = 'DJa';
+
+// DEBUG 2: Verificamos qué nombre le vamos a mandar al servicio
+    debugPrint("[DEBUG SAVE] Enviando al storage -> Tipo: $nombreTecnico, Saltos: ${_unsavedJumps.length}");
+
+
+// --- DEBUG NIVEL 2: CONTENIDO DE LOS SALTOS ---
+  for (var i = 0; i < _unsavedJumps.length; i++) {
+    var jump = _unsavedJumps[i];
+    debugPrint("[DEBUG] Salto [$i]: Altura=${jump.height}cm, TiempoVuelo=${jump.flightTime}ms");
+  }
+
       final savedFile = await storageService.saveData(
         jumpsToSave: List.from(_unsavedJumps), // Se pasa una copia de la lista
-        jumpType: widget.jumpType,
+      //  jumpType: widget.jumpType,
+        jumpType: nombreTecnico, // Se guarda como DJna o DJa
         person: widget.person,
         sessionID: widget.sessionID,
         limiteSaltos: widget.limiteSaltos,
@@ -275,6 +338,7 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
 
       // Si el servicio tuvo éxito, se actualiza la UI.
       if (savedFile != null && mounted) {
+debugPrint("[DEBUG] ARCHIVO GENERADO OK en: ${savedFile.path}");
         setState(() {
           _unsavedJumps.clear(); // Se limpia el búfer de saltos no guardados.
           _lastSavedFile = savedFile; // Se guarda la referencia para "Compartir".

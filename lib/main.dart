@@ -27,7 +27,7 @@ import 'jump_storage_service.dart'; // <-- AÑADIR ESTA LÍNEA
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 await initializeDateFormatting('es', null); // <-- AÑADIR ESTA LÍNEA
-  final fechaDeCaducidad = DateTime(2025, 11, 21);
+  final fechaDeCaducidad = DateTime(2026, 03, 21);
   DateTime fechaActual;
 
   try {
@@ -281,7 +281,7 @@ class HomePage extends StatelessWidget {
             SizedBox(
               width: screenWidth,
               child: Image.asset(
-                'assets/images/canguro.png',
+                'assets/images/Metrix.png',
                 fit: BoxFit.fitWidth,
               ),
             ),

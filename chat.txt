@@ -1,0 +1,3745 @@
+Ale, [5/5/2025 11:10]
+Hola, como estan? Ya estoy en Argentina comenzando a volver a mis actividades. En principio estoy evaluando el software para desarrollar Apps, que permita tanto Android como IOS, y que se pueda escribir código. FlutterFlow es una alternativa (Si no me equivoco, lo nombraron en la charla que tuvimos en Barcelona), Thunkable o Kodular serian alternativas del tipo App inventor, pero con la posibilidad de generar código para IOS. Voy a hacer alguna experiencia con FlutterFlow con la intensión de utilizarlo para la plataforma de salto. Quedo atento para colaborar en vuestro proyecto. Saludos! 
+
+Xavier Padullés, [5/5/2025 11:12]
+Genial.
+Ya nos informarás de tus experiencias con FlutterFlow
+
+Ale, [5/5/2025 11:13]
+Si
+
+Ale, [5/5/2025 11:13]
+Calculo que está semana me alcanza para tener un opinión
+
+Xavier De Blas, [5/5/2025 11:14]
+Hola buenas. Nosotros hablamos de flutter. Veo que flutterflow es para hacer prototipos más rápido.
+
+Ale, [5/5/2025 11:27]
+Si, parece que no es complicado, y tiene la opción de agregar codigo. Voy a hacer algunos prototipos y les cuento
+
+Xavier De Blas, [5/5/2025 11:29]
+De acuerdo
+
+Ale, [9/5/2025 10:18]
+Hola!
+Estuve explorando FlutterFlow, una plataforma visual que permite diseñar interfaces gráficas de forma amigable, utilizando principalmente técnicas de drag and drop.
+Como prueba de concepto, desarrollé una aplicación sencilla que incluye textos, campos de entrada y botones. Implementé una operación de suma entre dos números, mostrando el resultado al presionar un botón. Esta experiencia me permitió comprender cómo se manejan las variables y cómo se puede incorporar algo de código personalizado. El lenguaje que utiliza es Dart, con el cual aún no tengo experiencia.
+En caso de interés, propongo realizar un video breve mostrando el desarrollo de esta app para ilustrar el flujo de trabajo en la herramienta.
+Cabe mencionar que FlutterFlow requiere una licencia paga para acceder a funcionalidades avanzadas (como el uso de código personalizado o la integración con Bluetooth). Una alternativa viable es exportar el código generado y continuar el desarrollo en Flutter puro, que es gratuito aunque no cuenta con entorno visual.
+Los próximos pasos sugeridos son:
+Evaluar la integración con bases de datos (Firebase u otras).
+Explorar métodos de comunicación con microcontroladores (HTTP, BLE, etc.).
+Quedo atento a sus comentarios y sugerencias para avanzar.
+
+Xavier De Blas, [9/5/2025 10:26]
+hola buenas, sí he ido mirando lo de las licencias
+
+Xavier De Blas, [9/5/2025 10:27]
+https://www.flutterflow.io/pricing
+
+Xavier De Blas, [9/5/2025 10:29]
+Donde se dice qué licencia es necesaria para bluetooth?
+
+Xavier De Blas, [9/5/2025 10:51]
+y por qué no usar flutter directamente? sin flutterbox
+
+Xavier De Blas, [9/5/2025 10:51]
+piensa que nosotros de licencias no pagamos nada o casi nada.
+
+Ale, [9/5/2025 11:00]
+Es una posibilidad, el punto, para mí,es la bondad que el flow te daría para el armado de la Interfaz gráfica
+
+Xavier De Blas, [9/5/2025 11:03]
+ya, pero aquí lo que es importante es el bluetooth
+
+Ale, [9/5/2025 11:06]
+Exacto
+
+Ale, [9/5/2025 11:08]
+En unos días voy a poder tener más data para ver este detalle, en el sentido, de conocer Flutter puro vs Flutter flow
+
+Xavier De Blas, [9/5/2025 11:18]
+de acuerdo
+
+Ale, [14/5/2025 09:54]
+Hola, ¿cómo están?
+Estuve evaluando con más detalle el uso de Flutter puro y algunas otras alternativas. En resumen, la opción que mayor autonomía brinda para el desarrollo del producto es Flutter. Además de tratarse de una herramienta sin costo de licencias, las demás opciones que mejoran la productividad suelen ser pagas y presentan limitaciones importantes.
+Les voy a enviar un documento que resume todo lo que estuve analizando, para que puedan darme su opinión al respecto.
+Por otra parte, me gustaría avanzar con la idea que tienen ustedes. Si les parece, podríamos coordinar una videollamada y, en paralelo, trabajar en ese tema.
+Por último, me interesa explorar la alternativa de utilizar la salida serial del ESP32 para comunicarme con la PC, en lugar del FTDI que estoy utilizando actualmente para ejecutar la plataforma de salto.
+
+Ale, [14/5/2025 09:54]
+
+Xavier De Blas, [14/5/2025 10:06]
+Hola Alejandro
+
+Xavier De Blas, [14/5/2025 10:06]
+Yo también creo que flutter (normal) es la mejor opción
+
+Xavier De Blas, [14/5/2025 10:07]
+Deberíamos hacer una vconf para hablar de la propuesta económica. Tanto de lo que sería tu parte como del programa final.
+
+Ale, [14/5/2025 10:08]
+Estoy de acuerdo. Si les parece fijemos un día
+
+Xavier De Blas, [14/5/2025 10:21]
+Mañana te va bien?
+
+Ale, [14/5/2025 10:23]
+Si, puede ser mañana 12hs o 13hs? Hora de España
+
+Xavier De Blas, [14/5/2025 10:28]
+Por mi perfecto. Seguramente para Xavi también.
+
+Xavier Padullés, [14/5/2025 10:29]
+perfecto
+Xavier De Blas, [14/5/2025 11:58]
+enviado
+
+Ale, [14/5/2025 11:59]
+Gracias!
+
+Xavier De Blas, [15/5/2025 07:26]
+A10LWUH7|RUN_WIRELESS
+AQ01PRP5|RUN_WIRELESS
+A7049ZII|ENCODER
+AQ01KW6O|RUN_WIRELESS
+AQ01KW23|RUN_WIRELESS
+A10LWUGX|RUN_WIRELESS
+A10LWCEM|RUN_WIRELESS
+24:EC:4A:00:44:18|FOURPLATFORMS
+A10LXBJL|RUN_WIRELESS
+64:E8:33:7E:B4:EC|FOURPLATFORMS
+24:EC:4A:00:00:74|FOURPLATFORMS
+34:85:18:AC:F2:7C|FOURPLATFORMS
+A5069RR4|CONTACTS
+A601OQNL|ENCODER
+A9ISQATI|ENCODER
+A1043E93|CONTACTS
+A7049ZA9|CONTACTS
+A19KTHVF|ARDUINO_FORCE
+A9YXZIT3|CONTACTS
+A19L0RNQ|ARDUINO_RUN_ENCODER
+
+Xavier De Blas, [15/5/2025 07:27]
+en la base de datos de chronojump:
+.local/share/Chronojump/database/chronojump.db
+SELECT * from chronopicRegister;
+
+Xavier De Blas, [15/5/2025 07:41]
+ya estamos de nuevo
+
+Xavier De Blas, [15/5/2025 07:41]
+https://meet.google.com/gkv-kacy-qss
+
+Xavier De Blas, [15/5/2025 08:26]
+https://chronojump.fr/
+
+Xavier De Blas, [15/5/2025 08:51]
+https://chronojump.fr/accueil/bienvenue-sur-chronojump/
+
+Xavier De Blas, [15/5/2025 08:51]
+https://chronojump.fr/materiel/
+
+Xavier De Blas, [15/5/2025 09:03]
+estas son las notas que he tomado (seguro que me he dejado cosas)
+
+Xavier De Blas, [15/5/2025 09:03]
+
+Ale, [15/5/2025 09:05]
+Gracias!
+
+Xavier De Blas, [15/5/2025 12:59]
+Aquí tienes una propuesta de iteraciones del software de saltos
+
+Xavier De Blas, [15/5/2025 12:59]
+
+Ale, [15/5/2025 14:41]
+Perfecto! Gracias
+
+Ale, [29/5/2025 09:24]
+  Hola, ¿cómo están?
+Estoy avanzando en el aprendizaje de Flutter y comencé con la iteración 1 de este tramo.
+Voy a compartir un enlace de GitHub donde tengo el repositorio con el desarrollo y algo de documentación que voy subiendo. Ahí está la bitácora con lo actuado hasta el momento. Calculo que, a partir de ahora, se va a poder ver el esfuerzo periódico, ya que voy adquiriendo más conocimiento, y eso me permite mayor fluidez en el desarrollo.
+Seguramente la próxima semana les voy a pasar un APK para que puedan ir viendo.  
+
+Xavier De Blas, [29/5/2025 10:01]
+wow, muy bien!
+
+Ale, [29/5/2025 10:02]
+Pudieron acceder al repositorio?
+
+Xavier De Blas, [29/5/2025 10:05]
+cuál?
+
+Ale, [29/5/2025 10:06]
+Les mandé una invitación para github y ver lo hecho hasta el momento
+
+Xavier De Blas, [29/5/2025 11:11]
+No la vi. Por correo?
+
+Ale, [29/5/2025 11:12]
+Si, la mande por los correos que tengo de ustedes
+
+Xavier De Blas, [29/5/2025 11:14]
+Conduciendo. En 2h miro.
+
+Xavier De Blas, [29/5/2025 15:52]
+Estoy viendo ahora todo el repo
+
+Xavier De Blas, [29/5/2025 15:52]
+muy bien por la bitacora y como has organizado la info
+
+Xavier De Blas, [29/5/2025 15:56]
+los archivos .dart del directorio lib los haces a mano?
+
+Xavier De Blas, [29/5/2025 15:57]
+y el resto lo genera flutter automáticamente?
+
+Ale, [30/5/2025 10:23]
+  Hola, perdón por la demora en la respuesta, es parte de la diferencia horaria (5 hs).
+Al crear un proyecto en Flutter, se genera una estructura básica con algunos archivos, pero después hay que hacer casi todo a mano.
+Los archivos propios de la aplicación los estoy generando en parte manualmente y en parte con herramientas como DartPad, IA y snippets. Eso me ayuda a entender mejor el código y la lógica orientada a objetos que utiliza.
+El tema del uso de bibliotecas es otro asunto, ya que requiere bastante prueba y error.  
+
+Xavier De Blas, [30/5/2025 10:26]
+okis
+
+Ale, [30/5/2025 10:29]
+Calculo que el lunes les voy a estar enviando un APK con la primera iteracion para que vayan viendo y prueben la comunicación con el esp32s3. Por el momento la generación está con Android, porque leí que para Mac, hay que hacerlo con ese hardware
+
+Xavier De Blas, [30/5/2025 10:32]
+vale, perfecto, con muchas gracias de probarlo
+
+Xavier De Blas, [30/5/2025 10:32]
+cuando dices para mac, te refieres a ios?
+
+Ale, [30/5/2025 10:35]
+Estaría muy bueno! Estoy renegando bastante entre el esp32 y el esp32c3 porque tuve que utilizar librerías diferentes, y me está llevando bastante más tiempo del que pensé. En esp32 anda muy bien y leo los datos del sensor sin problema, pero en esp32c3 , por el momento, no. En los documentos puse las diferencias, y agregue el s3
+
+Ale, [30/5/2025 10:36]
+Digo, los leo desde el mcu al celular
+
+Xavier De Blas, [30/5/2025 10:36]
+pero te pregunto si lo que dices de mac te refires a ios, o si te refieres a mac, vamos que si puedes generar para ios sin tener un iphone.
+
+Ale, [30/5/2025 10:39]
+Si con s3, es que no me pude llevar s3 de España, solo c3. Respecto al otro punto, hablo de ios. Por lo que leí necesitas herramientas que corran en Mac o alguna plataforma en la nube
+
+Xavier De Blas, [30/5/2025 10:42]
+a ver para que me quede claro: para generar el ejecutable para ios te hace falta un iphone o un mac?
+
+Ale, [30/5/2025 10:44]
+No termine de ver bien ese tema, pero en principio necesito una Mac o una plataforma en la nube que simule lo mismo. Eso es lo que entendí hasta ahora, calculo que en 10 días más voy a estar trabajando en resolver esa parte
+
+Xavier De Blas, [30/5/2025 10:45]
+el chino tiene un mac, por si puede ayudar a hacer el ejecutable
+
+Ale, [30/5/2025 10:46]
+Buenísimo, lo tengo en cuenta
+
+Xavier De Blas, [30/5/2025 10:47]
+y nosotros estamos pagando licencia de apple developer para certificaciones, notarización, ... (100 euros/año)
+
+Ale, [30/5/2025 10:49]
+Con apple hay que pagar licencias
+
+Ale, [30/5/2025 10:58]
+Buen finde! Acá hace un ratito que empecé el día y ustedes ya están por terminar. El lunes espero tener algo para que prueben
+
+Xavier De Blas, [30/5/2025 11:13]
+Bueno, aún seguimos un rato. Y mañana es la fiesta de la ciencia donde llevamos todo a un parque de 9 a 20... así que descansar... poco. En mi caso yo no participo, pero Xavi Padullés estará todo el dia a tope
+
+Ale, [2/6/2025 08:17]
+Hola,.como están? Mandé un mail para que puedan bajar una APK y cuando puedan probarla.
+
+Xavier De Blas, [2/6/2025 08:36]
+Hola Alejnadro, sí, he visto tu email pero he tenido que arreglar un crash de chronojump para un usuario y acabo de publicar versión. Por la tarde lo miro bien
+
+Ale, [2/6/2025 08:38]
+Cuando puedan, solo les avisaba, ayer no quise mandar por este medio porque era tarde
+
+Xavier Padullés, [4/6/2025 06:33]
+
+Xavier Padullés, [4/6/2025 06:33]
+
+Ale, [4/6/2025 06:43]
+Hola! Buenísimo
+
+Ale, [4/6/2025 07:15]
+  ¿Y cómo responde con el S3? ¿Es estable la comunicación? ¿Los valores entre cambios de estado están bien?
+Si les parece, me gustaría definir mejor la interfaz de usuario. La que envié es simplemente un punto de partida para poder desarrollar estos primeros pasos, pero para lo que sigue voy a necesitar hacerles algunas consultas.
+También estuve encapsulando la conexión BLE para que pueda usarse como un paquete.  
+
+Xavier De Blas, [4/6/2025 07:16]
+Hola alejandro
+
+Xavier De Blas, [4/6/2025 07:17]
+Al enviarte lo de las iteraciones intentamos reducir al mínimo lo de la gui para no enlentecer mucho el desarrollo
+
+Xavier De Blas, [4/6/2025 07:17]
+De momento pensamos que es mejor que conecte, capture, muestre datos, almacenes bien
+
+Xavier De Blas, [4/6/2025 07:18]
+Y luego a la gui ya se puede dedicar más tiempo o menos
+
+Xavier De Blas, [4/6/2025 07:18]
+Pero si uno dedica mucho tiempo. Ala gui al principio, en mi opinión no avanza
+
+Xavier Padullés, [4/6/2025 07:20]
+Lo único que he detectado és un error de unidades.
+En la imagen se ve que da "ms" cuando se debe referir a "segundos"
+
+Ale, [4/6/2025 07:23]
+Estoy de acuerdo, simplemente para organizar un poco mejor. Pensé que tal vez poner un menú inferior (Botton Navigator bar) y el de 3 líneas( navigation drawer) para repartir las opciones.
+
+Ale, [4/6/2025 07:23]
+[In reply to Xavier Padullés]
+Si
+
+Xavier Padullés, [4/6/2025 07:31]
+[In reply to Ale]
+Solo lo  he probado con el S3 y no me ha dado ningún problema
+Xavier Padullés, [4/6/2025 07:58]
+Por mi ningún problema
+
+Xavier Padullés, [4/6/2025 08:01]
+Si quieres ahora mismo
+meet.jit.si/chonojump
+
+Xavier De Blas, [4/6/2025 08:08]
+Jitsi no me va bien
+
+Xavier De Blas, [4/6/2025 08:08]
+Però bueno, os lo dejo a vosotros
+
+Ale, [4/6/2025 08:09]
+Estoy a la espera, si quieren meet, no hay problema
+
+Xavier De Blas, [4/6/2025 08:12]
+a vere qué dice xavi ...
+
+Xavier Padullés, [4/6/2025 08:14]
+Perdón.
+Me conecto en el enlace que me pase Xavi
+
+Xavier De Blas, [4/6/2025 08:14]
+meet.google.com/srt-rcos-etb
+
+Xavier De Blas, [4/6/2025 08:16]
+reconectando ...
+
+Xavier Padullés, [4/6/2025 10:03]
+
+Ale, [4/6/2025 10:07]
+Lo pruebo y te cuento
+
+Ale, [6/6/2025 09:50]
+Hola, Cómo están?
+Xavier P., que versión de IDE y de la plataforma de tarjeta estás usando para el ESP? En mi configuración tuve que bajar a la versión 2.0.6 de ESP32 Espressif para que funcione con el C3, así puede tener la misma configuración que ustedes , y compilar el scketch
+
+Xavier Padullés, [6/6/2025 09:52]
+Yo tengo la 2.17
+
+Xavier Padullés, [6/6/2025 09:52]
+perdón 2.0.17
+
+Xavier Padullés, [6/6/2025 09:53]
+Tengo pendiente intentar migrar a la última versión
+
+Ale, [6/6/2025 09:53]
+Y la IDE de Arduino?
+
+Xavier Padullés, [6/6/2025 10:12]
+2.3.6
+
+Ale, [6/6/2025 10:12]
+Gracias!
+
+Ale, [9/6/2025 09:39]
+Hola, actualice el firmware de la placa a 2.0.17 y también a la última versión de NimBLE, y está funcionando bien, para el c3 tuve que agregar un parámetro para aumentar la potencia. Por si quieren ver un poco de código que funciona, actualice la iteracion2 en Github. También ya tengo funcionando el ida y vuelta entre el móvil y el ESP. En la iteracion3 , la pantalla va a tener un menú lateral y otro inferior
+
+Xavier De Blas, [9/6/2025 09:43]
+Wow. Muy bien
+
+Xavier De Blas, [9/6/2025 09:44]
+De hecho en el software también estamos integrando bluetooth estás semanas
+
+Ale, [9/6/2025 09:46]
+Muy bien!!!
+
+Ale, [9/6/2025 09:51]
+Le conectan otro hw a la alfombra?
+
+Xavier De Blas, [9/6/2025 09:52]
+Tenemos un proyecto con s3 desde hace muucho
+
+Xavier De Blas, [9/6/2025 09:52]
+Ya también tenemos una galga de fuerza conectada para hacer pruebas
+
+Xavier De Blas, [9/6/2025 09:52]
+Yo creo que lo de la galga estará funcionando en el soft de pc pronto
+
+Xavier De Blas, [9/6/2025 09:53]
+Como mínimo en win y mac. Estamos un poco atascados en Linux con los venv de python
+
+Xavier Padullés, [19/6/2025 05:14]
+Hola Alejandor,
+
+Xavier Padullés, [19/6/2025 05:16]
+He intentado compilar tu firmware para subirlo a un S3 pero me da errores.
+He utilizado la versión 2.0.17 de la librería esp32 de Espressif y la 2.31 de Nimble
+
+Xavier Padullés, [19/6/2025 05:16]
+A ver si hay suerte y tienes experiencia con este error:
+
+/home/xpadulles/Baixades/BLE_chronojump_esp32_iteracion3/BLE_chronojump_esp32_iteracion3.ino:116:10: error: 'void ServerCallbacks::onConnect(NimBLEServer*)' marked 'override', but does not override
+     void onConnect(BLEServer* pServer) override {
+          ^~~~~~~
+/home/xpadulles/Baixades/BLE_chronojump_esp32_iteracion3/BLE_chronojump_esp32_iteracion3.ino:121:10: error: 'void ServerCallbacks::onDisconnect(NimBLEServer*)' marked 'override', but does not override
+     void onDisconnect(BLEServer* pServer) override {
+          ^~~~~~~~~~
+/home/xpadulles/Baixades/BLE_chronojump_esp32_iteracion3/BLE_chronojump_esp32_iteracion3.ino: In function 'void setupBLE()':
+/home/xpadulles/Baixades/BLE_chronojump_esp32_iteracion3/BLE_chronojump_esp32_iteracion3.ino:162:17: error: 'class NimBLEAdvertising' has no member named 'setScanResponse'; did you mean 'setScanResponseData'?
+   pAdvertising->setScanResponse(true);
+                 ^~~~~~~~~~~~~~~
+                 setScanResponseData
+exit status 1
+
+Compilation error: 'void ServerCallbacks::onConnect(NimBLEServer*)' marked 'override', but does not override
+
+Ale, [19/6/2025 07:15]
+Hola Xavier P,  lo vuelvo a compilar por las dudas y te digo. En principio las librerías son las mismas.
+
+Xavier De Blas, [19/6/2025 07:24]
+quizás has olvidado subir algun archivo
+
+Ale, [19/6/2025 07:36]
+Claro, por eso quiero verificar.dame un rato
+
+Ale, [19/6/2025 07:52]
+Ahí te volví a mandar el código por mail, avísame y si te sigue tirando error lo vamos viendo
+
+Xavier Padullés, [19/6/2025 08:39]
+Ahora sí que ha compilado👏
+
+Ale, [19/6/2025 08:40]
+Te había pasado una versión anterior
+
+Xavier Padullés, [19/6/2025 11:01]
+Ya he provado con la aplicación también y parece que todo va con buen rumbo.
+Entiendo que solo hay la posibilidad de hacer saltos SJ, de momento
+
+Ale, [19/6/2025 11:03]
+Si, el tiempo es coherente? La funcionalidad del salto está bien? Podemos hacer una video mañana?
+
+Xavier De Blas, [19/6/2025 11:09]
+A nuestras 16 té va bien?
+
+Ale, [19/6/2025 11:09]
+Perfecto
+
+Ale, [19/6/2025 11:10]
+Me mandan el link?
+
+Xavier De Blas, [19/6/2025 11:10]
+Vale, a ver si Xavi también confirma ...
+
+Xavier De Blas, [19/6/2025 11:10]
+Mañana te lo mandamos
+
+Ale, [19/6/2025 11:10]
+Vale
+
+Xavier Padullés, [19/6/2025 11:11]
+confirmo
+
+Ale, [20/6/2025 10:58]
+Hacemos la video?
+
+Xavier De Blas, [20/6/2025 11:00]
+justo ahora hemos terminado otra
+
+Xavier De Blas, [20/6/2025 11:00]
+ahora te paso un enlace por aquí
+
+Ale, [20/6/2025 11:00]
+Gracias!
+
+Xavier De Blas, [20/6/2025 11:01]
+meet.google.com/jhs-qwco-afv
+
+Ale, [2/7/2025 07:03]
+Hola! Cómo están? Envié mail con APK y .Ino con los saltos simples
+
+Xavier De Blas, [2/7/2025 07:05]
+hola buenos días, sí hemos visto tu correo
+
+Xavier De Blas, [2/7/2025 07:10]
+precisamente ayer y anteayer he implementado en chronojump que en saltos pueda comenzar dentro o fuera
+
+Xavier De Blas, [2/7/2025 07:10]
+hasta ahora si hacías un salto tipo cmj (deberías estar dentro de la plataforma)
+
+Xavier De Blas, [2/7/2025 07:10]
+y le dabas a, capturar, si estabas dentro comenzaba el test y sino te daba un error, te pedía que salieses y que le dieses a ok cuando estuvieras preparado. Era bastante incómodo
+
+Xavier De Blas, [2/7/2025 07:11]
+ahora si al comenzar estás fuera, entonces te dice que entres y cuando detecta que entras ya te dice que puedes saltar
+
+Xavier De Blas, [2/7/2025 07:11]
+en drop jumps donde deberías comenzar fuera, lo mismo pero al revés. Y también en saltos múltiples
+
+Xavier De Blas, [2/7/2025 07:12]
+chronojump hace una señal acústica cuando el salto puede comenzar, como un disparo de salida
+
+Xavier De Blas, [2/7/2025 07:12]
+la señal la da cuando la persona puede hacer el salto, debido a que está en el estado correcto  para dicho test (dentro o  fuera).
+
+Xavier De Blas, [2/7/2025 07:23]
+Si quieres te reviso un poco el código relativo a esto para ayudar
+
+Xavier De Blas, [2/7/2025 07:23]
+si me dices por donde mirar
+
+Ale, [2/7/2025 07:32]
+Hola, el código está repartido entre el móvil y el esp32. Te preparo un diagrama de secuencia para que veas cómo me quedo la lógica, y por dónde mirar. De hecho esa parte del código lo quiero dar una vuelta de tuerca, pero primero quise pasarle a ustedes para ver si lo podían ver y justamente revisar la secuencia y saber si los tiempos que estoy midiendo son buenos
+
+Ale, [2/7/2025 07:32]
+Te preparo la secuencia y por dónde ver el codigo
+
+Xavier De Blas, [2/7/2025 07:42]
+de acuerdo
+
+Xavier De Blas, [2/7/2025 07:42]
+pero en mi opinion, debería pasar esto:
+
+Xavier De Blas, [2/7/2025 07:42]
+cuando usuario le de a capturar en el movil
+
+Xavier De Blas, [2/7/2025 07:42]
+el movil debería preguntar el estado al esp32
+
+Xavier De Blas, [2/7/2025 07:43]
+y en funcion de lo que responda, decirle al esp32 que puede capturar
+
+Xavier De Blas, [2/7/2025 07:44]
+y si no puede, tener un bucle que cada x ms vaya preguntando al esp32 si está en estado correcto)  y cuando esté (o el usuario cancele), comenzar el test
+
+Xavier De Blas, [2/7/2025 07:47]
+por ejemplo:
+- le doy a capturar un cmj
+- tlf pregunta a esp32 si está dentro
+- si está dentro comienza la captura (el teléfono da aviso sonoro de start)
+- si está fuera, se entra en un bucle en el tlf (preguntando a esp32 si el usuario ha entrado ya, mirando si usuario le da a cancel, y esperando x ms). Cuando esp32 diga que está dentro comienza la captura (el teléfono da aviso de sonoro de start)
+
+Ale, [2/7/2025 07:57]
+El esp le envía el estado de la alfombra al móvil, es decir detecta si el atleta está dentro o fuera. El botón aparece cuando detecta que está dentro y una vez que presione , significa que está listo para capturar los saltos. Con excepción de los dj que captura por cada salto. De todos modos puedo ajustar el código a la secuencia que haga falta
+
+Xavier De Blas, [2/7/2025 08:10]
+como te comento yo funciona ok para todos los casos. Áun no se muy bien como lo haces tu, pero si funciona, sin problemas.
+
+Ale, [2/7/2025 08:11]
+Pudieron probar lo que les envie?
+
+Xavier De Blas, [2/7/2025 08:11]
+yo no, teletrabajo y estoy con otras cosas. mañana lo puedo probar con Xavi que está en el lab. No se si él lo puede probar ahora.
+
+Ale, [2/7/2025 08:13]
+Oki. Ahora entiendo. Repaso todo lo que me mandaste a ver si se ajusta a lo que hice. Y te mando el diagrama de secuencia. Gracias!
+
+Xavier De Blas, [2/7/2025 08:13]
+si lo haces como te digo, entonces chronojump se comporta igual que la app para teléfono. Eso es  ideal
+
+Ale, [2/7/2025 08:14]
+Va a ser asi
+
+Xavier Padullés, [2/7/2025 08:16]
+[In reply to Ale]
+No nos enviaste la apk
+
+Xavier De Blas, [2/7/2025 08:16]
+además piensa que chronojump también se va a comunicar con ese esp32. por tanto si actúa de este modo, mejor.
+
+Ale, [2/7/2025 08:18]
+[In reply to Xavier Padullés]
+Faltaba compartirla en el drive. Ahora deberían poder bajarla
+
+Xavier Padullés, [2/7/2025 11:26]
+He probado aplicación y código arduino pero no aunque se connecta al ESP32, no devuelve ningún resultado
+
+Ale, [2/7/2025 11:27]
+Has cambiado el pin?
+
+Xavier Padullés, [2/7/2025 11:28]
+Sí.He visto que la salida del bluetooth solo indica si está en on o off cuando en otras versiones daba el tiempo de la fase. Puede ser este el problema?
+
+Ale, [2/7/2025 11:29]
+La app te muestra todos los saltos ?
+
+Xavier Padullés, [2/7/2025 11:29]
+[Foto]
+Screenshot (2 de jul. 2025 16:29:46)
+
+Xavier Padullés, [2/7/2025 11:31]
+[Foto]
+Screenshot (2 de jul. 2025 16:30:50)
+
+Ale, [2/7/2025 11:32]
+Es el mensaje que está mandando a la app que indica que está fuera de la alfombra
+
+Ale, [2/7/2025 11:32]
+Al elegir el salto te va a la pantalla con la animación?
+
+Xavier Padullés, [2/7/2025 11:33]
+Pero al entrar, aunque cambia el valor, la app no hace nada
+
+Ale, [2/7/2025 11:33]
+Claro
+
+Ale, [2/7/2025 11:34]
+La estás probando con la aplicación de NRF?
+
+Xavier Padullés, [2/7/2025 11:34]
+No.
+Cuando abro una cierro la otra
+
+Xavier Padullés, [2/7/2025 11:36]
+1. Abro la app
+2. Le doy a conectar
+3. Voy al menú lateral
+4. Selecciono SJ
+5. En la parte inferior dice que me coloque en la alfombra
+6. Presiono el botón y lo suelto múltiples veces
+
+Ale, [2/7/2025 11:38]
+Después que presionas el botón , estás en condiciones de comenzar a saltar y te debería ir mostrando la altura , tv y tc
+Xavier Padullés, [2/7/2025 11:38]
+Ahora he visto que si entro en la opción de SJ con el botón apretado cambia el comportamiento
+
+Xavier Padullés, [2/7/2025 11:40]
+Pues, no.. En un momento me ha dicho algo diferente pero no depende de que entre con el botón apretado o no. Ahora sigue sin funcionar
+
+Ale, [2/7/2025 11:42]
+Tendría que instalarme la APK que les mandé a ver si cometí algún error. Lo voy a poder ver en un rato, mañana te escribo a ver que es lo que puede estar pasando
+
+Xavier Padullés, [2/7/2025 11:43]
+Ahora me vuelve a funcionar.
+
+Ale, [2/7/2025 11:43]
+Te registro el salto?
+
+Xavier Padullés, [2/7/2025 11:45]
+Algunas veces sí otras no
+
+Xavier Padullés, [2/7/2025 11:45]
+Igual es un problema de comunicación
+
+Xavier Padullés, [2/7/2025 11:45]
+Intento fijar mejor la antena
+
+Ale, [2/7/2025 11:45]
+Vale
+
+Xavier Padullés, [2/7/2025 12:09]
+Parece que el problema era la antena
+
+Ale, [2/7/2025 12:09]
+Pudiste probar?
+
+Xavier Padullés, [2/7/2025 12:10]
+Sí.
+
+Ale, [2/7/2025 12:10]
+Los tiempos están bien?
+
+Xavier Padullés, [2/7/2025 12:10]
+Funciona tanto con como sin antena pero parece que estaba mal conectada
+
+Xavier Padullés, [2/7/2025 12:19]
+Ok. Ahora parece que funciona y los tiempos me parecen razonables.
+
+Xavier De Blas, [2/7/2025 12:20]
+así que el problema era la antena?
+
+Xavier Padullés, [2/7/2025 12:20]
+Hay alguna comprovación de tiempo, ¿verdad? Cuando un salto es muy alto deja de medir y hay que volver a hacer clic en el botón de iniciar salto
+
+Ale, [2/7/2025 12:20]
+Bien, hoy voy repasar la secuencia y agregar sonido
+
+Xavier Padullés, [2/7/2025 12:22]
+A mi parecer, es mejor que primero se haga clic en el botón y el test empieze porque podría pasar que la persona dejara el mòbil en algún sitio, se subiera a la plataforma y entonces esté lejos del mòbil para apretar el botón
+
+Ale, [2/7/2025 12:22]
+[In reply to Xavier Padullés]
+Es asi
+
+Xavier Padullés, [2/7/2025 12:23]
+[In reply to Ale]
+Ok, eso también me ha liado
+
+Xavier Padullés, [2/7/2025 12:24]
+A mi me gusta que se puedan medir varios saltos habiendo hecho clic solo una vez. Es un escenario bastante típico que una persona vaya haciendo saltos mientras vaya mejorando.
+
+Xavier Padullés, [2/7/2025 12:26]
+Xavi, como ves hacer que en Chronojump, se pueda hacer también?
+
+Xavier De Blas, [2/7/2025 12:56]
+ya sabes que a mi no me gusta
+
+Xavier De Blas, [2/7/2025 12:56]
+porque uno se olvida de darle stop cuando hace el último salto, y luego pasa otro por allí pisa la plataforma y hay que preocuparse de borrar un salto gigante falso
+
+Xavier De Blas, [2/7/2025 12:57]
+además que supuestamente hay un descanso largo entre saltos (que nunca hacemos)
+
+Xavier Padullés, [2/7/2025 12:59]
+Bueno, ya lo hablaremos
+
+Xavier Padullés, [2/7/2025 13:00]
+Porque creo que es bueno que sea igual en el mòbil que en el software
+
+Xavier De Blas, [2/7/2025 13:00]
+sí, en eso estamos de acuerdo
+
+Xavier Padullés, [3/7/2025 05:03]
+Hola alejandro,
+He provado la nueva versión de la app.
+No se si tenías previsto poner el botón , pero aunque está bien que no haya el mensaje de entrar en la plataforma, es un poco confuso que no haya el botón de iniciar salto hasta que no se esté encima de la plataforma.
+Para que sea coherente con el software se debería poder:
+1. Hacer clic en iniciar salto
+2.- Si no está en la plataforma, mostrar el mensaje y que el sujeto entre en ella.
+3.- Hacer el salto
+
+Ale, [3/7/2025 09:17]
+Hola ,
+- Poner el botón después de seleccionar el salto.
+- al presionar el botón determinar si está dentro o fuera. Caso que este afuera entonces exponer el mensaje
+- si presiona el botón y está dentro, poner sonido y comenzar el salto.
+Sería esa la secuencia?
+
+Xavier De Blas, [3/7/2025 10:07]
+Sí
+
+Xavier De Blas, [3/7/2025 10:09]
+Però si està feta, se pone el mensaje, y se monitoriza la plataforma para ver si entra. Y cuando entra sonido y comienza el salto
+
+Ale, [3/7/2025 10:09]
+Bien, hago el cambio
+
+Ale, [3/7/2025 10:10]
+Seguro mañana lo tienen
+
+Ale, [3/7/2025 10:22]
+Les quería consultar si tienen alguna forma de exportar todos los datos de atletas en la aplicación, mi pregunta es porque el entrenador que lo utiliza acá en argentina quiere hacer una copia de los datos , por cambio de computadora, y me comentó que lo tiene que hacer de a uno
+
+Ale, [3/7/2025 10:30]
+Otra pregunta.
+Los sonidos que tiene la aplicación cuando el atleta está fuera de la alfombra o cuando inicia, me los puedes compartir? Los busque en la aplicación y vi unos waw, pero no son
+
+Xavier Padullés, [3/7/2025 10:53]
+[In reply to Ale]
+Puede hacer un backup de toda la BBDD y copiar esos datos en el ordenador nuevo
+Si usa windows los datos estan en %localappdata%\Chronojump
+
+Ale, [3/7/2025 10:57]
+[In reply to Xavier Padullés]
+Perfecto!
+
+Xavier De Blas, [3/7/2025 11:23]
+
+Xavier De Blas, [3/7/2025 11:23]
+
+Xavier De Blas, [3/7/2025 11:23]
+
+Ale, [3/7/2025 11:24]
+Gracias!
+
+Xavier De Blas, [3/7/2025 11:24]
+es que están en el directorio images
+
+Ale, [3/7/2025 11:24]
+Si, pero cuando los escuché no me parecieron que eran.
+
+Xavier De Blas, [3/7/2025 11:24]
+para los pocos sonidos que hay, no creé carpeta... como ya compila bien en todos los sistemas, no lo toqué
+
+Xavier De Blas, [3/7/2025 11:25]
+dentro de images creé la carpeta sounds para tests de carreras  con beeps (esto fue hecho muy a posteriori)
+
+Ale, [4/7/2025 11:18]
+Hola,
+Ayer se me complicó el día y no pude terminar de corregir la máquina de estados para que cierre correctamente los saltos. Tampoco quería enviarles algo que no estuviera bien probado.
+Hoy ya es tarde para enviarlo, así que estimo que el lunes tendrán una versión mejor validada. Espero haber interpretado correctamente la secuencia.
+Estoy trabajando para que, en los saltos simples (con excepción de los Drop Jump), esté disponible la opción de realizar varias tomas, para que luego ustedes puedan elegir cuál utilizar.
+¡Buen finde!
+
+Xavier De Blas, [4/7/2025 11:30]
+De acuerdo, buen finde!
+
+Xavier Padullés, [7/7/2025 06:43]
+Hola Alejandro,
+Me encuentro que a menudo los primeros saltos no los registra.
+Aunque en el IDE arduino se ve como le llega el comando de ejecutar salto, y en la terminal serie se muestran los datos, en el móvil no se muestra nada.
+Cuando eso pasa, si se intenta más veces, al final acaba fucionando con normalidad
+
+Xavier Padullés, [7/7/2025 06:51]
+El testeo sería así:
+1. Abro la aplicación
+2. Conecto mediante bluetooth
+3. Voy a SJ
+4. Presiono el botón físico que tengo en la protoboard
+5. Hago clic en el botón del móvil de iniciar salto
+6. Suelto el botón físico
+7. En el IDE se muestra el resultado
+8. En la app no
+Repito desde el punto 4
+
+Ale, [7/7/2025 07:09]
+Hola Xavier, lo pruebo a ver si me pasa lo mismo. Cuando decís que empieza a funcionar, la secuencia es la esperada?
+
+Xavier Padullés, [7/7/2025 07:13]
+Sí
+
+Xavier Padullés, [7/7/2025 07:14]
+He visto que cuando falla es cuando no aparece la frase de "Debe estar dentro de la plataforma" o "!Prepárate para saltar"
+
+Ale, [7/7/2025 07:15]
+Si no estás en la plataforma te hace el sonido de Bad?
+
+Xavier Padullés, [7/7/2025 07:16]
+Cuando funciona, sí
+
+Ale, [7/7/2025 07:17]
+Voy a bajar la app que les envie a ver si me pasa lo mismo, la que tengo instalada me funciona
+
+Xavier Padullés, [7/7/2025 07:17]
+Pero ahora no consigo reproducir la situación en la que no se muestrn los mensajes que he mencionado antes
+
+Xavier Padullés, [7/7/2025 07:19]
+[Foto]
+Ahora esta fallando
+
+Ale, [7/7/2025 07:20]
+Si presionas e inicias el salto , falla?
+
+Xavier Padullés, [7/7/2025 07:21]
+Sí. No registra el salto, aunque en la terminal serie sí que se muestra:
+
+📲 manda al servidor
+Cadena recibida: 99SJ
+Estado móvil: 99
+Tipo de salto: SJ
+"boton,1"
+recibi 99
+
+Ale, [7/7/2025 07:21]
+[Foto]
+Xavier Padullés, [7/7/2025 07:23]
+Vale, creo que el problema está cuando se desconecta el bluetooth y se vuelve a conectar
+
+Ale, [7/7/2025 07:23]
+No debería desconectarse
+
+Xavier Padullés, [7/7/2025 07:24]
+Prueba:
+- Conectar dispositivo bluetooth
+- Desconectar dispositivo bluetooth
+- Ir a SJ
+
+Xavier Padullés, [7/7/2025 07:24]
+[In reply to Ale]
+Lo fuerzo yo.
+
+Ale, [7/7/2025 07:24]
+Ah
+
+Ale, [7/7/2025 07:24]
+[Foto]
+Ale, [7/7/2025 07:25]
+Fíjate que si lo desconecto me sale que no hay ble
+
+Xavier Padullés, [7/7/2025 07:25]
+[In reply to Xavier Padullés]
+Perdón falta un paso para hacerlo fallar
+Prueba:
+- Conectar dispositivo bluetooth
+- Desconectar dispositivo bluetooth
+- Volver a conectar el bluetooth
+- Ir a SJ
+
+Ale, [7/7/2025 07:26]
+Podemos hacer una video?
+
+Xavier Padullés, [7/7/2025 07:26]
+Ahora amismo
+
+Xavier De Blas, [7/7/2025 07:30]
+yo no me conecto si os parece pq no tengo el dispositivo. Mañana estaré con Xavi y lo miramos
+
+Ale, [7/7/2025 07:30]
+No hay problema
+
+Xavier Padullés, [7/7/2025 07:30]
+Por donde me has llamado?
+
+Ale, [7/7/2025 07:30]
+Por meet
+
+Ale, [7/7/2025 07:31]
+Te vuelvo a llamar?
+
+Xavier Padullés, [7/7/2025 07:31]
+Sí
+
+Xavier De Blas, [7/7/2025 08:16]
+qué tal? cómo ha ido?
+
+Xavier Padullés, [7/7/2025 08:20]
+Bien. Le he explicado como reproducir el problema.
+
+Xavier De Blas, [7/7/2025 08:21]
+
+Ale, [7/7/2025 08:21]
+Bien! Tengo que corregir el salto dj que comienza desde fuera, y ver las desconexiones de ble que vimos con Xavier. Espero tener una nueva versión está semana
+
+Xavier De Blas, [7/7/2025 08:22]
+lo de las desconexiones es mas importante, porque afecta a todo el programa
+
+Ale, [7/7/2025 08:23]
+Perfecto! Voy a corregir ese punto primero
+
+Xavier Padullés, [8/7/2025 06:52]
+Solucionado el problema de conexión👍
+
+Xavier De Blas, [8/7/2025 06:52]
+wow, super
+
+Xavier Padullés, [8/7/2025 06:54]
+Una cosa menor:
+El botón de inicar salto, cambia cuando se pulsa pero no se lee lo que dice.
+Además, estaría bien que una vez pulsado, y mientras espera al final del test, cambiara. Si no, tal u como está ahora genera dudas de si realmente se ha pulsado y se espera que el sujeto salte
+
+Ale, [8/7/2025 08:03]
+Hola, si ese detalle lo observé y espero cambiarlo. Ahora estoy viendo el dj externo. El interno funciona bien?
+
+Xavier De Blas, [8/7/2025 08:04]
+el interno (comenzando dentro) funciona bien!
+
+Xavier De Blas, [8/7/2025 08:04]
+lo ha vuelto a probar ahora.
+
+Ale, [8/7/2025 08:14]
+Buenísimo!
+
+Ale, [8/7/2025 08:46]
+Envié por mail para el salto externo a ver si está bien
+
+Xavier De Blas, [8/7/2025 08:47]
+vale, en un rato lo probamos
+
+Xavier De Blas, [8/7/2025 08:47]
+el salto externo simplemente hay que medir un tiempo de contacto y un tiempo de vuelo
+
+Ale, [8/7/2025 08:48]
+Sisi
+
+Xavier Padullés, [8/7/2025 11:02]
+Parece que, efectivamente, funciona
+
+Ale, [8/7/2025 11:30]
+
+Xavier De Blas, [10/7/2025 05:00]
+Hola Alejandro, respecto a lo que comentas de los saltos múltiples, nosotros guardamos estos datos:
+
+Xavier De Blas, [10/7/2025 05:00]
+TABLE jumpRj ( uniqueID INTEGER PRIMARY KEY, personID INT, sessionID INT, type TEXT, tvMax FLOAT, tcMax FLOAT, fall FLOAT, weight TEXT, description TEXT, tvAvg FLOAT, tcAvg FLOAT, tvString TEXT, tcString TEXT, jumps INT, time FLOAT, limited TEXT, angleString TEXT, simulated INT, datetime TEXT , heightAvg FLOAT);
+
+Xavier De Blas, [10/7/2025 05:01]
+muchos de estos datos son para luego hacer estadísticas con una consulta rápida
+
+Xavier De Blas, [10/7/2025 05:02]
+lo que te interesa más ahora es el tvString y el tcString
+
+Xavier De Blas, [10/7/2025 05:02]
+el primero es tiempos de vuelo, els segundo es tiempos de contacto
+
+Xavier De Blas, [10/7/2025 05:03]
+los guardamos en la base de datos así como un string. Ejemplo de tvString de un salto múltiple:
+
+Xavier De Blas, [10/7/2025 05:03]
+0.643=0.582=0.632=0.609=0.653=0.558=0.549=0.527=0.532=0.488
+
+Xavier De Blas, [10/7/2025 05:03]
+y tcString:
+
+Xavier De Blas, [10/7/2025 05:03]
+0.233=0.244=0.153=0.156=0.171=0.228=0.188=0.151=0.175=0.166
+
+Xavier De Blas, [10/7/2025 05:05]
+como ves, el decimal es . (siempre en sql) y el = se usa para separar los "subsaltos" en sí.
+Fïjate que siempre hay el mismo numero de tiempos de contacto que de vuelo.
+
+Xavier De Blas, [10/7/2025 05:05]
+en este caso la persona ha comenzado el salto múltiple des de fuera de la plataforma, por ese motivo el primer tiempo de contacto es:
+
+Xavier De Blas, [10/7/2025 05:05]
+0.233
+
+Xavier De Blas, [10/7/2025 05:05]
+si hubiese comenzado desde dentro, no habría primer tiempo de contacto y por tanto sería -1
+
+Xavier De Blas, [10/7/2025 05:05]
+en resumen:
+
+Xavier De Blas, [10/7/2025 05:06]
+se guardan (como te vaya mejor todos los tiempos de contacto y de vuelo). Mucho mejor si NO son strings y usas listas de ints (en milisegundos)
+
+Xavier De Blas, [10/7/2025 05:07]
+se permite comenzar desde fuera o desde dentro (en este caso primer tc será -1)
+
+Xavier De Blas, [10/7/2025 05:07]
+cuando se acabe exportando a chronojump quizás acabarás generando algo así: 0.643=0.582=0.632=0.609=0.653=0.558=0.549=0.527=0.532=0.488
+
+Xavier De Blas, [10/7/2025 05:11]
+Antes de comenzar el salto se decide como va a terminar. Hay 3 maneras:
+
+Xavier De Blas, [10/7/2025 05:11]
+- ilimitado: la persona va saltando hasta que se le da click a terminar. Se guarda hasta el útlimo tiempo de contacto y de vuelo.
+
+Xavier De Blas, [10/7/2025 05:13]
+- limitado por n saltos: si n son 3 entonces se deben guardar 3 tcs y 3 tvs
+
+Xavier De Blas, [10/7/2025 05:13]
+- limitado por tiempo: cuando termina el tiempo se guardan los tcs y tvs que se hayan completado.
+
+Xavier De Blas, [10/7/2025 05:15]
+en el último caso (por tiempo), existe el booleano de "qué hacer cuando terminal el tiempo y estás en el aire". Hay la opción de que ese vuelo se pierda (y también el último tiempo de contacto) y la opción de esperar a que la persona caiga y por tanto el tiempo total del salto múltiple será un poco más grande. Esta opción se denomina: "permitir que el salto múltiple termine después de tiempo (sí/no)". Por tanto es un checkbutton.
+
+Xavier De Blas, [10/7/2025 05:29]
+A la 1 no se si podremos hacer la vconf pq creo que aún estaremos reunidos y luego tenemos también otro acto. Por eso te lo he puesto aquí más completo. Cuando lo hayas leído nos preguntas y te vamos respondiendo.
+
+Xavier De Blas, [10/7/2025 05:41]
+
+Xavier De Blas, [10/7/2025 05:41]
+
+Xavier De Blas, [10/7/2025 05:41]
+
+Xavier De Blas, [10/7/2025 05:41]
+
+Xavier De Blas, [10/7/2025 05:43]
+eso de fixed significa:
+- si es fixed ese salto múltiple siempre se hace con esos n saltos o esos n segundos
+- si no es fixeed, el usuario puede decidir cada vez si quiere cambiar el número de saltos
+
+Ale, [10/7/2025 07:39]
+Hola ! Lo leo en detalle y les pregunto. Gracias
+
+Ale, [10/7/2025 09:10]
+Si tengo dos saltos completos, es decir , vuelo, aterrizó, vuelo y por último aterrizó, entonces tendría dos tiempos de vuelo y uno de contacto? Es asi?
+
+Xavier De Blas, [10/7/2025 10:49]
+Sempre tienes los mismos tiempos de vuelo que de contacto
+
+Xavier De Blas, [10/7/2025 10:49]
+Opción A: has comenzado dentro
+
+Xavier De Blas, [10/7/2025 10:50]
+Siempre hacemos: contacto, vuelo, contacto vuelo
+
+Xavier De Blas, [10/7/2025 10:50]
+El primer contacto es -1
+
+Xavier De Blas, [10/7/2025 10:50]
+Opcion B: si comienzas fuera:
+
+Xavier De Blas, [10/7/2025 10:50]
+Contacto, vuelo, contacto, vuelo
+
+Xavier De Blas, [10/7/2025 10:50]
+Y primer contacto >0
+
+Ale, [10/7/2025 10:57]
+Para el caso b cuentas desde que presionas el botón hasta que cae en la alfombra?
+
+Xavier De Blas, [10/7/2025 11:05]
+no, no, ese tiempo desde que presionas el botón hasta que caes a la plataforma no se cuenta
+
+Xavier De Blas, [10/7/2025 11:06]
+se cuenta:
+PRIMER TC: desde que aterriza en la plataforma hasta que se despega
+PRIMER TV: desde que despega hasta que aterriza
+SEGUNDO TC: desde que aterriza en la plataforma hasta que se despega
+SEGUNDO TV: desde que despega hasta que aterriza
+
+Ale, [10/7/2025 11:06]
+Vale
+
+Xavier De Blas, [10/7/2025 11:06]
+TC es tiempo de contacto. TV tiempo de vuelo
+
+Xavier Padullés, [16/7/2025 05:23]
+He probado los saltos múltiples y parece que funciona lo que mencionas en el correo.
+
+Ale, [16/7/2025 07:08]
+Y la funcionalidad es esa? Además de los parámetros que tengo que desarrollar, hay alguna otra cosa que contemplar?
+
+Xavier Padullés, [16/7/2025 07:13]
+De momento yo veo que sí, los parámetros a guardar son el tiempo de vuelo y tiempo de contacto de cada salto.
+Xavier Padullés, [16/7/2025 07:13]
+En chronojump se guardan todos los saltos de la serie como un solo test.
+Por lo que he visto ahora en la aplicación se guardan los saltos separadamente
+
+Xavier Padullés, [16/7/2025 07:14]
+En futuras versiones deberían estar agrupados según la serie
+
+Ale, [16/7/2025 07:15]
+Después vemos cómo guardar de la manera que se requiera
+
+Xavier Padullés, [16/7/2025 07:18]
+Actualmente se guarda un string para los tiempos de vuelo y un string para los tiempos de contacto. Cada tiempo está separado por el signo "="
+Ejemplo:
+37.854088=0.36536=0.364944=0.365216=0.365056=0.36524=0.305312=0.294984=0.114888=0.180008
+
+Xavier Padullés, [16/7/2025 07:20]
+
+Xavier De Blas, [16/7/2025 07:20]
+Sí, todo esto lo puse en este chat el 10 de julio
+
+Ale, [16/7/2025 07:28]
+Sisi, estuve trabajando con eso, por eso quería saber si voy por el camino correcto. Ahora voy a calcular los tiempos de tc y tv, y agregar los otros limites
+
+Xavier De Blas, [16/7/2025 07:35]
+perfecto
+
+Xavier De Blas, [16/7/2025 07:35]
+estaría bien que llevarás un registro de cuántas horas dedicas al dia o a la semana, aunque sea aproximado
+
+Ale, [16/7/2025 07:37]
+Está en la bitácora, tengo que actualizar la última semana. Por ahora el punto es el de la curva de aprendizaje, y es por eso que no lo registro día a dia
+
+Xavier De Blas, [16/7/2025 07:37]
+de acuerdo
+
+Xavier Padullés, [18/7/2025 05:49]
+Hola Alejandro,
+He instalado la nueva versión de la app.
+Qué quieres que probemos?
+
+Ale, [18/7/2025 08:23]
+Hola, ahora está completa con los límites y los tiempos, la toma desde dentro o fuera de la alfombra. Quiero corroborar que eso este bien, o si está faltando cosas
+
+Xavier Padullés, [18/7/2025 08:26]
+A mi no me funcionan los saltos limitados por tiempo
+
+Xavier Padullés, [18/7/2025 08:27]
+A la que despego me aparece el mensaje inferior diciendo que se ha detenido por detección de salida de la alfombra
+
+Ale, [18/7/2025 08:33]
+Lo reviso
+
+Ale, [18/7/2025 08:52]
+Ahí lo volví a probar y volví a instalar la misma APK que les envié, y me funciona, aunque en alguna prueba tuve que volver a entrar y darle al botón para empezar.  A vos no te funcionó nunca?
+
+Xavier Padullés, [18/7/2025 08:57]
+No me funcionó nunca.
+Lo he probado unas 5~6 veces
+
+Xavier Padullés, [18/7/2025 08:57]
+Lo prueba más veces
+
+Xavier Padullés, [18/7/2025 08:58]
+Puede ser que haya que cambiar algo del firmware?
+Yo no lo he hecho
+
+Ale, [18/7/2025 08:58]
+Ah, si
+
+Ale, [18/7/2025 08:59]
+El esp32 cambio
+
+Ale, [18/7/2025 08:59]
+Te mandé el archivo, no?
+
+Xavier Padullés, [18/7/2025 09:00]
+Tengo la del día 16
+
+Xavier Padullés, [18/7/2025 09:00]
+Iteración4 V1
+
+Ale, [18/7/2025 09:01]
+Fíjate en el mail que tenés un attach con v6
+
+Ale, [18/7/2025 09:01]
+Igual te vuelvo a mandar mail
+
+Ale, [18/7/2025 09:02]
+Ahí fue
+
+Xavier Padullés, [18/7/2025 09:02]
+Lo tengo
+
+Xavier Padullés, [18/7/2025 09:05]
+Ahora sí que funciona
+
+Ale, [18/7/2025 09:05]
+Y estan bien los tiempos? Tc y tv?
+
+Xavier Padullés, [18/7/2025 09:07]
+Me parecen coherentes.
+Aunque es difícil de ver si no quedan registrados
+
+Ale, [18/7/2025 09:08]
+Podremos hacer una video la semana que viene y ver un repaso de lo hecho y que faltaría para avanzar con el registro de los datos?
+
+Xavier Padullés, [18/7/2025 09:10]
+Confunde un poco que no aparezcan los datos del salto hasta haber despegado otra vez.
+Normalmente el tiempo de vuelo se compara con el tiempo de contacto previo
+
+Xavier Padullés, [18/7/2025 09:10]
+Es decir se agrupan en 
+TC TV
+TC TV
+...
+
+Y no en 
+TV TC
+TV TC
+...
+
+Ale, [18/7/2025 09:11]
+Ah, lo veo. Eso es exclusivo para multisaltos
+
+Ale, [18/7/2025 09:12]
+De todos modos eso se construye a lo que haga falta
+
+Xavier Padullés, [18/7/2025 09:12]
+Bueno, en Drop jumps, donde primero tejas caer y luego saltas también
+
+Ale, [18/7/2025 09:12]
+Lo veo tambien
+
+Xavier Padullés, [18/7/2025 09:13]
+Es decir tanto el DJ_IN como el DJ_EX se agrupan así también
+
+Xavier Padullés, [18/7/2025 09:14]
+Pero creo que ya estaban agrupados así
+
+Ale, [18/7/2025 09:15]
+Entiendo, ahora muestro el tv y el tc que lo calculo del próximo salto, es decir que el tc lo calculo desde que aterrizó hasta que volvió a saltar
+
+Ale, [18/7/2025 09:16]
+Y el tv sería del salto anterior
+
+Xavier Padullés, [18/7/2025 09:18]
+Exacto y el TV debería ser del salto posterior al TC
+
+Ale, [18/7/2025 09:20]
+Lo pienso un poco para mostrarlo.  Tal vez tendría que fijarme en el software de ustedes
+
+Ale, [18/7/2025 09:56]
+Para el caso del Dj se muestra un solo tv y tc?
+
+Xavier Padullés, [18/7/2025 09:56]
+Sí
+
+Xavier Padullés, [18/7/2025 09:57]
+Aunque en el DJ_IN se debe mostrar también la altura de caída, es decir la altura del primer salto
+
+Ale, [18/7/2025 09:58]
+Claro
+
+Xavier Padullés, [18/7/2025 09:58]
+
+Ale, [18/7/2025 09:58]
+Para los múltiples voy a hacer una tabla, y el primero daría negativo o no se muestra
+
+Xavier Padullés, [18/7/2025 09:59]
+La columna fall es la altura de caída o del salto previo
+
+Xavier Padullés, [18/7/2025 09:59]
+[In reply to Ale]
+En Chronojump se guarda como -1 cuando no hay TC previo
+
+Ale, [18/7/2025 10:00]
+Vale
+
+Xavier Padullés, [18/7/2025 10:00]
+Pero que no se muestre es necesario para no liar al usuario
+
+Ale, [18/7/2025 10:01]
+Veo de poder reproducir esto
+
+Ale, [18/7/2025 10:03]
+Height sería la altura que tomo después del envión cuando cayó del salto previo?
+
+Xavier Padullés, [18/7/2025 10:04]
+No, Heigh es la altura que medimos del segundo salto
+
+Xavier Padullés, [18/7/2025 10:04]
+Fall es la del primer salto
+
+Ale, [18/7/2025 10:04]
+Fall es la altura del primer salto?
+
+Xavier Padullés, [18/7/2025 10:04]
+sí
+
+Ale, [18/7/2025 10:05]
+Antes me exprese mal, pero quise decir eso.
+
+Ale, [18/7/2025 10:05]
+Por la diferencia que veo entre el primero y el segundo
+
+Xavier Padullés, [21/7/2025 08:01]
+Hola Alejandro,
+He probado la nueva versión. Cosas que he detectado.
+-Saltos múltiples
+-Limitados por saltos y empezando desde fuera: al primer contacto (caer en la plataforma) se  registra como si fuera un salto con TC=0 y TV=17~18
+-Limitados por saltos y empezando desde dentro:  después de la caída del primer salto se da el tiempo de contacto. (No se debería mostrar el TC porque es irrelevante)
+
+Ale, [21/7/2025 08:13]
+Hola, buen día desde aquí. El primer salto empezando desde fuera, entonces no se muestra?  Y desde dentro no mostraría el tiempo de contacto, pero si el de vuelo? 
+Ahora la forma de mostrar en multisaltos es la que esperan ver?
+
+Xavier De Blas, [21/7/2025 08:14]
+Hola Alejandro, quizás te sería más fácil ver como lo hace Chronojump, puedes verlo? Así también puedes presentar los datos de un modo parecido
+
+Xavier Padullés, [21/7/2025 08:15]
+Se ha perdido la posibilidad de inicar el test si no se está en el estado deseado (Dentro o fuera)
+
+Xavier Padullés, [21/7/2025 08:16]
+En el DJ_EX, si se está dentro y se inicia el test (se presiona el botón) se queda inactivo el botón y no se puede volver a activar
+
+Ale, [21/7/2025 08:17]
+Hola Xavier B. Estuve viendo vuestra aplicación y también tome una planilla que me envió Xavier y cambié solo en saltos múltiples. El tema es que el móvil es más pequeño para poner más datos
+
+Ale, [21/7/2025 08:18]
+[In reply to Xavier Padullés]
+Veo esa funcionalidad
+
+Xavier Padullés, [21/7/2025 08:18]
+Sí, sí. Nos referimos a los datos que hay que mostrar de TC y TV, no a como se muestren los datos
+
+Xavier De Blas, [21/7/2025 08:18]
+[In reply to Ale]
+sí, sí, entiendo que poner todo es imposible, pero verías lo de que sucede con el primer salto.
+
+Ale, [21/7/2025 08:18]
+Si
+
+Ale, [21/7/2025 08:20]
+Voy a volver a repasar en la aplicación de PC, pero como se muestra en multisaltos no estaría bien?
+
+Ale, [21/7/2025 08:20]
+[In reply to Xavier Padullés]
+También lo voy a revisar
+
+Xavier Padullés, [21/7/2025 08:26]
+[In reply to Ale]
+Te hago un gráfico para entenderlo mejor
+
+Ale, [21/7/2025 08:27]
+Vale
+
+Ale, [21/7/2025 08:27]
+Gracias
+
+Xavier Padullés, [21/7/2025 08:42]
+
+Ale, [21/7/2025 08:46]
+Perfecto!
+
+Ale, [24/7/2025 07:23]
+Buen día, puedo hacer una video, si quieren puedo ahora
+
+Xavier De Blas, [24/7/2025 07:40]
+vale, ahora te pasamos un enlace
+
+Ale, [24/7/2025 07:40]
+Sisi
+
+Xavier De Blas, [24/7/2025 07:42]
+meet.google.com/ncg-hpxf-yqa
+
+Ale, [6/8/2025 07:35]
+Hola, ¿cómo están?
+Reduje la lógica del ESP32, y ahora su única responsabilidad es capturar los cambios de estado en un pin y devolver los tiempos. Implementé un sistema de mensajería con códigos para controlar el inicio y fin del proceso de salto.
+Tuve que ajustar el diseño del lado del móvil para lograr un acople diferente al anterior, reorganizando la visualización del salto, la comunicación entre el móvil y el MCU, y el cálculo correspondiente. Actualmente, los saltos simples ya están funcionando correctamente.
+Ahora me gustaría revisar la funcionalidad de los saltos múltiples. Puntualmente, quiero confirmar si la versión que les compartí previamente es válida, especialmente en lo referente a la pantalla que solicita datos como la cantidad de saltos, tiempo, etc. Quisiera saber si consideran que esa lógica es correcta o si es necesario realizar algún ajuste.
+Quedo atento a sus comentarios para poder seguir avanzando.
+Saludos,
+Alejandro
+
+Ale, [11/8/2025 08:39]
+Hola
+Espero que estén muy bien. Les escribo para dar seguimiento al mensaje que envié, ya que no he recibido respuesta y quería confirmar si pudieron revisarlo o si están de vacaciones.
+Quedó atento a sus comentarios
+Saludo
+
+Xavier Padullés, [11/8/2025 08:42]
+Yo no he podido revisarlo. Y aunque no estoy de vacaciones estrictas, no estaré por el laboratorio, que es donde tengo los aparatos, hasta la semana que viene.
+
+Ale, [11/8/2025 08:43]
+Gracias por la respuesta. No hay problema, cuando puedan lo vemos
+
+Xavier De Blas, [11/8/2025 08:47]
+Hola Alejandro, yo sí que subo al laboratorio mañana. Aunque espero publicar la versión 2.5.2 del Chronojump así que no creo que pueda mirarlo.
+
+Xavier De Blas, [11/8/2025 08:48]
+Por cierto Alejandro, parece que lo de que pueda haber cualquier aplicación de Linux funcionando en teléfonos Android es bastante inminente.
+
+Xavier De Blas, [11/8/2025 08:49]
+no se si lo has leído o lo has probado pero parece que ya está disponible para cualquier modelo de teléfono (que se pueda actualizar a la última versión de Android). Y también funciona en aplicaciones gráficas
+
+Xavier De Blas, [11/8/2025 08:50]
+en principio no hace falta que el usuario haga root ni nada de eso. Sería equivalente al proceso de instalar aplicacions linux en chromeos
+
+Xavier De Blas, [11/8/2025 08:50]
+https://digitrendz.blog/newswire/technology/30321/run-linux-apps-on-android-googles-new-debian-terminal/
+
+Xavier De Blas, [11/8/2025 08:51]
+vaya, ahora no carga, pero el texto era
+
+Xavier De Blas, [11/8/2025 08:51]
+Google’s Android operating system is taking a significant leap toward desktop functionality by introducing native support for graphical Linux applications through its built-in Debian terminal. This development, currently available in beta versions, marks a major shift for power users who previously could only run command-line tools on their Android devices.
+
+
+The latest beta update now enables users to launch Linux apps with full graphical interfaces directly within the terminal. While earlier versions restricted functionality to text-based commands, useful for tasks like remote server management, the addition of a graphical display mode opens doors for more intuitive software interactions.
+
+
+Apps like Gedit, a popular Linux text editor, and even classic ports such as Doom can now run in a dedicated graphical environment powered by Weston, a lightweight compositor for Linux.
+
+
+This enhancement effectively transforms Android’s terminal into a more complete operating system, complete with window management akin to Windows or macOS. Though still experimental, the feature signals Google’s broader ambitions, particularly in bridging the gap between Android and ChromeOS. A robust Linux environment on mobile devices could eventually allow users to run PC-grade applications, further blurring the lines between smartphones and traditional computers.
+
+
+Beyond productivity tools, the implications for gaming are equally compelling. With Steam’s growing Linux compatibility, thanks in part to the Steam Deck, Android devices might soon support a wider range of PC games within a virtualized environment. While performance hurdles remain, the groundwork is being laid for a future where mobile hardware handles tasks once reserved for desktops.
+
+
+For developers and tech enthusiasts, this update represents more than just a novelty, it’s a step toward a more versatile Android ecosystem. As the feature matures, it could redefine how users interact with their devices, turning smartphones into true multitasking powerhouses.
+
+Xavier De Blas, [11/8/2025 08:52]
+no se si será preciso usar pantalla externa para disfrutarlo, o si se deberá ejecutar todo el desktop o simplemente se podrá abrir directamente la aplicación. Aún no lo he podido probar.
+
+Ale, [11/8/2025 08:54]
+No lo he leído, pero es una buena noticia. Voy a investigar un poco el tema
+
+Xavier De Blas, [11/8/2025 08:55]
+vale, perfecto!
+
+Xavier Padullés, [18/8/2025 09:59]
+[In reply to Ale]
+Hola Alejandro, no tengo el código de arduino ni la app para provar todo esto
+
+Ale, [18/8/2025 10:14]
+Hola Xavier P. Cómo estás? Deberías tenerlo en un correo del 23 de Julio, pero después de la video segui avanzando y migre todo del esp32 al cliente. Te mando el estado actual para que lo puedas evaluar. Mañana a primera hora lo tenés disponible.
+
+Xavier Padullés, [18/8/2025 10:21]
+Ahh, pensaba que querías que provara lo que escriviste el 6 de agosto.
+Genial si mañana lo tengo y puedo provarlo
+
+Ale, [18/8/2025 10:24]
+Ya no tiene sentido, te paso lo hecho hasta ahora
+
+Xavier Padullés, [19/8/2025 05:53]
+No he conseguido que funcione.
+El pin del botón i el pin del LED estaban cambiados. Pero corregido ese pequeño error tampoco he conseguido que el móvil reciba información del esp32.
+
+Xavier Padullés, [19/8/2025 05:54]
+Cuando le doy al botón de INICIAR SALTO siempre dice que debe iniciar sobre la alfombra
+
+Ale, [19/8/2025 05:57]
+Hola, ahora estoy viajando en un rato lo reviso
+
+Xavier Padullés, [19/8/2025 05:57]
+Por lo que he visto aún se envía mucha información y se envía en función de unos estados que no tengo muy claros que son (variables s y estado_movil)
+Lo que nosotros proponíamos es que siempre envíe la duración del estado anterior y que sea la aplicación quien gestione si tiene que usar el dato o no
+
+Ale, [19/8/2025 07:16]
+Hola, podemos hacer una video?
+
+Xavier Padullés, [19/8/2025 07:41]
+En un rato estará Xavi de Blas también
+
+Xavier Padullés, [19/8/2025 07:41]
+Te aviso cuando esté disponible
+
+Ale, [19/8/2025 07:43]
+Vale
+
+Xavier De Blas, [19/8/2025 08:20]
+Aún necesito un buen rato pues ahora voy a preparar el texto del video
+
+Xavier De Blas, [19/8/2025 08:20]
+Pero si queréis haced vosotros la vconf
+
+Ale, [19/8/2025 08:20]
+No hay problema
+
+Ale, [19/8/2025 08:22]
+Xavier P. Volví a probar el código que les envié y me funcionó. A vos te sigue dando que no estás en la plataforma?
+
+Xavier Padullés, [19/8/2025 08:23]
+Sí
+
+Xavier Padullés, [19/8/2025 08:24]
+He descargado la release v8a de la apk
+
+Xavier Padullés, [19/8/2025 08:25]
+y la de arduino chronojump_iteracion4_mini_v2
+
+Ale, [19/8/2025 08:26]
+Voy a revisar lo que compartí en el drive
+
+Xavier Padullés, [19/8/2025 08:26]
+Ahora me ha funcionado!
+
+Xavier Padullés, [19/8/2025 08:26]
+Sin cambiar nada
+
+Ale, [19/8/2025 08:27]
+Que bueno
+
+Xavier Padullés, [19/8/2025 08:27]
+Bueno, habiendo hecho los cambios del los pines
+
+Xavier Padullés, [19/8/2025 08:27]
+No entiendo porqué ahora funciona
+
+Ale, [19/8/2025 08:27]
+
+Ale, [19/8/2025 08:27]
+Así es la informática
+
+Xavier Padullés, [19/8/2025 08:30]
+[Foto]
+Casi no se ve la lista de saltos
+
+Ale, [19/8/2025 08:36]
+Hay que acomodar mejor la pantalla. Tiene unos mensajes al pie que son molestos, y tengo que levantar más la lista de valores
+
+Xavier Padullés, [19/8/2025 08:38]
+Por otro lado, si he leído bien el código parece que el cálculo del tiempo se hace fuera del ESP32. Esto es problemático porque se depende de la comunicación, y si por algún motivo se retrasa contaminará los valores
+
+Xavier Padullés, [19/8/2025 08:39]
+Por eso nuestra idea era que el ESP32 enviara el tiempo del estado anterior siempre que hubiera un cambio de estado
+
+Ale, [19/8/2025 08:42]
+El esp32 manda tiempo y estado y el cliente hace los cálculos. De todos modos si podemos hacer la video podemos hablar mejor, y también entender para sacar los mensajes que deje que hacen de sincronía
+
+Xavier Padullés, [19/8/2025 08:43]
+Ok, pues si quieres la hacemos tu y yo
+
+Ale, [19/8/2025 08:43]
+Sisi. Me mandas un link?
+
+Xavier Padullés, [19/8/2025 08:44]
+https://meet.google.com/kfj-pkcb-eme
+
+Ale, [21/8/2025 09:32]
+Hola! Cómo están? Envié una actualización con los cambios que estuvimos hablando el otro dia
+
+Xavier De Blas, [21/8/2025 10:01]
+Hola Alejandro. Hemos visto tu correo. Ahora terminamos de comer y lo miramos.
+
+Ale, [21/8/2025 10:02]
+Perfecto
+
+Xavier Padullés, [21/8/2025 12:27]
+Hola Alejandor
+
+Xavier Padullés, [21/8/2025 12:27]
+La comunicación me ha funcionado perfectamente
+
+Xavier Padullés, [21/8/2025 12:28]
+Y realmente el código de arduino queda muchísimo más limpio
+
+Ale, [21/8/2025 12:30]
+Me alegro! Y los saltos los pudiste probar?
+
+Xavier Padullés, [21/8/2025 12:31]
+Lo que sí que he visto es que los saltos simples no guardan el resultado en la app. Los múltiples sí aunque parece que sólo el último
+
+Ale, [21/8/2025 12:31]
+Es verdad pero eso se corrige para que no borre el historial
+
+Xavier Padullés, [21/8/2025 12:33]
+Y una cosa menor:: la caída está en milisegundos cuando normalmente siempre damos la altura de caída en cm
+
+Ale, [21/8/2025 12:33]
+Eso se cambia, en la conversión
+
+Xavier Padullés, [25/8/2025 07:06]
+Parece que los saltos múltiples ok
+
+Ale, [25/8/2025 07:14]
+Buen día! Buenísimo. Cuando puedan me gustaría avanzar en la otra iteración.
+
+Xavier De Blas, [25/8/2025 07:29]
+cuendo puedas tu
+
+Xavier De Blas, [25/8/2025 07:30]
+que es el que está haciendo todo el trabajo
+
+Ale, [25/8/2025 07:30]
+Pueden hoy?
+
+Xavier De Blas, [25/8/2025 07:30]
+sí, nosotros sí
+
+Ale, [25/8/2025 07:30]
+Pueden dentro de una hora?
+
+Xavier De Blas, [25/8/2025 07:31]
+yo sí, a ver qué dice el otro xavi ...
+
+Ale, [25/8/2025 07:32]
+Tal vez es la hora del almuerzo para ustedes
+
+Ale, [25/8/2025 07:32]
+Puede ser despues
+
+Xavier Padullés, [25/8/2025 07:36]
+[In reply to Ale]
+Yo también puedo
+
+Ale, [25/8/2025 07:41]
+Perfecto. Sería 13.30 hora Madrid. Me mandan la invitación?
+
+Xavier De Blas, [25/8/2025 08:03]
+meet.google.com/egi-petk-xkj
+
+Xavier De Blas, [25/8/2025 08:03]
+dentro de 30'
+
+Ale, [25/8/2025 08:05]
+[In reply to Xavier De Blas]
+
+Xavier De Blas, [25/8/2025 08:38]
+
+Ale, [26/8/2025 10:28]
+Hola,
+Compartí en Drive un link con la app que guarda los saltos en un archivo CSV, para validar si interpreté correctamente la estructura de almacenamiento y la forma de exportación. En la opción de configuración está disponible la posibilidad de depurarlos. Se genera un archivo por cada fecha.
+
+Xavier Padullés, [27/8/2025 06:00]
+Hola Alejandro,
+
+Xavier Padullés, [27/8/2025 06:01]
+No he encontrado como acceder a los archivos
+
+Xavier Padullés, [27/8/2025 06:01]
+[Foto]
+Xavier Padullés, [27/8/2025 06:02]
+La ruta que dice en la app, no he sido capaz de encontrarla.
+Sabes cómo puedo acceder a esa ubicación?
+
+Xavier Padullés, [27/8/2025 06:03]
+Lo he probado con el Ghost Commander
+https://f-droid.org/en/packages/com.ghostsq.commander/
+
+Ale, [27/8/2025 07:07]
+Buen día! 
+El archivo se guarda en el directorio de la app que no tiene acceso, es una política de seguridad de Android. Por eso está la opción de compartir para que lo puedan exportar
+
+Xavier Padullés, [27/8/2025 07:11]
+Ahh, no había visto que en Configuración se podía compartir el archivo
+
+Xavier Padullés, [27/8/2025 07:12]
+Muy práctico lo de compartir.
+
+Ale, [27/8/2025 07:12]
+Fíjate que en la pantalla de salto está el símbolo de compartir
+
+Ale, [27/8/2025 07:13]
+[Foto]
+Xavier Padullés, [27/8/2025 07:13]
+Pues tampoco lo había visto😅
+Aún más práctico
+
+Xavier Padullés, [27/8/2025 07:15]
+
+Xavier De Blas, [27/8/2025 07:20]
+faltan títulos de columnas
+
+Xavier De Blas, [27/8/2025 07:20]
+userID,jumpType,jumpData,timestamp
+
+Xavier De Blas, [27/8/2025 07:20]
+pero jumpData tiene dos columnas:
+
+Xavier De Blas, [27/8/2025 07:20]
+defaultUser,SJ,0.00,540.20,2025-08-27 12:13:06
+
+Xavier De Blas, [27/8/2025 07:21]
+esto debería ser:
+
+Xavier De Blas, [27/8/2025 07:21]
+userID,jumpType,tc,tf,timestamp
+
+Xavier De Blas, [27/8/2025 07:21]
+defaultUser,SJ,0.00,540.20,2025-08-27 12:13:06
+
+Ale, [27/8/2025 07:21]
+Bien
+
+Xavier De Blas, [27/8/2025 07:22]
+i el multiple también con dos columas
+
+Xavier De Blas, [27/8/2025 07:22]
+tc seria los tiempos de contacto separados por =
+
+Xavier De Blas, [27/8/2025 07:22]
+tf serian los tiempos de vuelo separados por =
+
+Xavier De Blas, [27/8/2025 07:23]
+en cambio ahora hay 6 columnas de jumpData en los múltiples
+
+Ale, [27/8/2025 07:25]
+En el SJ que pusiste es como debería quedar? Porque veo que los dos que escribiste son iguales
+
+Xavier De Blas, [27/8/2025 07:26]
+defaultUser,SJ,0.00,540.20,2025-08-27 12:13:06
+
+Xavier De Blas, [27/8/2025 07:26]
+0.00 es el tc
+540.20 es el tf
+
+Xavier De Blas, [27/8/2025 07:27]
+pero el tc además lo pondría como -1 para que quede claro que no hay tc
+
+Ale, [27/8/2025 07:27]
+Bien, lo que le faltaba en ese caso es el título?
+
+Xavier De Blas, [27/8/2025 07:28]
+como he dicho más arriba, el título: jumpData deben ser dos: tc, tf
+
+Ale, [27/8/2025 07:28]
+Si
+
+Xavier De Blas, [27/8/2025 07:28]
+y lo de los múltiples también lo he puesto más arriba
+
+Ale, [27/8/2025 07:28]
+Oki
+
+Ale, [28/8/2025 07:05]
+Buen día, 
+ Envié la corrección de la APK de cómo se almacenan los saltos en los casos simples y DJ.
+
+En el caso de los saltos múltiples, revisando los chats me surgió una duda respecto a cómo guardar las columnas TC y TF. Te paso un ejemplo práctico para que quede más claro:
+
+              TC     TF
+----------------------------
+Primer Salto  -1     770.00
+Segundo Salto 530.00 500.00
+Tercer Salto  590.00 350.00
+
+Se almacenaría asi?
+
+UserID,Jump Type, tc, tf, timestamp
+default User, MULTI, -1=530.00=590.00, timestamp
+default User, MULTI, 770=500.00=350.00, timestamp
+
+Es decir una lista de todos los TC separados por =, y otra lista para TF
+
+Se almacenaría asi?
+UserID,Jump Type, tc, tf, timestamp
+default User, MULTI, -1=770, timestamp
+default User, MULTI, 530.00=500.00, timestamp
+default User, MULTI, 590.00=350.00, timestamp
+
+Xavier De Blas, [28/8/2025 07:07]
+Hola buenos días
+
+Xavier De Blas, [28/8/2025 07:07]
+sería:
+
+Xavier De Blas, [28/8/2025 07:07]
+default User, MULTI, -1=530.00=590.00, 770=500.00=350.00, timestamp
+
+Xavier De Blas, [28/8/2025 07:07]
+1 sola linea para todo el salto
+
+Xavier De Blas, [28/8/2025 07:08]
+y sin los espacios antes y despues de coma, o sea:
+
+Xavier De Blas, [28/8/2025 07:08]
+default User,MULTI,-1=530.00=590.00,770=500.00=350.00,timestamp
+
+Ale, [28/8/2025 07:09]
+Perfecto. Gracias!
+
+Xavier Padullés, [29/8/2025 06:27]
+
+Ale, [29/8/2025 08:35]
+Hola, si me interesa. Lo miro. 
+Ayer compartí el link de la APK con los cambios para guardar todos los saltos, espero haber entendido bien la estructura del cvs.
+
+Xavier Padullés, [29/8/2025 09:34]
+
+Ale, [29/8/2025 09:36]
+Esta bien como lo generó?
+
+Xavier De Blas, [29/8/2025 12:55]
+en lo saltos múltiples, lo lógico es guardar los tiempos de contacto del primero al último
+
+Xavier De Blas, [29/8/2025 12:55]
+y lo mismo con los tiempos de vuelo
+
+Xavier De Blas, [29/8/2025 12:55]
+defaultUser,MULTI,457.46=518.06=491.87=642.12=-1,576.01=537.59=613.07=581.55=791.62,2025-08-29 11:24:09
+
+Xavier De Blas, [29/8/2025 12:56]
+ese -1 indica que has guardado como último el primer tiempo de contacto inexistente
+
+Xavier De Blas, [29/8/2025 12:56]
+vamos que parece que guardas los tcs y tfs en orden inverso
+
+Xavier De Blas, [29/8/2025 12:57]
+en los saltos múltiples, tanto los TC como los TF, debe ser un conjunto de valores separados por = siendo el primero en aparecer, el primero que se ha dado
+
+Xavier De Blas, [29/8/2025 12:58]
+por tanto si ha comenzado dentro, el -1 debería ser el primer TC y no el último
+
+Ale, [29/8/2025 13:37]
+Si, están ordenados al revés, lo corrijo
+
+Ale, [2/9/2025 07:46]
+Buen día, ayer les compartí la versión actualizada de la APK
+
+Xavier Padullés, [2/9/2025 07:59]
+Xavier De Blas, [2/9/2025 08:05]
+Ahora está bien
+
+Xavier De Blas, [2/9/2025 08:06]
+Aunque es mejor que Jump Type lo pongas así: JumpType
+
+Ale, [2/9/2025 08:06]
+No hay problema, lo cambio
+
+Xavier De Blas, [2/9/2025 08:06]
+pq al haber un espacio a veces los programas que leen csv se ponen nerviosos por no haber envuelto la cadena entre "
+
+Xavier De Blas, [2/9/2025 08:06]
+sin espacio no hace falta ""
+
+Ale, [2/9/2025 08:06]
+Sisi
+
+Ale, [2/9/2025 08:07]
+Podemos seguir con la internación 6?
+
+Xavier De Blas, [2/9/2025 09:00]
+Vale, perfecto. Ahora vamos a comer. Luego te escribimos.
+
+Ale, [2/9/2025 09:01]
+Vale
+
+Xavier De Blas, [2/9/2025 13:12]
+Xavi está muy liado con una una placa que estamos haciendo, por eso no te hemos dicho nada
+
+Xavier De Blas, [2/9/2025 13:12]
+y en 45 minutos tenemos una videoconf
+
+Xavier De Blas, [2/9/2025 13:12]
+así que no se si hoy podremos avanzar en esto.
+
+Xavier De Blas, [2/9/2025 13:12]
+Mañana tengo reuniones en la uni todo el día
+
+Xavier De Blas, [2/9/2025 13:12]
+así que casi seguro que será para jueves
+
+Ale, [2/9/2025 13:13]
+No hay problemas, lo dejamos para el jueves
+
+Xavier De Blas, [2/9/2025 13:13]
+vale, gracias, disculpa
+
+Ale, [2/9/2025 13:13]
+De nada
+
+Xavier De Blas, [2/9/2025 13:13]
+además precisamente esta iteración en la que entramos es donde hay que hablar bien de qué deseamos hacer
+
+Ale, [2/9/2025 13:13]
+Seguro
+
+Ale, [4/9/2025 11:03]
+Hola,  podemos hacer un video mañana para ver el tema de los usuarios?
+
+Xavier De Blas, [4/9/2025 11:04]
+hola, sí
+
+Xavier De Blas, [4/9/2025 11:04]
+de hecho con xavi hemos estado discutiendo sobre esto más de 1h
+
+Ale, [4/9/2025 11:05]
+Bien! A qué hora de España podrán?
+
+Xavier De Blas, [4/9/2025 11:05]
+Por mi parte cuando quieras
+
+Ale, [4/9/2025 11:06]
+Les parece para 1pm de ustedes?
+
+Xavier De Blas, [4/9/2025 11:15]
+Por mi parte sí, xavi se ha tenido que ir y luego responderá
+
+Ale, [4/9/2025 11:28]
+Vale
+
+Xavier Padullés, [4/9/2025 11:32]
+1 española perfecto
+
+Xavier De Blas, [4/9/2025 11:33]
+Vale! Xavi: ya lo he puesto en nuestro calendario.
+
+Ale, [4/9/2025 11:35]
+Después me mandan la cita?
+
+Xavier De Blas, [4/9/2025 11:36]
+será esta:
+
+Xavier De Blas, [4/9/2025 11:36]
+meet.google.com/rwo-jkby-yqx
+
+Xavier De Blas, [4/9/2025 11:36]
+por cierto Alejandro, de momento podrías ir mirando como leer un archivo .csv
+
+Xavier De Blas, [4/9/2025 11:37]
+seguro que hay alguna librería lista para usar
+
+Ale, [4/9/2025 11:37]
+Claro
+
+Xavier De Blas, [4/9/2025 11:37]
+lo digo pq puede ser separado por , o separado por ;
+
+Ale, [4/9/2025 11:37]
+Si
+
+Xavier De Blas, [4/9/2025 11:37]
+chronojump si hay algun campo con , o ; ya lo manejaría
+
+Xavier De Blas, [4/9/2025 11:38]
+chronojump enviará una lista de usuarios
+
+Xavier De Blas, [4/9/2025 11:38]
+pero además la aplicación debería poder añadir alguno (y en futuro también modificar el nombre o algo por el estilo)
+
+Ale, [4/9/2025 11:39]
+De acuerdo
+
+Ale, [5/9/2025 08:09]
+Hola, ya estoy
+
+Xavier Padullés, [5/9/2025 08:10]
+voy
+
+Xavier Padullés, [5/9/2025 08:15]
+Ahora se conecta Xavi
+
+Xavier De Blas, [5/9/2025 08:15]
+a ver si puedo
+
+Xavier De Blas, [5/9/2025 08:15]
+me dejé el cable del portátil y estoy con el ordenador fijo
+
+Xavier De Blas, [5/9/2025 08:15]
+sin cámara y micro así así
+
+Xavier De Blas, [5/9/2025 08:15]
+sino escribo
+
+Ale, [5/9/2025 08:16]
+Si quieren lo dejamos para el lunes
+
+Xavier De Blas, [5/9/2025 08:16]
+espera que lo intentamos
+
+Ale, [5/9/2025 08:16]
+Vale
+
+Xavier De Blas, [5/9/2025 08:30]
+tabla PERSON:
+
+- int uniqueID (núm en el teléfono, ID_ASC comienza en 0)
+- string muuid (64 bits machineID numerico+ ";" + 64 bits aleatorio numerico)
+- string firstName
+- string lastName
+- string sex (U, M, F)
+- string description
+
+Xavier De Blas, [5/9/2025 08:38]
+tabla PERSONSESSION:
+
+int uniqueID
+int personID
+int sessionID
+double float
+double height
+
+Xavier De Blas, [5/9/2025 08:39]
+tabla SESSION:
+
+int uniqueID
+string name
+string place
+datetime date
+
+Xavier De Blas, [5/9/2025 08:39]
+Si quieres de momento nos olvidamos de personsession y de session
+
+Xavier De Blas, [5/9/2025 08:40]
+tabla PREFERENCIAS
+ 
+string nombre
+string valor
+
+Xavier De Blas, [5/9/2025 08:41]
+machineID : valor de 64 bits aleatorio
+
+Xavier De Blas, [5/9/2025 08:46]
+en PREFERENCIAS puedes almacenar booleanos en valor o números, y si son numeros doubles o float, asegúrate que el carácter decimal sea el punto.
+
+Xavier De Blas, [5/9/2025 08:51]
+http://www.cafyd.com/REVISTA/ojs/index.php/ricyde/article/download/528/288
+
+Xavier De Blas, [5/9/2025 08:51]
+http://www.tdx.cat/handle/10803/83302
+
+Xavier De Blas, [5/9/2025 08:52]
+validaciones mías antiguas de plataforma
+
+Xavier Padullés, [5/9/2025 10:44]
+Hola Alejandro,
+Aquí tienes una comparación de unos pocos saltos
+
+Xavier Padullés, [5/9/2025 10:44]
+
+Xavier Padullés, [5/9/2025 10:44]
+
+Xavier Padullés, [5/9/2025 10:44]
+El lunes haremos más pruebas y un poco de estadística
+
+Ale, [5/9/2025 11:31]
+Gracias! Buen finde!
+
+Xavier Padullés, [8/9/2025 07:07]
+Hola Alejandro,
+Te reenvío el mensaje que Maitane, me ha enviado, después de usar la aplicación
+
+Bugs aplicació:
+MULTISALTOS: 
+- No distingue entre "dentro" y "fuera" de la plataforma, necesita un cambio de estado para empezar a registrar, si detecta que no estás dentro cuando deberías estar dentro te da el mensaje pero si entras y saltas no registra el salto.
+- Si empiezas en el estado contrario al preestablecido (Fuera/dentro), tienes que entrar/salir de la plataforma y volver a clickar en iniciar salto (entonces el botón cambia a "en salto" y registra el valor.
+- Los multisaltos estableciendo por número de saltos desde "dentro" no registra aun siguiendo el protocolo anterior
+- El multisaltos si empiezas desde "fuera" registra un salto menos de los establecido (cuenta la de fuera)
+Registrando datos correctamente:
+- SJ
+- SJL
+- CMJ
+- ABK
+- DJ_IN
+- DJ_EX
+
+Xavier Padullés, [8/9/2025 07:09]
+Creo que tener en el Bluetooth una caractarística con el estado de la plataforma sería útil para no necesitar que haya un cambio de estado.
+Así siempre se puede consultar este estado.
+
+Ale, [8/9/2025 07:23]
+Hola! Buen dato, lo voy a ver. Estuve haciendo la gestión de usuarios, les iba a enviar una nueva versión , pero a última hora actualice la versión de flutter, y tuve problemas. Espero tenerlo resuelto para mañana, ahora estaba viendo la info que me pasaron el viernes de saltos y plataforma
+
+Xavier Padullés, [8/9/2025 07:23]
+
+Xavier Padullés, [8/9/2025 07:24]
+Las pruebas que te pasamos el viernes son sin los delays que hay en el código arduino
+
+Ale, [8/9/2025 07:24]
+Vale
+
+Xavier Padullés, [8/9/2025 07:25]
+
+Ale, [8/9/2025 10:47]
+Xavier P. Los saltos que me pasaste los hiciste con los dos software al mismo tiempo?
+
+Xavier Padullés, [8/9/2025 10:57]
+Sí
+
+Ale, [8/9/2025 10:58]
+Perfecto
+
+Xavier Padullés, [8/9/2025 10:59]
+
+Xavier Padullés, [8/9/2025 11:00]
+no tengas en cuenta las últimas filas en rojo. Parece que ha habido algún problema con la adquisición de datos.
+Maitane intentará identificar y reproducir este problema
+
+Ale, [8/9/2025 11:00]
+[In reply to Xavier Padullés]
+
+Ale, [9/9/2025 07:11]
+
+Ale, [9/9/2025 07:14]
+Buen día, envío una planilla con la comparación de un salto, que me pasaron. También estuve viendo el análisis de ayer, y estoy viendo los bug. Además de subir la iteracion6 en el drive, que compartí, en dónde falta la importación de usuarios
+
+Xavier Padullés, [9/9/2025 07:17]
+Qué diferencia hay con el archivo que te enviamos ayer?
+
+Ale, [9/9/2025 07:19]
+Son los saltos que me habías enviado, al menos no me pareció encontrar los valores en la hoja de análisis, tal vez revise mal.
+
+Xavier De Blas, [10/9/2025 11:36]
+Hola, Alejandro. El machineID de Chronojump no es de 64 bits, es de 32. Es un número entre 0 y INT 32, que es: 2147483647
+
+Xavier De Blas, [10/9/2025 11:37]
+por tanto haz el machineID entre 0 y 2147483647
+
+Xavier De Blas, [10/9/2025 11:37]
+y el muuid de cada usuario sería:
+
+Xavier De Blas, [10/9/2025 11:37]
+machineID;(número entre 0 y 2147483647)
+
+Xavier De Blas, [10/9/2025 11:37]
+si ya lo has hecho de 64 bits, borramos los usuarios de la app de teléfono
+
+Ale, [10/9/2025 11:38]
+No hay problema, lo modifico para que sea de 32
+
+Xavier De Blas, [10/9/2025 11:38]
+perfecto
+
+Ale, [10/9/2025 11:39]
+Les pareció bien, digo , así hago la importación
+
+Xavier De Blas, [10/9/2025 11:40]
+pinta bien, de momento hay pocos datos del usuario, pero pinta bien
+
+Xavier De Blas, [10/9/2025 11:41]
+tienes boton de flecha de exportar y luego el de importar, y los pondría al revés
+
+Xavier De Blas, [10/9/2025 11:41]
+primero importar y a la derecha exportar
+
+Xavier De Blas, [10/9/2025 11:41]
+pq será más parecido al proceso que creemos que harán
+
+Ale, [10/9/2025 11:41]
+Está bien
+
+Xavier De Blas, [10/9/2025 12:46]
+he cambiado de idea
+
+Ale, [10/9/2025 12:47]
+Dime
+
+Xavier De Blas, [10/9/2025 12:47]
+el muuid será machineID;uuid
+
+machineID continua siendo de 32 bits
+pero uuid será de 64 bits (macvalue: 9223372036854775807)
+
+Xavier De Blas, [10/9/2025 12:47]
+así nos ahorramos tener que comprobar valores repetidos de muuid al crearlos
+
+Xavier De Blas, [10/9/2025 12:48]
+nono, el otro
+
+Xavier De Blas, [10/9/2025 12:48]
+machineID 32 bits
+
+Xavier De Blas, [10/9/2025 12:48]
+el muuid es "machineID;uuid"
+
+Xavier De Blas, [10/9/2025 12:48]
+uuid pasa a ser de 64 bits
+
+Ale, [10/9/2025 12:48]
+Perfecto
+
+Ale, [11/9/2025 10:35]
+Hola, mandé una versión con la importación de usuarios y algunas correcciones, cómo mostrar el estado de conexión
+
+Xavier De Blas, [11/9/2025 10:40]
+Hola Alejandro, hoy és fiesta en Catalunya
+
+Ale, [11/9/2025 10:41]
+Enjoy!!!
+
+Xavier Padullés, [12/9/2025 07:43]
+Hola Alejandro,
+Hay algún problema con el apk
+
+Xavier Padullés, [12/9/2025 07:43]
+Me descarga un archivo de 0 kbites
+
+Ale, [12/9/2025 08:53]
+Buen día, ahí lo volví a subir , el anterior, se ve que se cortó la subida.
+
+Xavier Padullés, [12/9/2025 08:55]
+
+Xavier Padullés, [12/9/2025 08:55]
+Ahora sí
+
+Ale, [12/9/2025 08:56]
+Buenísimo!
+
+Ale, [16/9/2025 12:04]
+Hola, respecto a uno de los BUG que mencionó Maitane, interpreto que puede deberse a que, por ejemplo, al seleccionar el salto SJ debo presionar “Iniciar Salto” para cada salto que realizo.
+En ese sentido, podría modificar la lógica para que el botón se presione solo una vez al inicio de la serie, mientras el atleta continúe saltando.
+¿Estoy interpretando bien? 
+
+Xavier Padullés, [16/9/2025 12:08]
+Creo que ella se refería a multisaltos.
+A qué bug te refieres tu exactamente?
+
+Ale, [16/9/2025 12:09]
+Al que tenes que salir y volver a entrar
+
+Xavier Padullés, [16/9/2025 12:10]
+Saltos simples?
+
+Ale, [16/9/2025 12:10]
+Si
+
+Xavier Padullés, [16/9/2025 12:11]
+Un momento que lo miro
+
+Xavier Padullés, [16/9/2025 12:16]
+[In reply to Ale]
+Son cosas distintas.
+Lo que comentas tu no sería un bug sino una funcionalidad. Ahora yo no me preocuparía por ésta ya que tampoco está implementado en Chronojump y tenemos disparidad de criterios en si es conveniente implementarla o no.
+
+Xavier Padullés, [16/9/2025 12:17]
+Pasos para reproducir el bug:
+- Abrir aplicación
+- Conectar el Bluetooth
+- Entrar en la plataforma
+- Ir a Menú -> SJ
+- Pulsar "Iniciar Salto"
+
+Xavier Padullés, [16/9/2025 12:20]
+Como aún no ha tenido ningún cambio de estado, no se ha notificado el estado de la plataforma.
+Por eso yo proponía tener una caractarística de BLE para el estado y otra para el tiempo de la última fase (tiempo entre cambios de estado)
+Si esta característica se notifica al inicar el ESP32, siempre se podrà saber el estado de la plataforma
+
+Ale, [16/9/2025 12:29]
+En la secuencia que mencionas, si presionas iniciar salto, detecta si estas fuera o dentro. Voy a revisar , pero siempre se envía el cambio de estado, incluso al inicio.
+Xavier Padullés, [16/9/2025 12:53]
+El problema es si no ha habido un cambio de estado
+
+Ale, [16/9/2025 12:54]
+Vale
+
+Ale, [18/9/2025 07:25]
+Hola, cómo están? En relación a los bugs: el que se refiere al salto de menos que registra es correcto, lo tengo que corregir.Sobre los otros puntos, no termino de identificarlos, ya que los saltos se inician con el botón y, en cuanto a si el atleta está dentro o fuera, no encontré errores.
+Me gustaría si podemos revisarlo en un video para entender mejor. Además, quería saber si pudieron ver lo que les envié en la nueva versión, donde incorporé el estado de la conexión.
+
+Xavier Padullés, [18/9/2025 07:34]
+Yo hoy no estaré en el laboratorio
+
+Xavier Padullés, [18/9/2025 07:34]
+Si quieres mañana hacemos una video
+
+Ale, [18/9/2025 07:35]
+Si, podemos poner una hora?
+
+Ale, [18/9/2025 07:35]
+Las 13 de ustedes les parece?
+
+Xavier Padullés, [18/9/2025 07:36]
+Perfecto
+
+Ale, [18/9/2025 07:36]
+Después me mandan la invitación?
+
+Xavier Padullés, [18/9/2025 07:38]
+https://meet.google.com/ven-rxap-xfy
+
+Ale, [18/9/2025 07:38]
+Buenísimo! Gracias!
+
+Xavier Padullés, [19/9/2025 08:01]
+Ya estoy disponible
+
+Ale, [19/9/2025 08:02]
+Ahí voy
+
+Xavier De Blas, [19/9/2025 08:16]
+cada persona tendrá:
+- nameFirst
+- nameLast
+
+Xavier De Blas, [19/9/2025 08:18]
+public static string GetNameFromFirstAndLast (string nameFirst, string nameLast)
+        {
+                if (nameFirst != "" && nameLast != "")
+                        return nameFirst + " " + nameLast;
+                else if (nameFirst == "" && nameLast == "")
+                        return "";
+                else if (nameLast == "")
+                        return nameFirst;
+                else //if (nameFirst == "")
+                        return nameLast;
+        }
+
+Xavier De Blas, [19/9/2025 08:20]
+[Foto]
+Xavier De Blas, [19/9/2025 08:20]
+[Foto]
+Xavier De Blas, [19/9/2025 08:21]
+import jumps or runs from csv
+
+Xavier De Blas, [19/9/2025 08:25]
+[Foto]
+Xavier De Blas, [19/9/2025 11:37]
+Vale ya tengo el exportar personas funcionando
+
+Xavier De Blas, [19/9/2025 11:37]
+en seguida subo el código a nuestro git
+
+Xavier De Blas, [19/9/2025 11:38]
+pero de momento te paso como queda el .csv
+
+Xavier De Blas, [19/9/2025 11:38]
+
+Xavier De Blas, [19/9/2025 11:38]
+este seria con valores separados por ;
+
+Xavier De Blas, [19/9/2025 11:39]
+
+Xavier De Blas, [19/9/2025 11:39]
+y este con valores separados por ,
+
+Xavier De Blas, [19/9/2025 11:39]
+como el muuid son dos valores separados por ; lo he divido en dos columnas
+
+Ale, [19/9/2025 12:29]
+Perfecto!
+
+Ale, [19/9/2025 12:30]
+Ya detecte el bug del estado, me falta probarlo bien
+
+Xavier De Blas, [19/9/2025 12:40]
+yo ya he terminado y subido al git totdo lo de exportación de personas
+
+Ale, [22/9/2025 08:37]
+Hola, ¿cómo están?
+
+Compartí un link con una nueva versión de la app que incluye la corrección del BUG.
+Respecto a la exportación de usuarios, no avancé porque me encontré con que el formato enviado es distinto al que está implementado:
+
+Formato enviado:
+ID;MUUID_m;MUUID_id;NameFirst;NameLast;Sex
+1685;543472642;5235101714789571127;borra99;;U
+
+Formato implementado:
+uniqueID,muuid,firstName,lastName,sex,description
+
+En el archivo recibido aparece un campo MUUID que no tengo registrado. Habría que establecer cómo mapear o adaptar este campo para que quede alineado con lo implementado.
+
+Xavier Padullés, [22/9/2025 08:43]
+[In reply to Xavier De Blas]
+Creo que esto es lo que ya te comentó Xavi de Blas
+
+Xavier Padullés, [22/9/2025 08:43]
+Pruebo lo de estar dentro/fuera
+
+Xavier Padullés, [22/9/2025 08:48]
+Si la persona ya está en la plataforma a la hora de conectar el bluetooth, sigue habiendo el mismo problema
+
+Ale, [22/9/2025 08:51]
+Lo miro. Respecto al muuid, entonces entiendo que es uno pero está dividido? Al importarlo en el móvil, los junto? Y al exportarlo desde el móvil va uno solo?
+
+Ale, [22/9/2025 09:01]
+[In reply to Xavier Padullés]
+Ahí probé y si estoy en la plataforma antes de la conexión entonces está esa casuistica, y si la conexión se hizo antes entonces reconoce al atleta. Lo corrijo
+
+Xavier De Blas, [22/9/2025 11:13]
+Estoy de conferencias en Castellón. Luego respondo
+
+Ale, [24/9/2025 07:55]
+Buen día, ¿cómo están?
+Compartí un link con la actualización de la APK que corrige el bug.
+@Xaviblas, entonces, en la importación al móvil, ¿concateno MUUID_m y MUUID_id en MUUID?
+Quedo atento a sus comentarios.
+
+Xavier De Blas, [24/9/2025 07:57]
+Exacto
+
+Xavier De Blas, [24/9/2025 07:57]
+Lo he separado en dos en el csv para que no haya problemas con el ;
+
+Ale, [24/9/2025 07:59]
+
+Ale, [25/9/2025 07:45]
+Buen día,
+Compartí un link con el agregado de la importación de usuarios, de acuerdo al CSV de exportación de @Xaviblas.
+Si mañana pueden, estaría bueno hacer una videollamada para avanzar con el tema de la vinculación de datos entre aplicaciones.
+
+Xavier De Blas, [25/9/2025 07:46]
+por mi perfecto
+
+Xavier Padullés, [25/9/2025 07:51]
+Ok
+
+Ale, [25/9/2025 07:53]
+Bien! Les parece para las 13hs. de ustedes? Me envían la invitación? Gracias
+
+Xavier Padullés, [25/9/2025 07:53]
+https://meet.google.com/hxo-qgwy-qks
+
+Xavier Padullés, [25/9/2025 07:54]
+Por mi ok nuestras 13:00
+
+Xavier De Blas, [25/9/2025 07:54]
+perfecto
+
+Ale, [25/9/2025 07:54]
+
+Xavier De Blas, [26/9/2025 08:34]
+TABLA SESION:
+int id
+string name
+string place
+timestamp ts
+string comment
+
+Xavier De Blas, [26/9/2025 08:35]
+TABLA PERSONA:
+int id
+uuid
+name 
+sex ...
+
+Xavier De Blas, [26/9/2025 08:35]
+TABLA PERSONSESSION
+int sessionID
+int personID
+double height
+double weight
+
+Xavier De Blas, [26/9/2025 08:35]
+TABLA JUMP
+int id
+int sessionID
+int personID
+string type
+double tv
+double tc
+timestamp ts
+
+Xavier De Blas, [26/9/2025 08:39]
+el ordenador exporta usuarios o usuarios de una sesion
+
+Xavier De Blas, [26/9/2025 08:40]
+el tlf leeria ese archivo y podria crear a sesion usando el nombre del archivo, e importaría las personas
+
+Xavier De Blas, [26/9/2025 08:40]
+el tlf no importaría saltos
+
+Xavier De Blas, [26/9/2025 08:40]
+el ordenador podría importar todo pero no importaría saltos duplicados pq ya tiene el timestamp
+
+Xavier De Blas, [26/9/2025 08:41]
+[Foto]
+Xavier De Blas, [26/9/2025 08:42]
+[Foto]
+Xavier De Blas, [26/9/2025 08:50]
+verás en en la tabla personSession ya he puesto el height y el weight, que de momento no los estamos usando pero esa será la manera
+
+Xavier De Blas, [26/9/2025 09:40]
+Aquí tienes la versión para windows:
+
+Xavier De Blas, [26/9/2025 09:40]
+https://innolab.inefc.net/nextcloud/index.php/s/qxFdBZzeHC7iSmK
+
+Ale, [26/9/2025 09:51]
+Gracias!!!
+
+Ale, [26/9/2025 10:14]
+Instalada y funcionando
+
+Ale, [26/9/2025 10:14]
+[Foto]
+Xavier De Blas, [26/9/2025 10:29]
+Super
+
+Ale, [1/10/2025 12:25]
+
+Ale, [1/10/2025 12:26]
+Hola! Envío con el agregado de sesiones para que vean el flujo a ver qué les parece
+
+Ale, [3/10/2025 08:45]
+Buen dia, estoy tratando de importar saltos hechos en el móvil a la plataforma de Chronojump, y algo mal estoy haciendo, pero no me doy cuenta, le paso la secuencia a ver si me pueden ayudar:
+
+-voy a sesion
+-Creo una sesion
+-Gestionar Atletas - voy a cargar en la sesion
+
+- voy a sesion
+- importar saltos o carreras desde csv
+
+
+este es el contenido del archivo
+
+Nombre;Apellido;Tipo de Salto;Tiempo de Vuelo;Tiempo de Contacto
+Atleta1;Salto1;SJ;0,490;-1
+
+
+ERROR
+Row 1: person with firstname: 'Atleta1', lastName: 'Salto1'
+does not exists in session.
+
+Xavier De Blas, [3/10/2025 08:46]
+pasame to csv y lo miro
+
+Ale, [3/10/2025 08:49]
+
+Xavier De Blas, [3/10/2025 08:53]
+A ver, primer campo es nombre y segundo apellido
+
+Xavier De Blas, [3/10/2025 08:53]
+esta persona en chronojump se llama así?
+
+Xavier De Blas, [3/10/2025 08:53]
+Atleta1 Salto1
+
+Ale, [3/10/2025 08:53]
+Si
+
+Xavier De Blas, [3/10/2025 08:54]
+no me lo creo, ja ja :)
+
+Ale, [3/10/2025 08:54]
+[Foto]
+Xavier De Blas, [3/10/2025 08:54]
+pasame una captura de pantalla de chronojump
+
+Xavier De Blas, [3/10/2025 08:54]
+:)
+
+Xavier De Blas, [3/10/2025 08:54]
+vale, pruebo a ver
+
+Xavier De Blas, [3/10/2025 08:55]
+vale, ya se pq
+
+Xavier De Blas, [3/10/2025 08:55]
+chronojump en los .csv los maneja con ; (latin) o con , (non-latin)
+
+Xavier De Blas, [3/10/2025 08:55]
+ves a las preferencias, idioma y cambia a latin
+
+Xavier De Blas, [3/10/2025 08:55]
+y ya te funcionará
+
+Ale, [3/10/2025 08:56]
+Perfecto! Lo hago
+
+Ale, [3/10/2025 08:59]
+[Foto]
+Ale, [3/10/2025 08:59]
+Está así, y no funciona
+
+Xavier De Blas, [3/10/2025 08:59]
+pues a mi si
+
+Ale, [3/10/2025 09:00]
+Reviso bien
+
+Xavier De Blas, [3/10/2025 09:00]
+es probable que en chronojump tengas un espacio después del nombre o del apellido?
+
+Ale, [3/10/2025 09:01]
+Puede ser, lo vuelvo a hacer, pero tengo la pista y por lo que me decís el formato de como están los campos está bien
+
+Ale, [3/10/2025 09:02]
+Había un blanco, 
+Gracias!
+
+Ale, [3/10/2025 09:02]
+[Foto]
+Ale, [6/10/2025 12:31]
+Hola, cómo están? Para la importación de saltos desde csv , en el caso de saltos múltiples , cuales serían para jump múltiple type?
+
+Xavier De Blas, [6/10/2025 12:34]
+Si tienes chronojump instalado lo explica en esa misma ventana que mostrabas en la última imagen, donde dice multiple jumps
+
+Xavier De Blas, [6/10/2025 12:34]
+Column separator should be ';'  Decimal character should be ','
+You can change both in preferences/language.
+
+1st ROW: headers (will be discarded).
+COLUMNS:
+- 1st: person first name like in Chronojump.
+- 2nd: person last name like in Chronojump.
+  In Chronojump session it should exists with same first name & last name.
+- 3th: jump multiple type in English (should exist in Chronojump).
+- 4th: jump falling height in cm.
+- 5th: jump weight in percentage (without the '%' sign).
+- 6th, 8th, 10th, ...: each of the contact times (in seconds).
+  Note: If the jump type starts inside then first contact time must be -1
+- 7th, 9th, 11th, ...: each of the flight times (in seconds).
+
+Ale, [6/10/2025 12:36]
+Así como para saltos simples para ese campo va SJ o el que corresponda, para el caso de múltiples no encontré cuál es el que se codifica
+
+Xavier De Blas, [6/10/2025 12:37]
+pq creo que en saltos simples tienes unos tipos de saltos: SJ, CMJ, ABK, DJ, ...
+
+Xavier De Blas, [6/10/2025 12:38]
+en cambio para saltos múltiples de momento no tienes nada
+
+Xavier De Blas, [6/10/2025 12:38]
+en chronojump los básicos son:
+
+Xavier De Blas, [6/10/2025 12:39]
+"RJ(j)" la j significa jumps. es un salto múltiple l.imitado por n jumps
+
+Xavier De Blas, [6/10/2025 12:39]
+"RJ(t)" la t significa time. es un salto múltiple l.imitado por x segundos
+
+Ale, [6/10/2025 12:39]
+Lo puse pero no me lo tomo
+
+Xavier De Blas, [6/10/2025 12:39]
+"RJ(unlimited)" es un salto no limitado. Termina cuando el usuario hace clic en fin
+
+Xavier De Blas, [6/10/2025 12:40]
+[In reply to Ale]
+tu app o chronojump?
+
+Ale, [6/10/2025 12:40]
+En la app
+
+Ale, [6/10/2025 12:40]
+Perdón en el Chronojump
+
+Xavier De Blas, [6/10/2025 12:41]
+pásame el csv y lo miro
+
+Ale, [6/10/2025 12:41]
+Es decir exporte de la app y estoy tratando de importar en Chronojump, el simple ya funciona
+
+Xavier De Blas, [6/10/2025 12:41]
+sí, pasame el csv del múltiple
+
+Ale, [6/10/2025 12:41]
+Oki
+
+Ale, [6/10/2025 13:02]
+Me tomo el RJ(t), tenia mal un espacio, de todos modos me falta armar bien el resto de los campos, estaba probando con la secuencia de TC=TV, te paso el error que debe ser un tema de configuracion
+
+Atleta1;Apellido1;RJ(t);-1=380,00=260,00=290,00=289,99;480,00=670,00=720,00=640,01=560,00
+
+Row 1: fall '-1=380,00=260,00=290,00=289,99' is not a number or decimal character is not correct.
+Row 1: weight '480,00=670,00=720,00=640,01=560,00' is not a number or decimal character is not correct.
+
+Xavier De Blas, [6/10/2025 13:07]
+te falta la columna 4 (altura de caida) y la 5 (peso en porcentaje)
+
+Xavier De Blas, [6/10/2025 13:08]
+la 4 si el salto comienza fuera el usuario debería poder seleccionar su altura de caída (desde que altura ha comenzado)
+
+Xavier De Blas, [6/10/2025 13:08]
+si comienzas dentro, sería un 0
+
+Xavier De Blas, [6/10/2025 13:08]
+el peso pon 0 de momento
+
+Xavier De Blas, [6/10/2025 13:12]
+y como verás, los tiempos de contacto y tiempos de vuelo no se envían con el = sino que son:
+
+Xavier De Blas, [6/10/2025 13:12]
+- 6th, 8th, 10th, ...: each of the contact times (in seconds).
+  Note: If the jump type starts inside then first contact time must be -1
+- 7th, 9th, 11th, ...: each of the flight times (in seconds).
+
+Xavier De Blas, [6/10/2025 13:16]
+por ejemplo esto funciona:
+
+Xavier De Blas, [6/10/2025 13:16]
+nombre;apellido;salto;caida;peso;tc1;tf1;tc2;tf2;...
+Atleta1;Apellido1;RJ(t);20;0;215,0;480,00;380,00;670,00;260,00;720,00;290,00;640,01;289,99;560,00
+
+Xavier De Blas, [6/10/2025 13:18]
+aunque el tiempo debería ser en segundos. estos valors son muy altos
+
+Xavier De Blas, [6/10/2025 13:19]
+RJ(j) y RJ(t) están pensados para que comiencen des de fuera, por eso he puesto altura de caída (20) y he puesto un valor en el primer TC: 215.0
+
+Ale, [6/10/2025 13:22]
+Gracias! Sigo trabajando con esto que me pasaste
+
+Xavier De Blas, [6/10/2025 13:23]
+mira aquí lo tienes mejor, en segundos:
+
+Xavier De Blas, [6/10/2025 13:23]
+
+Ale, [9/10/2025 16:01]
+Hola , envío una actualización con:
+
+Gestión de Sesiones y Participantes:
+Se implementó desde cero el sistema para crear sesiones, asignarles personas y guardar estas relaciones en archivos CSV dedicados.
+Configuración Avanzada de Saltos:
+Se añadieron nuevos parámetros a la pantalla de configuración de saltos múltiples, como la altura de caída, el peso y la altura de la persona.
+Sistema de Guardado y Exportación Automática:
+Se rediseñó por completo la lógica de guardado al finalizar una serie de saltos. Ahora, el sistema:
+Crea archivos de registro diario separados para saltos simples y múltiples.
+Genera automáticamente los archivos de exportación especiales (Export_Simple y Export_MultiJump) con el formato requerido para Chronojump.
+Aplica las preferencias de formato (Latino/No Latino) a todos los archivos generados, ajustando los separadores de columna y decimales según la elección del usuario.
+Depuración y Refinamiento: Se identificaron y solucionaron numerosos errores de compilación y de lógica en varios módulos, y se corrigieron detalles de la interfaz de usuario para mejorar la claridad y el funcionamiento.
+
+Ale, [9/10/2025 16:01]
+Xavier De Blas, [9/10/2025 16:02]
+Wow!
+
+Ale, [15/10/2025 08:21]
+Buen día, cómo están? Pudieron ver algo de los cambios?
+
+Xavier De Blas, [15/10/2025 08:31]
+Hola Alejandro, ayer estuvimos juntos xavi y yo con otras cosas y no tocamos este tema
+
+Xavier De Blas, [15/10/2025 08:31]
+Y con eso no digo que el tema no tenga interés, al contrario
+
+Xavier De Blas, [15/10/2025 08:31]
+pensamos que esto ya está muy cerca de ser lanzado
+
+Xavier De Blas, [15/10/2025 08:32]
+por tanto tenemos que aclarar ya cómo va a estar disponible el software
+
+Ale, [15/10/2025 08:32]
+Me imagino que deben estar con mucho trabajo
+
+Xavier De Blas, [15/10/2025 08:35]
+hay muchas cosas, pero sobretodo tenemos un problema con algunas series de encoder y ayer estuvimos casi todo el día decidiendo cómo debíamos analizarlo
+
+Xavier De Blas, [15/10/2025 08:35]
+pero muchas ganas de que lo tuyo avance
+
+Xavier De Blas, [15/10/2025 08:35]
+en definitiva
+
+Xavier De Blas, [15/10/2025 08:35]
+cómo se va a distribuir el software?
+
+Ale, [15/10/2025 08:35]
+Me alegro, hay que seguir poniendo esfuerzo
+
+Ale, [15/10/2025 08:36]
+[In reply to Xavier De Blas]
+Tenemos que hablarlo
+
+Xavier De Blas, [15/10/2025 08:36]
+cuando quieras
+
+Xavier De Blas, [15/10/2025 08:36]
+os va bien hoy?
+
+Ale, [15/10/2025 08:37]
+El viernes pueden?
+
+Xavier Padullés, [15/10/2025 08:37]
+A mi hoy o el viernes OK
+
+Xavier De Blas, [15/10/2025 08:37]
+por mi ok
+
+Xavier De Blas, [15/10/2025 08:38]
+pero si puedes hoy, también puedo
+
+Ale, [15/10/2025 08:38]
+Hoy y mañana estoy complicado. El viernes si les parece a las 13 hrs vuestra
+
+Xavier De Blas, [15/10/2025 08:39]
+vale, perfecto
+
+Ale, [15/10/2025 08:40]
+Cuando puedan espero la invitación. Gracias!
+
+Xavier De Blas, [15/10/2025 08:40]
+Alejandro: a la app de saltos le falta poco y habrá algunos bugs que arreglar, ahora me importa más la manera como llega a los usuarios que los retoques
+
+Ale, [15/10/2025 08:40]
+De acuerdo
+
+Xavier Padullés, [15/10/2025 08:40]
+https://meet.google.com/ssh-ivun-ojh
+
+Ale, [17/10/2025 08:04]
+Buen día, ya estoy
+
+Xavier Padullés, [17/10/2025 08:05]
+perdón ahora conecto
+
+Xavier Padullés, [17/10/2025 08:09]
+Ya estoy conectado
+
+Ale, [23/10/2025 08:21]
+
+Ale, [23/10/2025 08:23]
+Buen día, envío una versión que refactorice el modulo de saltos con la exportación. También estuve analizando las distintas alternativas que habíamos hablado, y si pueden nos juntamos mañana o cuando dispongan
+
+Xavier Padullés, [23/10/2025 08:52]
+Por mi mañana a las 13, como la semana pasada va bien
+
+Ale, [23/10/2025 08:54]
+Buenísimo, si Xaviblas puede, me mandan la invitación?
+
+Xavier De Blas, [23/10/2025 09:21]
+sí, perfecto
+
+Xavier De Blas, [23/10/2025 09:21]
+el otro día estuvimos viendo un poco la aplicación con Xavi y vimos otras cosas que hay que ir mejorando. Pero bueno, mañana hablamos de cómo quieres publicar la aplicación
+
+Ale, [23/10/2025 09:22]
+Perfecto!
+
+Xavier De Blas, [23/10/2025 11:05]
+meet.google.com/qhx-pdvi-exz
+
+Xavier De Blas, [23/10/2025 11:05]
+el meet de mañana a las 13 hora de bcn
+
+Ale, [23/10/2025 11:06]
+
+Xavier De Blas, [24/10/2025 08:58]
+tareas por parte de Chronojump:
+- estudiar contratación
+- estudiar licencia software
+- cuando tengamos clara la licencia, propondremos algún entorno para las tareas. En mi opinión usar el gitlab no-público sería ideal. Ejemplo de las issues de Chronojump en gitab: https://gitlab.gnome.org/GNOME/chronojump/-/issues
+- estudiar distrubución en latinoamerica
+
+Xavier De Blas, [24/10/2025 09:01]
+tareas por parte Alejandro:
+- importante: comunicación con -tiempo en lugar de tiempo;-1 (o lo que estés usando). Si es mucho lio el cambio en la app, implementalo sólo en la lectura.
+- impotante: hacer una versión para IOS para poder probarlo, cuanto antes se sepan los problemas con distintas librerías, mejor.
+- poco importante: si al comenzar un salto cmj la persona esté fuera, que la persona pueda entrar y hacer el salto y el software esté esperando esto (sin necesidad de darle a ningún botón extra)
+- que la captura de los datos sea más parecida a Chronojump (icono, ... ya iremos comentando
+
+Ale, [27/10/2025 08:19]
+Buenas, estoy trabajando en el cambio para transmitir un único valor de tiempo, en positivo o negativo según corresponda.
+Quiero confirmar el criterio del signo.
+En el estado actual, cuando la persona está sobre la alfombra, el estado es 0, y cuando está en el aire, el estado es 1.
+En este contexto, necesito definir en qué momento el tiempo debe enviarse como negativo o como positivo.
+
+Xavier Padullés, [27/10/2025 08:20]
+El tiempo de vuelo en positivo
+El tiempo e contacto en negativo
+Regla mnemotécnica:
+Tener un tiempo de vuelo alto es bueno (positivo)
+Tener un tiempo de contacto alto es malo (negativo)
+
+Xavier De Blas, [27/10/2025 08:22]
+Hola Alejandro, cuando pasa de 1 a 0 es que ha caido. com ha caido, ha estado volando, el tiempo de vuelo debe ser positivo.
+
+Xavier De Blas, [27/10/2025 08:23]
+por tanto al pasar de 1 a 0 debes enviar el tiempo en positivo
+
+Ale, [27/10/2025 08:23]
+Queda claro. 
+Gracias!
+
+Ale, [28/10/2025 07:27]
+Buen día, cómo va? Compartí un enlace con una versión nueva de APK y esp32 para enviar un único tiempo. Voy a ir avanzando con el resto de los cambios. Quedó atento a sus comentarios
+
+Xavier De Blas, [28/10/2025 11:10]
+Hola Alejandro
+
+Xavier De Blas, [28/10/2025 11:10]
+estamos hablando con nuestro abogado para valorar la posibilidad de contratación
+
+Xavier De Blas, [28/10/2025 11:10]
+según él debería ser una relación mercantil
+
+Xavier De Blas, [28/10/2025 11:11]
+tú puedes emitir facturas? eres autónomo?
+
+Ale, [28/10/2025 11:11]
+Hola, por el momento tengo relación de dependencia, por lo menos unos 6 meses mas
+
+Ale, [28/10/2025 11:12]
+Y tengo dedicación exclusiva por ser funcionario público
+
+Ale, [28/10/2025 11:13]
+Después puedo emitir facturas
+
+Xavier De Blas, [28/10/2025 11:13]
+ah! eso no lo sabíamos!
+
+Xavier De Blas, [28/10/2025 11:13]
+por tanto se te podría contratar ahora o no?
+
+Ale, [28/10/2025 11:16]
+Ahora mismo no, hay que esperar unos meses. Solo puedo ejercer como docente en la actividad privada. De todos modos podemos ver cómo sería el papeleo que se necesita.
+
+Xavier De Blas, [28/10/2025 11:16]
+vale, pues de momento podríamos pagarte por proyectos
+
+Ale, [28/10/2025 11:17]
+Bueno, no hay problema.
+
+Xavier Padullés, [28/10/2025 11:31]
+Hola Alejandro,
+Estoy probando los cambios que has hecho y parece que funciona correctemente
+
+Ale, [28/10/2025 11:32]
+Buenísimo! Es lo que requerían respecto a transmitir un único tiempo?
+
+Xavier Padullés, [28/10/2025 11:32]
+Me surge la duda sobre los usuarios.
+Se puede seleccionar el usuario o aún no está implementado?
+
+Xavier Padullés, [28/10/2025 11:32]
+[In reply to Ale]
+Sí
+
+Ale, [28/10/2025 11:33]
+[In reply to Xavier Padullés]
+Se puede seleccionar el usuario dentro de la sesion
+
+Ale, [28/10/2025 11:34]
+Estoy acomodando el resto de los cambios. Seguramente les voy a pasar de a tramos por motivo de controlar los cambios
+
+Xavier Padullés, [28/10/2025 11:35]
+Y una vez añadidos a la sesión, ¿Cómo selecciono el sujeto que ejecuta el salto?
+
+Ale, [28/10/2025 11:36]
+Voy a la sesión y elijo la persona para el salto. De todos modos eso lo puedo ajustar a como prefieran
+
+Xavier Padullés, [28/10/2025 11:36]
+Ahh. Ya lo he visto. Haciendo click sobre el sujeto
+
+Ale, [28/10/2025 11:36]
+Sip
+
+Ale, [28/10/2025 11:37]
+Quieren que reemplace el hombre saltando por los pies en ambas posiciones, digo, en alfombra y en salto
+
+Xavier Padullés, [28/10/2025 11:39]
+Yo creo que para que sea más coherente con Chronojump, estaría bien que se pudiera seleccionar en el el apartado de salto normal.
+O sea, que se selecciona la sesión y entonces los saltos que se ejecuten con el menú normal (lateral) permitan seleccionar la persona de una lista de personas añadidas a esa sesión
+
+Xavier De Blas, [28/10/2025 11:40]
+
+Xavier De Blas, [28/10/2025 11:40]
+
+Ale, [28/10/2025 11:40]
+Para mejor me puedes hacer el esquema de navegación a lápiz , así no me quedan dudas?
+
+Xavier Padullés, [28/10/2025 11:40]
+[In reply to Ale]
+Yo creo que estaría bien. Así se puede dejar sitio para ver el último resultado en grande
+
+Xavier De Blas, [28/10/2025 11:40]
+Aquí las imágenes en calidad
+
+Ale, [28/10/2025 11:41]
+Entonces voy a cambiar el hombre y agregar la altura en grande
+
+Xavier De Blas, [28/10/2025 11:41]
+Siendo coherentes con Chronojump, cuando ya hemos seleccionado la sesión, lo ideal sería:
+- selector de persona
+- selector de test
+- botón de capturar
+
+Ale, [28/10/2025 11:45]
+Desde el menú hamburguesa selecciono la persona, vuelvo al menú hamburguesa, selecciono el salto? Me faltaría la sesión, no?
+
+Xavier De Blas, [28/10/2025 11:46]
+El menú hamburguesa tendría un uso mínimo: cambiar sesión, importar, exportar, ...
+
+Xavier De Blas, [28/10/2025 11:46]
+lo ideal es ver los desplegables en la pantalla principal
+
+Ale, [29/10/2025 07:29]
+
+Ale, [29/10/2025 07:30]
+Buen día, en la APK con la modificación de la persona, simplemente para que validen si es lo requerido
+
+Ale, [29/10/2025 07:30]
+Envio
+
+Xavier Padullés, [29/10/2025 07:45]
+De momento lo que veo es que cada vez que se instala una versión nueva se pìerden los datos introducidos de sesión y personas.
+
+Xavier Padullés, [29/10/2025 07:45]
+En sesión, creo que el campo "Lugar" no debería ser obligatorio
+
+Xavier Padullés, [29/10/2025 07:47]
+[In reply to Ale]
+No veo el cambio respecto a las personas.
+Qué es lo que tengo que mirar?
+
+Ale, [29/10/2025 07:47]
+Creo que sí actualizas no se pierden los datos
+
+Ale, [29/10/2025 07:47]
+Que no está el hombre saltando sino el pie
+
+Xavier Padullés, [29/10/2025 07:51]
+Ahh, pensaba que te referías a la gestión de personas.
+Efectivamente, ahora no se ve nada en els espacio que antes había el dibujo de la persona.
+
+Xavier Padullés, [29/10/2025 07:52]
+En el momento en que se vuelva a tener la funcionalidad de empezar el test independientemente de si la persona está dentro o fuera, tal vez se podría quitar el texto diciendo "Debe estar en la plataforma..." y "Llisto para saltar..."
+
+Xavier Padullés, [29/10/2025 07:53]
+Así abrá más espacio para selecionar persona, tipo de salto y mostrar resultado
+
+Ale, [29/10/2025 08:00]
+Xavier P, discúlpame pero la versión que te pase no tiene la imagen del pie, la genere y la última vez.no la mire. Corrijo para que puedas ver a lo que me refería en el mensaje
+
+Xavier Padullés, [29/10/2025 08:04]
+
+Ale, [29/10/2025 08:08]
+
+Ale, [29/10/2025 08:08]
+Ahora debería aparecer el pie
+
+Xavier Padullés, [29/10/2025 08:10]
+La idea de poner el pie era para ahorrar espacio
+
+Ale, [29/10/2025 08:10]
+Decís porque quedó grande?
+
+Ale, [29/10/2025 08:10]
+Eso se achica
+
+Xavier Padullés, [29/10/2025 08:12]
+Yo lo pondría mucho más pequeño (tal vez al lado del botón de iniciar, o al lado del indicador de bluetooth) para dejar espacio para el resultado
+
+Xavier De Blas, [29/10/2025 08:12]
+Me salen que no puede actualitzar pq el paquete no es válido
+
+Xavier Padullés, [29/10/2025 08:13]
+Yo sí que he podido
+
+Ale, [29/10/2025 08:13]
+Me gustaría hacer una video para ver bien como debería quedar el diseño de la pantalla y la funcionalidad
+
+Xavier Padullés, [29/10/2025 08:14]
+Te hago una imagen con mis propuestas
+
+Ale, [29/10/2025 08:14]
+Sino voy a empezar a cambiar mucho y eso no es una buena práctica
+
+Ale, [29/10/2025 08:14]
+[In reply to Xavier Padullés]
+Vale
+
+Xavier De Blas, [29/10/2025 08:20]
+yo no puedo instalar ninguna de las dos apk de hoy (paquete no valido) :(
+
+Xavier De Blas, [29/10/2025 08:21]
+desinstalando la actual sí que me ha dejado
+
+Ale, [29/10/2025 08:21]
+Borraste la que tenés?
+
+Ale, [29/10/2025 08:21]
+Ah
+
+Xavier De Blas, [29/10/2025 08:22]
+sí
+
+Xavier De Blas, [29/10/2025 08:22]
+pero ahora me sale así:
+
+Xavier De Blas, [29/10/2025 08:22]
+es la úlitma?
+
+Ale, [29/10/2025 08:23]
+Si, la compile hoy, hace un ratito
+
+Xavier De Blas, [29/10/2025 08:23]
+ah, ok, es que ahora sin el hardware tampoco puedo ver/probar más
+
+Ale, [29/10/2025 08:24]
+
+Xavier Padullés, [29/10/2025 08:27]
+
+Xavier Padullés, [29/10/2025 08:34]
+Cambiando de tema,
+¿La aplicación, qué busca requiere para que un dispositivo sea válido y pueda conectarse?
+- Nombre del dispositivo?
+- UUID del servicio?
+- UUID de la característica?
+
+Xavier De Blas, [29/10/2025 08:39]
+No "Iniciar serie" , poner "Capturar" como en Chronojump
+
+Ale, [29/10/2025 08:40]
+Requiere que tenga servicio de escritura y notificación.
+
+Ale, [29/10/2025 08:41]
+En el área de resultado cuando tengo varios saltos, se mostraría el último, y para el caso de múltiples sería confuso, me parece
+
+Xavier Padullés, [29/10/2025 08:52]
+[In reply to Ale]
+Quieres decir lectura y notificación?
+
+Ale, [29/10/2025 08:52]
+Si
+
+Ale, [3/11/2025 09:12]
+
+Ale, [3/11/2025 09:14]
+Buen día, envío una actualización con el cambio de hombre saltando, según la imagen de Xavier P. Falta la altura porque cuando hay más de una altura para capturas diferentes, no entiendo que criterio utilizar
+
+Xavier Padullés, [6/11/2025 08:52]
+El criterio es mostrar solo la altura del último salto
+
+Ale, [6/11/2025 09:01]
+Buen día! Entonces muestro el último salto. El resto de la pantalla está bien?
+
+Xavier Padullés, [6/11/2025 09:03]
+Yo eliminaría el texto de "DEBE..." Y "¡LISTO..."
+
+Xavier Padullés, [6/11/2025 09:04]
+Suponiendo que se recupera la funcionalidad de poder empezar el test tanto dentro como fuera de la plataforma
+
+Ale, [6/11/2025 09:07]
+Ahora detecta que si debe comenzar dentro de la plataforma y está fuera entonces aparece el mensaje que debe estar dentro para empezar. Eso es correcto?
+
+Xavier Padullés, [6/11/2025 09:07]
+No.
+
+Ale, [6/11/2025 09:08]
+Me perdí, entonces. Cómo sería?
+
+Xavier Padullés, [6/11/2025 09:09]
+La funcionalidad era que si comienza el test, no salga el mensaje y que permita al sujeto entrar en la plataforma y hacer el salto.
+
+Xavier Padullés, [6/11/2025 09:09]
+Esta funcionalidad ya la habías implementado pero en algún momento se perdió
+
+Ale, [6/11/2025 09:13]
+Lo voy a revisar en iteraciones anteriores porque no termino de darme cuenta. Seguro hay un detalle en la secuencia que no logro entender. También ahora cambié el texto del botón, y no dice inicio de serie
+
+Xavier De Blas, [6/11/2025 09:13]
+Lo que tienes ahora es que si se hace un cmj. Si el sujeto está dentro, comienza el test y sino sale un mensaje diciendo que entre en la plataforma.
+En algún momento tuviste lo que tienen las versiones recientes de Chronojump: si estás fuera en el cmj, cuando entras, puedes saltar sin tener que darle a ningún botón.
+
+Xavier Padullés, [6/11/2025 09:13]
+Simplemente debe ignorar los tiempos que no sean los esperados.
+En un SJ, por ejemplo, si llega un tiempo de vuelo, se debe ignorar, porque eso implica que el sujeto ha entrado en la plataforma.
+El siguente tiempo de contacto, también lo debe ignorar (ya se hace) porque no nos interesa saber cuanto tiempo se ha estado en contacto.
+El siguiente tiempo de vuelo sí que es el que interesa. El sujeto ha aterrizado
+
+Xavier De Blas, [6/11/2025 09:14]
+Revisa tus commits o los cambios que hayas ido haciendo
+
+Xavier De Blas, [6/11/2025 09:16]
+El 18 de septiembre teníamos aquí varios mensajes sobre esto. Pero había algún problema en la implementación y quizás al corregirlo lo acabaste borrando.
+
+Ale, [6/11/2025 09:25]
+De acuerdo, lo reviso
+
+Ale, [6/11/2025 11:41]
+Estuve revisando en relación a la aplicación del desktop y al iniciar un salto sj, presiono capturar y si no estoy en la alfombra, me dice que me posicione, después que entre puedo saltar y para el próximo salto debo volver a presionar captura
+
+
+En la app , elijo SJ, si estoy dentro , ya me sale que estoy dentro, y casi contrario, me dice que debo entrar, una vez que estoy dentro, salto y registra el salto. La diferencia es que aparece el botón para detener la captura, y que en el inicio del salto detecta si la persona está dentro o fuera. Esto en el desktop no sucede hasta que se presione capturar. Disculpen pero al momento no termino de darme cuenta la diferencia
+
+Xavier Padullés, [6/11/2025 11:49]
+No debes tener la versión de Chronojump actualizada
+
+Xavier Padullés, [6/11/2025 11:50]
+https://chronojump.org/software/
+
+Ale, [6/11/2025 11:51]
+Justo estaba viendo eso. Gracias
+
+Ale, [6/11/2025 11:55]
+En la versión nueva, que me pasó XaviBlas , una vez que hizo la validación puede seguir saltando sin que tenga que volver a presionar el capturar, y la forma de terminar es fin o cancelar. Estoy en lo correcto?
+
+Xavier Padullés, [6/11/2025 11:58]
+Estando el sujeto fuera de la plataforma se puede hacer esta secuencia:
+- Presionar capturar
+- Entrar en la plataforma
+- Saltar
+
+Xavier Padullés, [6/11/2025 11:59]
+Entonces el programa finaliza la captura automáticamente sin tener que hacer nada más (A no ser que sean saltos ilimitados)
+
+Ale, [6/11/2025 12:00]
+Hago foco en esa secuencia y agrego la altura
+
+Xavier De Blas, [6/11/2025 12:16]
+Perfecto
+
+Ale, [7/11/2025 08:21]
+Ale, [7/11/2025 08:21]
+
+Ale, [7/11/2025 08:23]
+Buen día, envío la corrección de la pantalla de salto para verificar que es la funcionalidad deseada, y así sigo con las otras modificaciones
+
+Xavier Padullés, [7/11/2025 09:19]
+voy
+
+Xavier Padullés, [7/11/2025 09:23]
+Creo que no nos entendimos.
+La idea no era que con un clic en capturar se hicieran muchos saltos sino que no se necesitara estar en la plataforma para poder empezar a capturar
+
+Xavier Padullés, [7/11/2025 09:24]
+Cada vez que se hace clic en capturar se tiene que registrar solo un salto
+
+Ale, [7/11/2025 09:33]
+Voy  a volver a verlo y compararlo con la aplicación del desktop . Tienen que tener la misma funcionalidad?
+
+Xavier Padullés, [7/11/2025 09:33]
+Sí
+
+Xavier Padullés, [7/11/2025 09:36]
+[Foto]
+r
+
+Xavier Padullés, [7/11/2025 09:36]
+En estas dos situaciones debería funcionar igual
+
+Ale, [7/11/2025 09:58]
+En la app si presionas capturar y estás fuera  ,te aparece el sonido/mensaje, tenés que ponerte en la plataforma y volver a presionar. En el desktop , si pones capturar y estás fuera , tenés que entrar, y saltas sin necesidad de volver a presionar capturar. Esa es la diferencia?
+
+Xavier Padullés, [7/11/2025 09:58]
+Exacto
+
+Ale, [7/11/2025 09:58]
+Creo que ahora lo tengo claro
+
+Ale, [7/11/2025 10:00]
+Y la funcionalidad que está ahora, digo, saltar sin necesidad de estar presionando capturar por cada serie, no les interesa? Por supuesto arreglando el otro punto
+
+Xavier Padullés, [7/11/2025 10:01]
+No hace mucho nos lo planteamos  y teníamos opiniones divididas.
+Al final decidimos dejarlo como ya estaba (un solo salto)
+A mi me gustaba la idea
+
+Ale, [7/11/2025 10:01]
+Ok
+
+Ale, [7/11/2025 10:01]
+Y está bien lo de la altura?
+
+Xavier Padullés, [7/11/2025 10:11]
+La primera vez que lo he probado estaba bien pero ahora no calcula la altura
+
+Xavier Padullés, [7/11/2025 10:12]
+[Foto]
+Xavier Padullés, [7/11/2025 10:13]
+Hay alguna cosa invertida porque al presionar se levanta el pie y al dejar de presionar baja el pie
+
+Xavier Padullés, [7/11/2025 10:15]
+Ayer vi este mismo error pero pensé que era problema con mi hardware.
+Pero ahora he visto que con el mismo hardware una vez ha funcionado y otra no.
+Sigo intentando reproducir el bug
+
+Ale, [7/11/2025 10:24]
+No lo he probado exhaustivamente, así que no te hagas problema por este bug, dado a qué tengo que volver atrás y hacer el cambio nuevamente. Quería saber si estaba bien la solución (no lo está) y si dónde iría la altura , les parece bien, por supuesto mostrando la última altura del salto
+
+Xavier Padullés, [7/11/2025 10:26]
+Yo haría los números mucho más grandes. Lo más grande posible
+
+Ale, [7/11/2025 10:27]
+Bien, eso es posible, y además tengo que ver el tema que en tu celular no se ve bien.
+
+Xavier Padullés, [7/11/2025 10:28]
+Ahora se ve bien👏
+
+Ale, [7/11/2025 10:28]
+Bien!
+
+Xavier Padullés, [7/11/2025 10:28]
+[In reply to Xavier Padullés]
+Aquí se ve
+
+Ale, [7/11/2025 10:30]
+Perfecto! Espero el lunes tener una versión con esta pantalla resuelta, y ver en detalle el tema de sesión y exportación de datos para el desktop
+
+Ale, [10/11/2025 07:21]
+
+Ale, [10/11/2025 07:21]
+Buen día, les envío una actualización para ver si es la funcionalidad deseada, y sigo con los ajustes
+
+Xavier De Blas, [10/11/2025 07:40]
+Vale, la probamos en un par de horas
+
+Ale, [10/11/2025 07:41]
+Perfecto!
+
+Xavier Padullés, [12/11/2025 06:46]
+[In reply to Ale]
+[Foto]
+Screenshot (12 de nov. 2025 10:46:17)
+
+Xavier Padullés, [12/11/2025 06:46]
+A mi me sigue dando el mensaje de que debe estar en la plataforma
+
+Ale, [12/11/2025 07:09]
+Buen día, te da el mensaje al presionar capturar? Lo que debería suceder es que al presionar capturar si no estas en la plataforma, te debería aparecer un mensaje de espera hasta que estés en la plataforma y después sin volver a presionar capturar, podés saltar para tener el registro del salto.
+
+Xavier Padullés, [12/11/2025 07:39]
+Le doy a capturar y si no estoy en la plataforma sale este mensaje.
+Hasta que no entro, no me permite medir el salto.
+He instalado varias veces la app.
+Como puedo saber si está actualizada?
+
+Ale, [12/11/2025 07:49]
+[Foto]
+Ale, [12/11/2025 07:49]
+No te aparece esta pantalla al presionar capturar y estás fuera de la alfombra?
+
+Xavier Padullés, [12/11/2025 07:50]
+No
+
+Ale, [12/11/2025 08:10]
+Vuelvo a compilar y pasarte l APK
+
+Ale, [12/11/2025 08:22]
+
+Ale, [12/11/2025 08:22]
+Disculpa, está debería mostrar el mensaje
+
+Xavier Padullés, [12/11/2025 08:28]
+Ahora perfecto.
+
+Ale, [12/11/2025 08:29]
+Y la funcionalidad es la requerida?
+
+Xavier Padullés, [12/11/2025 08:30]
+Ahora que funciona bien, yo eliminaría los mensajes para dejar más espacio para dar el resultado.
+También pondría el icono del  pie en la esquina superior derecha, donde hay el icono del refrescar (creo que no se usa)
+
+Ale, [12/11/2025 08:35]
+Veo lo del icono porque ahí hay una cuestión como se arma el widget. Trata de ver que se puede hacer, lo mismo que los mensajes. 
+Ahora me queda ver el tema de la conexión y me gustaría rectificar o ratificar la exportación de datos para luego importarlo a Chronojump. El tema que cada cambio  a esta altura implica cambios en varios módulos, por eso si podemos adecuar la funcionalidad ahora , sería deseable
+
+Ale, [12/11/2025 08:40]
+[Foto]
+Ale, [12/11/2025 08:41]
+Paso el diagrama de secuencia de este cambio, que involucra varios modulos
+
+Xavier Padullés, [12/11/2025 08:41]
+Lo de adecuar la funcionalidad no se a qué te refieres pero ahora funciona bien la secuencia del salto
+
+Ale, [12/11/2025 08:42]
+Digo, si hay que cambiar algo en la exportación de datos. Por ahora hay una exportación para importar a Chronojump y otra diferente
+
+Xavier Padullés, [12/11/2025 08:43]
+Eso te lo contestará mejor Xavi de Blas
+
+Ale, [12/11/2025 08:43]
+No hay problema
+
+Xavier De Blas, [12/11/2025 08:47]
+Ahora no se decirte, es que esta semana voy muy saturado, pero me parece que todo va bien. Quizás habrá algún campo a añadir para exportar o importar, pero no veo problema en eso
+
+Xavier De Blas, [12/11/2025 08:47]
+lo que sí que supongo que aún no se ha previsto es que se puedan importar tipos de saltos
+
+Xavier De Blas, [12/11/2025 08:48]
+eso es más delicado
+
+Xavier De Blas, [12/11/2025 08:48]
+pq en el software creas un tipo de sato
+
+Xavier De Blas, [12/11/2025 08:48]
+y tiene una características determinadas
+
+Xavier De Blas, [12/11/2025 08:49]
+y luego en el móvil debería ser posible importarlo. entonces debería aparecer junto a SJ, CMJ, ... (o en un listado de "saltos definidos por el usuario")
+
+Xavier De Blas, [12/11/2025 08:49]
+y el nombre debería ser el mismo que en chronojump para que al exportarlo a chronojump lo detecte bien
+
+Ale, [12/11/2025 08:49]
+Estoy de acuerdo con esto que mencionas respecto a la importancion de saltos
+
+Xavier De Blas, [12/11/2025 08:49]
+pero esto tampoc es tan importante ahora
+
+Xavier De Blas, [12/11/2025 08:49]
+creo que lo más importante es probar que funciona en IOS
+
+Xavier De Blas, [12/11/2025 08:49]
+hasta que no pruebes esto... estamos un poco a ciegas
+
+Xavier De Blas, [12/11/2025 08:50]
+y lo segundo más imporante es aclarar lo de tu contratación o pago, pq no sabíamos que no te podemos contratar
+
+Xavier De Blas, [12/11/2025 08:50]
+por tanto hablemos de estas dos cosas:
+1) IOS
+2) pago/contratación
+
+Xavier De Blas, [12/11/2025 08:50]
+[In reply to Ale]
+de tipos de saltos
+
+Ale, [12/11/2025 08:53]
+Propongo hacer un video para cerrar este primer alcance. Pueden este viernes a las 12.30?
+
+Xavier De Blas, [12/11/2025 08:54]
+hablas de 1), 2) o otra cosa?
+
+Ale, [12/11/2025 08:57]
+De cerrar la app hasta lo hecho y dejar los saltos definidos por el usuario para otro despliegue. Una vez que tengamos cerrado que funciona según lo requerido, ahí tiene que funcionar para IOS. Entiendo lo del vínculo económico, que es importante
+
+Xavier De Blas, [12/11/2025 09:08]
+la app entiendo que ya es perfectamente usable (excepto importar tipos de saltos)
+
+Xavier De Blas, [12/11/2025 09:08]
+antes de vernos mañana, lo interesante es saber si funciona en ios o no
+
+Ale, [12/11/2025 09:09]
+Avance muy poco en IOS
+
+Xavier De Blas, [12/11/2025 09:10]
+Y cuando lo podrás probar?
+
+Xavier De Blas, [12/11/2025 09:11]
+para hacer una versión necesitas un mac? o lo puedes hacer desde tu ordenador?
+
+Ale, [12/11/2025 09:12]
+Es decir no funciona en IOS, pero estoy seguro que voy a tener que hacer cambios en IOS porque hay algunas que son diferentes entre IOS y Android, y si todavía hay cambios que hacer en Android, por ejemplo el tema de conexión en la app actual, entonces después es más complejo.
+
+Xavier De Blas, [12/11/2025 09:13]
+claro, pero cuanto antes sepas si funciona o no mejor, no?
+
+Xavier De Blas, [12/11/2025 09:14]
+supuestamente flutter es multiplataforma, pero entiendo que pueda haber problemas con alguna librería. aunque supongo que lo que usas debe ser muy estandard y por tanto lo problemas deberían ser mínimos.
+
+Ale, [12/11/2025 09:14]
+De todos modos puedo hacer una versión estable con está funcionalidad y dedicarme a la versión para iPhone.
+
+Xavier De Blas, [12/11/2025 09:14]
+en definitiva: probar de compilar a ver si da error, ejecutar a ver cómo va...
+
+Xavier De Blas, [12/11/2025 09:14]
+[In reply to Ale]
+creo que esto es lo ideal: sacar una estable ahora con android y comenzar a probar con ios. así tendremos más certezas.
+
+Ale, [12/11/2025 09:15]
+Me dedico a eso, pero voy a tener por lo menos un mes por delante
+
+Ale, [12/11/2025 09:16]
+Uds. probaron exportar e importar saltos?
+
+Xavier De Blas, [12/11/2025 09:17]
+entiendo que te refieres a resultados de saltos y no a tipos de saltos
+
+Xavier De Blas, [12/11/2025 09:18]
+y hablas de tu app? tu app permite importar saltos (los resultados)?
+
+Ale, [12/11/2025 09:21]
+Sisi, a los resultados de salto hechos en la app y luego importarlo en el desktop , contemplando que el usuario de la app es el mismo que el del desktop. Digo esto, la menos para mí, porque cerraría un primer vínculo entre la app y el desktop, cómo punto fuerte de integración
+
+Xavier De Blas, [12/11/2025 09:22]
+yo no lo he probado. entiendo que tu lo has probado
+
+Ale, [12/11/2025 09:23]
+Si, lo he probado
+
+Xavier De Blas, [12/11/2025 09:24]
+esta versión la he podido actualizar sin tener que borrar la anterior.
+
+Ale, [12/11/2025 09:24]
+Vale
+
+Xavier De Blas, [12/11/2025 09:25]
+por qué no tomamos esta como estable (de momento) y pruebas con IOS?
+
+Ale, [12/11/2025 09:25]
+Perfecto
+
+Ale, [20/11/2025 08:19]
+[Foto]
+Ale, [20/11/2025 08:20]
+Buen día, pude generar un .ipa para IOS y lo subí a una página de test, appetize
+
+Xavier Padullés, [20/11/2025 08:32]
+Este .ipa se puede instalar de algún modo en un terminal real?
+
+Xavier De Blas, [20/11/2025 08:34]
+https://www.reddit.com/r/iphone/comments/1i0zisz/is_it_possible_to_install_ipa_apps_on_iphone/
+
+Xavier De Blas, [20/11/2025 08:35]
+https://apps.apple.com/hn/app/ipa-installer/id6748286191
+
+Ale, [20/11/2025 08:36]
+Tiene que tener firma, ya sea del propio iPhone o de desarrollo. La semana que viene lo instaló en una Mac de un amigo
+
+Ale, [20/11/2025 08:37]
+De todos modos no tuve problemas de bibliotecas que era lo que me preocupaba
+
+Ale, [20/11/2025 08:37]
+Voy a ver los link que me pasas
+
+Xavier De Blas, [20/11/2025 08:37]
+por tanto has podido probar si te funciona en iphone?
+
+Xavier De Blas, [20/11/2025 08:37]
+esos links eran para xavi, para poder probar en iphone
+
+Xavier De Blas, [20/11/2025 08:38]
+en tu caso lo importante será el intentar publicar en la appstore
+
+Xavier De Blas, [20/11/2025 08:38]
+permisos, certificados, ...
+
+Xavier De Blas, [20/11/2025 08:38]
+mañana puedo agregarte para que puedas hacerlo
+
+Xavier De Blas, [20/11/2025 08:40]
+pásame tu nombre completo y correo electrónico
+
+Xavier De Blas, [20/11/2025 08:40]
+que ahora tengo la web de apple abierta
+
+Xavier De Blas, [20/11/2025 08:41]
+pongo: Alejandro Mori ?
+
+Xavier De Blas, [20/11/2025 08:41]
+y qué correo?
+
+Xavier De Blas, [20/11/2025 08:42]
+pongo este?
+
+Xavier De Blas, [20/11/2025 08:42]
+Alejandro Mori <alemori.geo@gmail.com>
+
+Ale, [20/11/2025 08:44]
+Correcto
+
+Xavier De Blas, [20/11/2025 08:49]
+te acabo de añadir, mira tu correo
+
+Xavier De Blas, [20/11/2025 08:49]
+he tardado pq solo tenía configurado la plataforma macOS y he tenido que crear la IOS
+
+Ale, [20/11/2025 08:52]
+Recuerda que no tengo iPhone ni Mac, y tengo un iPad pero viejo. Con esta habilitación que me estás dando, que debería hacer?
+
+Xavier De Blas, [20/11/2025 08:53]
+con esto deberías poder crear aplicaciones
+
+Xavier De Blas, [20/11/2025 08:53]
+para la appstore
+
+Xavier De Blas, [20/11/2025 08:53]
+con esto tendrás acceso a los certificados para poder notarizar la app
+
+Xavier De Blas, [20/11/2025 08:53]
+que es necesario para crear la versión para mac
+
+Xavier De Blas, [20/11/2025 08:54]
+a ver si se puede con un ipad...
+
+Xavier De Blas, [20/11/2025 08:55]
+These are results for can I create an ios app for app store with an ipad?
+Search instead for can I creat an ios app for appstore with an ipad?
+
+AI Overview
+Yes, you can create and submit an iOS app for the App Store using an iPad, but it requires using the Swift Playgrounds app instead of Xcode. You can code, build, and submit your app directly from Swift Playgrounds to App Store Connect for distribution. 
+
+This video explains how to submit your iOS app to the App Store, including registering your app ID and devices, generating credentials, and using TestFlight:
+
+Xavier De Blas, [20/11/2025 08:55]
+https://www.youtube.com/watch?v=9vkkJ4tC4SQ
+
+Xavier De Blas, [20/11/2025 08:55]
+otra opción es que otra persona (con un mac) pueda acceder el código y subir la versión
+
+Xavier De Blas, [20/11/2025 08:55]
+de momento como el código sólo lo tienes tú, por eso te paso este video a ver si te funciona
+
+Ale, [20/11/2025 08:56]
+Ya hice toda la admision
+
+Ale, [20/11/2025 08:56]
+Voy a ver el video
+
+Xavier De Blas, [20/11/2025 08:57]
+sí, ya veo:
+
+Xavier De Blas, [20/11/2025 08:57]
+
+Xavier De Blas, [20/11/2025 08:57]
+yang dejiu es el chino que está haciendo las versiones para mac silicon
+
+Ale, [20/11/2025 08:57]
+Ok
+
+Xavier De Blas, [20/11/2025 08:58]
+nerea casal es la chica que está haciendo las versiones para mac intel
+
+Xavier De Blas, [20/11/2025 08:59]
+en realidad nerea no está usando xcode, así que quizás no haga falta usar xcode ni swift
+
+Xavier De Blas, [20/11/2025 08:59]
+porque el certificado te lo voy a pasar yo
+
+Xavier De Blas, [20/11/2025 08:59]
+lo que sí que es verdad es que es una tortura que el certificado se instale bien
+
+Xavier De Blas, [20/11/2025 08:59]
+y no se si el ipad al ser antiguo lo hará más fácil o más difícil
+
+Xavier De Blas, [20/11/2025 08:59]
+hay mucho ensayo/error en eso
+
+Ale, [20/11/2025 08:59]
+El iPad no me sirve
+
+Xavier De Blas, [20/11/2025 09:00]
+tanto es así que nerea tiene también un silicon y en este no hemos podido
+
+Ale, [20/11/2025 09:00]
+Es una versión vieja iPad ii
+
+Xavier De Blas, [20/11/2025 09:00]
+entonces una opción sería pagarte tu colaboración con un mac moderno
+
+Ale, [20/11/2025 09:03]
+Sigamos avanzando, la semana que viene voy a hacer una prueba completa con un dispositivo para probar toda la funcionalidad, el punto ahí es que se hace con los certificados locales y eso dura solo 7 días. Me parece que eso cumple con validar que funcione en ambas plataformas
+
+Ale, [20/11/2025 09:04]
+Ahora voy a probar con esta posibilidad y les cuento
+
+Xavier De Blas, [20/11/2025 09:04]
+ok, y nosotros probaremos con app ipa installer
+
+Ale, [20/11/2025 09:05]
+[In reply to Xavier De Blas]
+
+Ale, [20/11/2025 09:43]
+La alternativa que estoy viendo, dado que no tengo HW de Apple es que generen los certificados para :
+
+
+GitHub genera el .ipa
+
+Diawi.com (o InstallOnAir).
+
+Arrastrar .ipa ahí.
+
+La web te genera un Enlace y un Código QR.
+
+Enviar por Telegram
+
+Abrir en iPhone, toca "Instalar" y listo.
+
+
+Lo que debes hacer
+------------------
+
+Entra a su cuenta de desarrollador y hace esto:
+
+Registra el App ID: com.example.iteracion6
+
+Registra SU dispositivo: Va a la sección "Devices" y agrega el UDID de su propio iPhone (donde lo va a probar).
+
+Genera el Certificado: Crea uno de tipo Apple Distribution, lo exporta desde su Mac y te da el archivo .p12 y la contraseña.
+
+Genera el Perfil (La clave del éxito):
+
+Va a "Profiles" -> Crear Nuevo.
+
+Tipo: Ad Hoc (¡Muy importante que sea este!).
+
+Selecciona el App ID.
+
+Selecciona el Certificado.
+
+Selecciona SU iPhone en la lista. (Si no marca esto, la app no se instalará).
+
+Descarga el archivo .mobileprovision.
+
+envía: El .p12 (+ contraseña) y el .mobileprovision.
+
+Xavier De Blas, [20/11/2025 10:02]
+No estoy muy seguro. Pero tenemos que conseguir que esté en la appstore, para que al usuario le sea fácil.
+
+Xavier De Blas, [20/11/2025 10:03]
+Y creo que para que esté en la appstore, debemos notarizar desde un Mac
+
+Xavier De Blas, [20/11/2025 10:03]
+Yo te puedo pasar certificados p12
+
+Xavier De Blas, [20/11/2025 10:04]
+Pero creo que necesitas un Mac para hacer la app y que pueda estar en la appstore
+
+Ale, [20/11/2025 10:04]
+Para que esté en el store de Apple es más burocrático, pero podemos probar con un dispositivo en particular
+
+Xavier De Blas, [20/11/2025 10:05]
+No estoy seguro de si te he entendido
+
+Ale, [20/11/2025 10:07]
+Tendrían que tener un device en el que se va a instalar la app para probar y sobre ese device es que se hace el certificado, luego eso lo utilizo en actions de Github y género el .ipa firmado
+
+Ale, [20/11/2025 10:08]
+Con diawi género el qr para que lo puedan instalar sobre ese device
+
+Xavier De Blas, [20/11/2025 10:09]
+Pero a ver:
+
+Xavier De Blas, [20/11/2025 10:09]
+1) Ahora para hacer pruebas, entiendo que con el ipa installer ya deberíamos poder probar en cualquier iphone-ipad, de acuerdo?
+
+Xavier De Blas, [20/11/2025 10:10]
+2) nos pondremos con certificados cuando queramos que los usuarios de iphone-ipad bajen la app de la appstore. Y allí ya veremos cómo lo subimos a la tienda
+
+Xavier De Blas, [20/11/2025 10:10]
+Estamos de acuerdo en 1,2?
+
+Ale, [20/11/2025 10:11]
+En el punto 1 , no lo sé para una Mac, para un iPhone , no puedo instalar un .ipa de cualquier forma
+
+Xavier De Blas, [20/11/2025 10:12]
+En iPhone no se puede instalar un ipa con el ipa installer?
+
+Ale, [20/11/2025 10:12]
+En cuanto al store , el proceso para generar el ipa es diferente y además pasa por controles de apple
+
+Ale, [20/11/2025 10:13]
+[In reply to Xavier De Blas]
+No conozco el ipa instalar, pero por lo que estoy leyendo necesitas el certificado que se genera con el dispositivo
+
+Xavier Padullés, [26/11/2025 10:46]
+Parece que la aplicación ha caducado
+
+Xavier Padullés, [26/11/2025 10:46]
+[Foto]
+Ale, [26/11/2025 10:50]
+Hola, cómo están. Actualizo la app y se las paso.
+
+Xavier Padullés, [26/11/2025 10:52]
+
+Ale, [27/11/2025 07:41]
+
+Ale, [27/11/2025 07:41]
+Buen día, envío la APK actualizada.
+
+Xavier De Blas, [27/11/2025 08:55]
+Alejandro, como nunca acabamos de concretar, hemos pensado que sería mejor comprarte el software y además pagarte las horas a partir de aquél momento
+
+Xavier De Blas, [27/11/2025 08:56]
+el precio del software es algo -como sabes- muy difícil de determinar, pero estábamos pensando en un precio que iría ligado a lo del mac que sería necesario para publicar las versiones para IOS
+
+Xavier De Blas, [27/11/2025 08:57]
+por tanto la propuesta sería que te enviamos una mac de los nuevos, o te pagamos lo que cuesta y te lo compras. y a partir de ese momento por la plataforma upwork te vamos pagando horas
+
+Xavier De Blas, [27/11/2025 08:57]
+pasados unos meses si estás aquí o te podemos contratar de algún modo, entonces hacemos eso en lugar de lo del upwork
+
+Xavier De Blas, [27/11/2025 08:57]
+cómo lo ves?
+
+Ale, [27/11/2025 09:01]
+Hola, gracias por la propuesta, y me pone contento. Estoy seguro que vamos a llegar a un acuerdo. Mi interes mayor es poder fijar una continuidad con ustedes y sobre todo aportar. Les parece fijar una reunión la semana que viene?

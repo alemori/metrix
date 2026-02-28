@@ -76,7 +76,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/canguro.png
+    - assets/images/Metrix.png
     - assets/images/libre.png
     - assets/images/pisando.png
 
@@ -114,4 +114,4 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/iconoCrhono.png" # <-- ¡IMPORTANTE! Esta es la ruta a tu ícono.
+  image_path: "assets/images/Metrix.png" # <-- ¡IMPORTANTE! Esta es la ruta a tu ícono.

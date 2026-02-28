@@ -201,50 +201,50 @@ void _initListener() {
       },
     );
   }
-  void iniciarRecoleccionManual(String jumpType) {
+void iniciarRecoleccionManual(String jumpType) {
+    debugPrint('[Processor] Iniciando recolección manual. Limpiando buffers previos...');
+    
+    // --- LIMPIEZA OBLIGATORIA (La "Escoba") ---
+    // Reseteamos absolutamente todo antes de arrancar, sin condicionales.
     _timestampInicioSerie = null;
-    if (_isDataCollectionMode) {
-      _resetCollectionMode(
-        reason: 'Inicio manual forzado mientras ya estaba activo.',
-      );
-    }
+    _timestampUltimoAterrizaje = null;
+    _timestampUltimoDespegue = null;
+    _watchdogTimer?.cancel();
+    _isDataCollectionMode = false;
+    _collectionJumpType = null;
+    _expectedCycles = 0;
+    _receivedCycles = 0;
+    _collectedData.clear();
+    // ------------------------------------------
 
     if (jumpType == 'MULTI') {
       _expectedCycles = _configuredLimiteSaltos * 2;
+      
+      // Compensación por inicio desde afuera
+      if (!_comienzaDesdeAdentro && _configuredLimiteSaltos > 0) {
+        _expectedCycles += 1;
+      }
+      
       _isDataCollectionMode = true;
       _collectionJumpType = jumpType;
-      _receivedCycles = 0;
-      _collectedData.clear();
+      // _receivedCycles y _collectedData ya se limpiaron arriba
 
-      debugPrint(
-        '[Processor] MODO RECOLECCIÓN (MULTI) activado. Esperando $_expectedCycles ciclos (0 = sin límite).',
-      );
+      debugPrint('[Processor] MODO RECOLECCIÓN (MULTI) activado. Esperando $_expectedCycles ciclos.');
 
-      _watchdogTimer?.cancel();
-      _watchdogTimer = Timer(const Duration(seconds: 2), () {
-        debugPrint(
-          'WATCHDOG TIMEOUT: No se recibieron datos en 2s tras iniciar.',
-        );
-        _completeDataCollection();
-      });
+      // Opcional: Podés iniciar el watchdog timer acá si querés que empiece a contar desde ya
+      // _watchdogTimer = Timer(const Duration(seconds: 2), () { ... });
+      
     } else if (_jumpCyclesMap.containsKey(jumpType)) {
       final cycles = _jumpCyclesMap[jumpType]!;
       _isDataCollectionMode = true;
       _collectionJumpType = jumpType;
       _expectedCycles = cycles;
-      _receivedCycles = 0;
-      _collectedData.clear();
-
-      debugPrint(
-        '[Processor] MODO RECOLECCIÓN (Simple) activado para $jumpType, esperando $cycles ciclos.',
-      );
+      
+      debugPrint('[Processor] MODO RECOLECCIÓN (Simple) activado para $jumpType, esperando $cycles ciclos.');
     } else {
-      debugPrint(
-        '[Processor] ADVERTENCIA: Se intentó iniciar recolección para un tipo de salto no configurado: $jumpType',
-      );
+      debugPrint('[Processor] ADVERTENCIA: Tipo de salto no configurado: $jumpType');
     }
   }
-
   void configurarNuevaPrueba({
     required String jumpType,
     int limiteSaltos = 0,
@@ -275,6 +275,11 @@ void _initListener() {
         _isDataCollectionMode = true;
         _collectionJumpType = jumpType;
         _expectedCycles = _configuredLimiteSaltos * 2;
+       // --- LÓGICA AÑADIDA: Compensación por inicio desde afuera ---
+        if (!_comienzaDesdeAdentro && _configuredLimiteSaltos > 0) {
+          _expectedCycles += 1;
+        }
+        // ------------------------------------------------------------
         _receivedCycles = 0;
         debugPrint(
           '[Processor] Modo recolección MULTI activado, esperando $_configuredLimiteSaltos saltos.',
