@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 <key>NSLocationWhenInUseUsageDescription</key>
-	<string>Fumideep necesita acceso a tu ubicación para registrar las coordenadas exactas de las mediciones de los sensores.</string>
+	<string>metrix necesita acceso a tu ubicación para registrar las coordenadas exactas de las mediciones de los sensores.</string>
 
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Fumideep requiere acceso a tu ubicación para mantener el registro de coordenadas activo en segundo plano mientras utilizas la app.</string>
+	<string>metrix requiere acceso a tu ubicación para mantener el registro de coordenadas activo en segundo plano mientras utilizas la app.</string>
 
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Fumideep utiliza la conexión Bluetooth para comunicarse y recolectar los datos de los sensores de hardware externos.</string>
+	<string>metrix utiliza la conexión Bluetooth para comunicarse y recolectar los datos de los sensores de hardware externos.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Iteracion6</string>
+	<string>metrix</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -21,7 +21,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>iteracion6</string>
+	<string>metrix</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
