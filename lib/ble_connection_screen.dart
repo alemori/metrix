@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:iteracion6/ble_repository.dart'; // Asegúrate de que la ruta sea correcta
+import 'package:metrix/ble_repository.dart'; // Asegúrate de que la ruta sea correcta
 import 'package:provider/provider.dart'; // Añade esta importación si no la tienes
 
 class BleConnectionScreen extends StatefulWidget {
