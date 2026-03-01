@@ -53,5 +53,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Metri-X requiere acceso a la galería de fotos para adjuntar imágenes a los perfiles o reportes.</string>
 </dict>
 </plist>
