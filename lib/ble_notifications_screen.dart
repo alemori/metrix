@@ -11,8 +11,11 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+
 // --- NUEVA IMPORTACIÓN DEL SERVICIO DE GUARDADO ---
 import 'jump_storage_service.dart';
+import 'session_person_provider.dart'; // <-- AÑADIDO
+import 'user_provider.dart';           // <-- AÑADIDO
 // ------------------------------------------------
 
 import 'ble_repository.dart';
@@ -56,6 +59,7 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
   late final BleRepository _bleRepo;
   late final BleMessageProcessor _messageProcessor;
   File? _lastSavedFile;
+User? _currentPerson; // <--- 1. AÑADE ESTA VARIABLE
 
   final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -82,6 +86,7 @@ class _BleNotificationsScreenState extends State<BleNotificationsScreen> {
   @override
   void initState() {
     super.initState();
+_currentPerson = widget.person; // <--- 2. INICIALÍZALA AQUÍ
 _lastPinState = context.read<BluetoothProvider>().lastPinState;
 
 // --- NORMALIZACIÓN TÉCNICA ---
@@ -327,7 +332,8 @@ debugPrint('Parámetro parado: $inicioDesdeAdentro');
         jumpsToSave: List.from(_unsavedJumps), // Se pasa una copia de la lista
       //  jumpType: widget.jumpType,
         jumpType: nombreTecnico, // Se guarda como DJna o DJa
-        person: widget.person,
+        person: _currentPerson, // <--- 3. CAMBIA widget.person POR _currentPerson
+     //   person: widget.person,
         sessionID: widget.sessionID,
         limiteSaltos: widget.limiteSaltos,
         limiteTiempo: widget.limiteTiempo,
@@ -714,10 +720,10 @@ debugPrint("[DEBUG] ARCHIVO GENERADO OK en: ${savedFile.path}");
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           child: Row(
             children: const [
-              SizedBox(width: 40, child: Center(child: Text('N°', style: TextStyle(fontWeight: FontWeight.bold)))),
-              Expanded(flex: 2, child: Center(child: Text('Altura (cm)', style: TextStyle(fontWeight: FontWeight.bold)))),
-              Expanded(flex: 2, child: Center(child: Text('Vuelo (ms)', style: TextStyle(fontWeight: FontWeight.bold)))),
-              Expanded(flex: 2, child: Center(child: Text('Contacto (ms)', style: TextStyle(fontWeight: FontWeight.bold)))),
+              SizedBox(width: 35, child: Center(child: Text('N°', style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 3, child: Center(child: Text('Altura\n(cm)', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 3, child: Center(child: Text('Vuelo\n(ms)', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)))),
+              Expanded(flex: 3, child: Center(child: Text('Contacto\n(ms)', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)))),
               SizedBox(width: 40),
             ],
           ),
@@ -743,10 +749,10 @@ debugPrint("[DEBUG] ARCHIVO GENERADO OK en: ${savedFile.path}");
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Row(
                           children: [
-                            SizedBox(width: 40, child: Center(child: Text('${index + 1}'))),
-                            Expanded(flex: 2, child: Center(child: Text(jump.height.toStringAsFixed(2)))),
-                            Expanded(flex: 2, child: Center(child: Text(jump.flightTime.toStringAsFixed(2)))),
-                            Expanded(flex: 2, child: Center(child: Text(jump.contactTime == 0 ? '-1' : jump.contactTime.toStringAsFixed(2)))),
+                            SizedBox(width: 35, child: Center(child: Text('${index + 1}'))),
+                            Expanded(flex: 3, child: Center(child: Text(jump.height.toStringAsFixed(2)))),
+                            Expanded(flex: 3, child: Center(child: Text(jump.flightTime.toStringAsFixed(2)))),
+                            Expanded(flex: 3, child: Center(child: Text(jump.contactTime == 0 ? '-1' : jump.contactTime.toStringAsFixed(2)))),
                             SizedBox(
                               width: 40,
                               child: IconButton(
@@ -780,16 +786,134 @@ debugPrint("[DEBUG] ARCHIVO GENERADO OK en: ${savedFile.path}");
     super.dispose();
   }
 
-  @override
+// --- PEGA ESTAS DOS FUNCIONES JUSTO ENCIMA DE TU @override Widget build ---
+
+  void _showPersonSelector() {
+    if (widget.sessionID == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Debes iniciar desde una Sesión para cambiar de atleta.')),
+      );
+      return;
+    }
+
+    final userProvider = context.read<UserProvider>();
+    final sessionPersonProvider = context.read<SessionPersonProvider>();
+    
+    // Filtramos solo los atletas que pertenecen a esta sesión específica
+    final sessionParticipants = userProvider.users.where(
+      (p) => sessionPersonProvider.isPersonInSession(widget.sessionID!, p.uniqueID)
+    ).toList();
+
+    if (sessionParticipants.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No hay participantes cargados en esta sesión.')),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Cambiar de Atleta',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: sessionParticipants.length,
+                  itemBuilder: (context, index) {
+                    final person = sessionParticipants[index];
+                    final isCurrent = _currentPerson?.uniqueID == person.uniqueID;
+                    
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: isCurrent ? Colors.orange : const Color(0xFF3d5a80),
+                        child: Text(person.firstName[0], style: const TextStyle(color: Colors.white)),
+                      ),
+                      title: Text('${person.firstName} ${person.lastName}', 
+                        style: TextStyle(fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal)),
+                      trailing: isCurrent ? const Icon(Icons.check, color: Colors.green) : null,
+                      onTap: () async {
+                        Navigator.pop(context);
+                        if (!isCurrent) {
+                          await _changeAthlete(person);
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    );
+  }
+
+  Future<void> _changeAthlete(User newPerson) async {
+    // Si el atleta anterior dejó saltos colgados, los guardamos antes de cambiar
+    if (_unsavedJumps.isNotEmpty) {
+      await _triggerSaveData();
+    }
+    
+    if (mounted) {
+      setState(() {
+        _currentPerson = newPerson;
+        _jumpHistory.clear(); // Limpiamos pantalla para el nuevo atleta
+        _unsavedJumps.clear();
+        _tempFeedbackMessage = '';
+        _isJumpInProgress = false;
+        _hasJumpBeenTriggered = false;
+        _isWaitingForAthleteOnMat = false;
+      });
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Evaluando a: ${newPerson.firstName}')),
+      );
+    }
+  }
+
+  // --- REEMPLAZA TU APPBAR ACTUAL EN EL MÉTODO BUILD POR ESTA ---
+
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'Medición de \nSalto ${widget.jumpType}',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18.0,
+        title: GestureDetector(
+          onTap: _showPersonSelector,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _currentPerson != null 
+                        ? '${_currentPerson!.firstName}' 
+                        : 'Seleccionar Atleta',
+                    style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(Icons.arrow_drop_down),
+                ],
+              ),
+             Text(
+  'Test: ${widget.jumpType}',
+  style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.black54),
+),
+            ],
           ),
         ),
         actions: [
@@ -881,3 +1005,4 @@ debugPrint("[DEBUG] ARCHIVO GENERADO OK en: ${savedFile.path}");
     );
   }
 }
+      // ... (el body de tu Scaffold queda exactamente igual)

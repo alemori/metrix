@@ -83,7 +83,7 @@ class ChronoJumpApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ChronoJump',
+      title: 'Metri-x',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: MainScreen(),
       builder: (context, child) {
@@ -166,7 +166,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Chronojump')),
+      appBar: AppBar(title: const Text('Metri-x')),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
