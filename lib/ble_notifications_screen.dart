@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
+import 'audit_sync_service.dart';
 
 // --- NUEVA IMPORTACIÓN DEL SERVICIO DE GUARDADO ---
 import 'jump_storage_service.dart';
@@ -220,6 +220,15 @@ debugPrint('Parámetro parado: $inicioDesdeAdentro');
             );
           });
           _playSound('start.wav');
+           // --- NUEVO: TRACKING SILENCIOSO ---
+          // Llamamos a la auditoría sin poner "await", así la app sigue su curso al instante
+          AuditSyncService.registrarSaltoSilencioso(
+            salto: newJump,
+            tipoSalto: widget.jumpType,
+            atleta: _currentPerson, // O widget.person si estás en salto múltiple
+            sessionID: widget.sessionID,
+          );
+          // ----------------------------------
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (_scrollController.hasClients) {
