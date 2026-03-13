@@ -128,94 +128,23 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  void _onDrawerItemTapped(String title) {
-    Navigator.pop(context);
 
-    final bleRepo = Provider.of<BleRepository>(context, listen: false);
-
-    if (!bleRepo.isConnected) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No hay dispositivo BLE conectado')),
-      );
-      return;
-    }
-
-    final validJumpTypes = ['SJ', 'SJl', 'CMJ', 'ABK', 'DJ_IN', 'DJ_EX'];
-
-    if (validJumpTypes.contains(title)) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BleNotificationsScreen(jumpType: title),
-        ),
-      );
-      return;
-    } else if (title == 'Salto Múltiple') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const InicioSaltosMultiples()),
-      );
-      return;
-    }
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Opción seleccionada: $title')));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Metri-x')),
-      drawer: Drawer(
+ drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
+              decoration: BoxDecoration(color: Color(0xFF3d5a80)), // Un azul más elegante
               child: Text(
-                'Opciones',
+                'Menú Principal',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('SJ'),
-              onTap: () => _onDrawerItemTapped('SJ'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('SJl'),
-              onTap: () => _onDrawerItemTapped('SJl'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('CMJ'),
-              onTap: () => _onDrawerItemTapped('CMJ'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('ABK'),
-              onTap: () => _onDrawerItemTapped('ABK'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('DJ_IN'),
-              onTap: () => _onDrawerItemTapped('DJ_IN'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.directions_run),
-              title: const Text('DJ_EX'),
-              onTap: () => _onDrawerItemTapped('DJ_EX'),
-            ),
-            ListTile(
-              leading: const FaIcon(FontAwesomeIcons.personRunning),
-              title: const Text('Salto Múltiple'),
-              onTap: () => _onDrawerItemTapped('Salto Múltiple'),
-            ),
-            const Divider(), // Separador visual
-            
-            // --- NUEVA OPCIÓN DE MENÚ ---
             ListTile(
               leading: const Icon(Icons.event_note),
               title: const Text('Gestión de Sesiones'),
@@ -229,11 +158,8 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
-            // ---------------------------
-            
             ListTile(
               leading: const Icon(Icons.people),
-              // --- CAMBIO AQUÍ ---
               title: const Text('Gestión de Personas'),
               onTap: () {
                 Navigator.pop(context); // Cierra el drawer
