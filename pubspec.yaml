@@ -52,6 +52,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
  
+ 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,4 +116,5 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/Metrix.png" # <-- ¡IMPORTANTE! Esta es la ruta a tu ícono.
+  image_path: "assets/images/Metrix_MOVI.png" # <-- ¡IMPORTANTE! Esta es la ruta a tu ícono.
+  min_sdk_android: 21 # Opcional, pero recomendado
