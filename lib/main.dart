@@ -27,7 +27,7 @@ import 'jump_storage_service.dart'; // <-- AÑADIR ESTA LÍNEA
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 await initializeDateFormatting('es', null); // <-- AÑADIR ESTA LÍNEA
-  final fechaDeCaducidad = DateTime(2026, 03, 21);
+  final fechaDeCaducidad = DateTime(2026, 07, 21);
   DateTime fechaActual;
 
   try {
