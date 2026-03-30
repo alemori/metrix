@@ -24,6 +24,7 @@ import 'session_person_provider.dart';
 import 'jump_storage_service.dart'; // <-- AÑADIR ESTA LÍNEA
 // -------------------------
 import 'package:audioplayers/audioplayers.dart'; // <-- Asegúrate de importar esto arriba
+import 'raw_records_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -185,6 +186,25 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
+         const Divider(), // Línea separadora
+            // --- AQUÍ ESTÁ EL BOTÓN NUEVO QUE PEDISTE ---
+            ListTile(
+              leading: const Icon(Icons.insert_chart_outlined),
+              title: const Text('Registro de Saltos (Crudo)'),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RawRecordsScreen(),
+                             ),
+                );
+              },
+            ),
+            // --------------------------------------------
+
+
+
           ],
         ),
       ),
