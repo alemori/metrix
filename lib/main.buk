@@ -1,9 +1,11 @@
-// ARCHIVO MODIFICADO: main.dart
+// ARCHIVO REPARADO Y COMPLETO: lib/main.dart
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ntp/ntp.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'ble_notifications_screen.dart';
 import 'ble_repository.dart';
@@ -17,20 +19,15 @@ import 'bluetooth_provider.dart';
 import 'ble_status_indicator.dart';
 import 'session_provider.dart';
 import 'session_management_screen.dart';
-import 'package:intl/date_symbol_data_local.dart'; // <-- AÑADIR ESTA LÍNEA
 import 'settings_provider.dart';
-// --- IMPORTACIÓN NUEVA ---
 import 'session_person_provider.dart';
-import 'jump_storage_service.dart'; // <-- AÑADIR ESTA LÍNEA
-// -------------------------
-import 'package:audioplayers/audioplayers.dart'; // <-- Asegúrate de importar esto arriba
+import 'jump_storage_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('es', null);
 
-  // --- NUEVO: CONFIGURACIÓN FORZADA PARA iOS ---
-  // Le decimos a iOS que esto es "Playback" para que ignore el botón de silencio físico
+  // --- CONFIGURACIÓN FORZADA PARA iOS ---
   await AudioPlayer.global.setAudioContext(AudioContext(
     iOS: AudioContextIOS(
       category: AVAudioSessionCategory.playback,
@@ -38,9 +35,15 @@ Future<void> main() async {
         AVAudioSessionOptions.mixWithOthers,
       ],
     ),
-   
+    android: AudioContextAndroid(
+      isSpeakerphoneOn: true,
+      audioFocus: AndroidAudioFocus.none,
+      contentType: AndroidContentType.sonification,
+      usageType: AndroidUsageType.assistanceSonification,
+    ),
   ));
   // ---------------------------------------------
+
   final fechaDeCaducidad = DateTime(2026, 07, 21);
   DateTime fechaActual;
 
@@ -52,44 +55,31 @@ Future<void> main() async {
     fechaActual = DateTime.now();
   }
 
-  Widget appParaEjecutar;
-
   if (fechaActual.isAfter(fechaDeCaducidad)) {
-    appParaEjecutar = const AppExpirada();
+    runApp(const AppExpirada());
   } else {
-    appParaEjecutar = MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => BleRepository()),
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => BluetoothProvider()),
-        ChangeNotifierProvider(create: (_) => SessionProvider()),
-        
-        // --- NUEVO PROVIDER AÑADIDO ---
-        ChangeNotifierProvider(create: (_) => SessionPersonProvider()),
-        // -----------------------------
-        // --- AÑADE ESTO ---
-        ChangeNotifierProvider(create: (_) => SettingsProvider()),
-        // -----------------
-
-// --- AÑADE ESTO (Puede ser ChangeNotifierProvider si prefieres) ---
-    Provider(create: (_) => JumpStorageService()),
-    // -----------------------------------------------------------------
-
-        ProxyProvider2<BleRepository, BluetoothProvider, BleMessageProcessor>(
-          update: (_, bleRepo, bluetoothProvider, __) =>
-              BleMessageProcessor(bleRepo, bluetoothProvider),
-          lazy: false,
-        ),
-      ],
-      child: const ChronoJumpApp(),
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => BleRepository()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => BluetoothProvider()),
+          ChangeNotifierProvider(create: (_) => SessionProvider()),
+          ChangeNotifierProvider(create: (_) => SessionPersonProvider()),
+          ChangeNotifierProvider(create: (_) => SettingsProvider()),
+          Provider(create: (_) => JumpStorageService()),
+          ProxyProvider2<BleRepository, BluetoothProvider, BleMessageProcessor>(
+            update: (_, bleRepo, bluetoothProvider, __) =>
+                BleMessageProcessor(bleRepo, bluetoothProvider),
+            lazy: false,
+          ),
+        ],
+        child: const ChronoJumpApp(),
+      ),
     );
   }
-
-  runApp(appParaEjecutar);
 }
 
-// ... (El resto del archivo main.dart no necesita cambios)
-// ... (Puedes dejarlo como estaba desde la línea de "class ChronoJumpApp")
 class ChronoJumpApp extends StatelessWidget {
   const ChronoJumpApp({super.key});
 
@@ -99,12 +89,12 @@ class ChronoJumpApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Metri-x',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MainScreen(),
+      home: const MainScreen(),
       builder: (context, child) {
         return Stack(
           children: [
             child!,
-            Positioned(
+            const Positioned(
               top: 50.0,
               right: 80.0,
               child: BleStatusIndicator(),
@@ -117,6 +107,8 @@ class ChronoJumpApp extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -125,16 +117,14 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
-    ConnectionPage(),
-    SettingsPage(),
+    const HomePage(),
+    const ConnectionPage(),
+    const SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
     if (index == 1) {
-      Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (_) => const BluetoothScreen()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const BluetoothScreen()));
     } else {
       setState(() {
         _selectedIndex = index;
@@ -142,18 +132,16 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Metri-x')),
- drawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFF3d5a80)), // Un azul más elegante
+              decoration: BoxDecoration(color: Color(0xFF3d5a80)),
               child: Text(
                 'Menú Principal',
                 style: TextStyle(color: Colors.white, fontSize: 24),
@@ -163,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
               leading: const Icon(Icons.event_note),
               title: const Text('Gestión de Sesiones'),
               onTap: () {
-                Navigator.pop(context); // Cierra el drawer
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -176,7 +164,7 @@ class _MainScreenState extends State<MainScreen> {
               leading: const Icon(Icons.people),
               title: const Text('Gestión de Personas'),
               onTap: () {
-                Navigator.pop(context); // Cierra el drawer
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -185,6 +173,22 @@ class _MainScreenState extends State<MainScreen> {
                 );
               },
             ),
+            const Divider(), // Línea separadora
+            // --- AQUÍ ESTÁ EL BOTÓN NUEVO QUE PEDISTE ---
+            ListTile(
+              leading: const Icon(Icons.insert_chart_outlined),
+              title: const Text('Registro de Saltos (Crudo)'),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FileManagerScreen(), 
+                  ),
+                );
+              },
+            ),
+            // --------------------------------------------
           ],
         ),
       ),
@@ -194,14 +198,8 @@ class _MainScreenState extends State<MainScreen> {
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bluetooth),
-            label: 'Conexión',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Configuración',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.bluetooth), label: 'Conexión'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configuración'),
         ],
       ),
     );
@@ -209,6 +207,8 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -246,20 +246,19 @@ class HomePage extends StatelessWidget {
 }
 
 class ConnectionPage extends StatelessWidget {
+  const ConnectionPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(child: Text('Página de Conexión'));
   }
 }
 
-// En el archivo: lib/main.dart
-
-// --- REEMPLAZA LA CLASE SettingsPage COMPLETA CON ESTE CÓDIGO ---
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // Usamos un Consumer para que la UI se actualice automáticamente
-    // cuando el usuario cambie la preferencia.
     return Consumer<SettingsProvider>(
       builder: (context, settings, child) {
         return ListView(
@@ -278,8 +277,6 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             const Divider(),
-
-            // --- SECCIÓN NUEVA AÑADIDA ---
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
@@ -297,8 +294,6 @@ class SettingsPage extends StatelessWidget {
               groupValue: settings.exportFormat,
               onChanged: (ExportFormat? value) {
                 if (value != null) {
-                  // Cuando el usuario selecciona una opción, llamamos al provider
-                  // para que guarde el cambio.
                   settings.setExportFormat(value);
                 }
               },
@@ -315,17 +310,15 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             const Divider(),
-            // --- FIN DE LA SECCIÓN NUEVA ---
           ],
         );
       },
     );
   }
 }
-// -----------------------------------------------------------------
 
 class AppExpirada extends StatelessWidget {
-  const AppExpirada({Key? key}) : super(key: key);
+  const AppExpirada({super.key});
 
   @override
   Widget build(BuildContext context) {
